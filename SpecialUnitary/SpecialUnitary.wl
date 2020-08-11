@@ -1,5 +1,5 @@
 (* ::Package:: *)
-BeginPackage["SUAlgebra`"]
+BeginPackage["SpecialUnitary`"]
 
 SU::usage="SU[N, string, input] return properties of SU(N)";
 
@@ -49,15 +49,15 @@ CWF[i_, j_ , n_]:=Block[{m=ConstantArray[0,{n,n}], a, b},
     m
 ];
 CWH[i_, n_]:=Sqrt[2] * T3[n-i+1, n];
-AllCW[n_]:=Block[{list={}, i, j},
+AllCW[n_]:=Block[{hl, epl={}, eml={}, i, j},
+    hl = Table[CWH[i, n], {i,n-1}];
     For[j=2, j<=n, j++,
         For[i=1, i<j, i++,
-            AppendTo[list, CWE[i,j,n]];
-            AppendTo[list, CWF[i,j,n]];
+            AppendTo[epl, CWE[i,j,n]];
+            AppendTo[eml, CWF[i,j,n]];
         ];
-        AppendTo[list, CWH[j,n]];
     ];
-    list
+    {hl,epl,eml}
 ];
 
 (* Chevalley Basis *)
@@ -92,22 +92,24 @@ CartanMatrix[n_]:=Block[{d,offd},
 ];
 
 (* Outer Function *)
-SU[n_Integer, "T1", l_]:=T1[l[[1]], l[[2]], n];
-SU[n_Integer, "T2", l_]:=T2[l[[1]], l[[2]], n];
-SU[n_Integer, "T3", l_]:=T3[l, n];
-SU[n_Integer, "CWE", l_]:=CWE[l[[1]], l[[2]], n];
-SU[n_Integer, "CWF", l_]:=CWF[l[[1]], l[[2]], n];
-SU[n_Integer, "CWH", l_]:=CWH[l, n];
+SU[n_Integer]:=AllT[n];
+SU[n_Integer,"CartanWeyl"]:=AllCW[n];
+SU[n_Integer,"Simple"]:=AllCh[n];
+
+SU[n_Integer, "Roots"]:=RootSystem[n];
+SU[n_Integer, "SimpleRoots"]:=RootSystem[n];
+SU[n_Integer, "CartanMatrix"]:=CartanMatrix[n];
+
 SU[n_Integer, "E", i_]:=ChE[i,n];
 SU[n_Integer, "F", i_]:=ChF[i,n];
 SU[n_Integer, "H", i_]:=ChH[i,n];
-SU[n_Integer, "roots"]:=RootSystem[n];
-SU[n_Integer, "Roots"]:=RootSystem[n];
-SU[n_Integer, "RootSystem"]:=RootSystem[n];
-SU[n_Integer, "CartanMatrix"]:=CartanMatrix[n];
-SU[n_Integer,"CartanWeyl"]:=AllCW[n];
-SU[n_Integer,"Simple"]:=AllCh[n];
-SU[n_Integer]:=AllT[n];
+SU[n_Integer, "T1", {i_, j_}]:=T1[i, j, n];
+SU[n_Integer, "T2", {i_, j_}]:=T2[i, j, n];
+SU[n_Integer, "T3", i_]:=T3[i, n];
+SU[n_Integer, "CWE", {i_, j_}]:=CWE[i, j, n];
+SU[n_Integer, "CWF", {i_, j_}]:=CWF[i, j, n];
+SU[n_Integer, "CWH", i_]:=CWH[i, n];
+
 
 End[];
 EndPackage[];
