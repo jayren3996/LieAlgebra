@@ -1,140 +1,157 @@
 (* ::Package:: *)
 BeginPackage["SpecialOrthogonal`"];
 
-SO::usage="SO[n, string, input] returns properties of SO(N)"
+SOT
+
+SOCWH
+SOCWE
+SOCWF
+SOCW
+
+SOChH
+SOChE
+SOChF
+SOCh
+
+SOBasis
+
+SOH
+SOE
+SOF
+SOn
 
 Begin["Private`"];
-(* Helper FUnctiond *)
-Commutation[a_, b_]:=a.b-b.a;
-InnerProduct[a_, b_]:=Tr[a.b];
 
 (* Standard Basis *)
-T[i_, j_, n_]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
+SOT[n_, {i_, j_}]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
     {a, b} = If[i<j, {i,j}, {j,i}];
     m[[a,b]] -= I; 
     m[[b,a]] += I;
     m
 ];
-AllT[n_]:=Block[{list={}, i, j},
+SOT[n_]:=Block[{list={}, i, j},
     For[j=2, j<=n, j++,
         For[i=1, i<j, i++,
-            AppendTo[list, T[i,j,n]];
+            AppendTo[list, SOT[n,{i,j}]];
         ];
     ];
     list
 ];
 
 (* Cartan-Weyl Basis *)
-CWE1[i_, j_, n_]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
+SOCWH[n_,i_]:=Block[{m=ConstantArray[0,{n,n}]},
+    m[[2i-1,2i  ]] = -I;
+    m[[2i  ,2i-1]] = +I;
+    m
+];
+SOCWE[{n_,1},{i_, j_}]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
     {a, b} = If[i<j, {i,j}, {j,i}];
-    m[[2a  ,2b-1]] =  1/2;
+    m[[2a  ,2b-1]] = +1/2;
     m[[2a-1,2b-1]] = -I/2;
     m[[2a  ,2b  ]] = -I/2;
     m[[2a-1,2b  ]] = -1/2;
     -I*m + I*Transpose[m]
 ];
-CWE2[i_, j_, n_]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
+SOCWE[{n_,2},{i_, j_}]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
     {a, b} = If[i<j, {i,j}, {j,i}];
-    m[[2a  ,2b-1]] =  1/2;
-    m[[2a-1,2b-1]] =  I/2;
-    m[[2a  ,2b  ]] =  I/2;
-    m[[2a-1,2b  ]] = -1/2;
-    -I*m + I*Transpose[m]
-];
-CWE3[i_, j_, n_]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
-    {a, b} = If[i<j, {i,j}, {j,i}];
-    m[[2a  ,2b-1]] =  1/2;
+    m[[2a  ,2b-1]] = +1/2;
     m[[2a-1,2b-1]] = -I/2;
-    m[[2a  ,2b  ]] =  I/2;
-    m[[2a-1,2b  ]] =  1/2;
+    m[[2a  ,2b  ]] = +I/2;
+    m[[2a-1,2b  ]] = +1/2;
     -I*m + I*Transpose[m]
 ];
-CWE4[i_, j_, n_]:=Block[{m=ConstantArray[0,{n,n}], a, b}, 
-    {a, b} = If[i<j, {i,j}, {j,i}];
-    m[[2a  ,2b-1]] =  1/2;
-    m[[2a-1,2b-1]] =  I/2;
-    m[[2a  ,2b  ]] = -I/2;
-    m[[2a-1,2b  ]] =  1/2;
-    -I*m + I*Transpose[m]
-];
-CWE5[i_, n_]:=Block[{m=ConstantArray[0,{n,n}]}, 
-    m[[2i  ,n]] =  1/Sqrt[2];
+SOCWE[{n_,3},{i_}]:=Block[{m=ConstantArray[0,{n,n}]}, 
+    m[[2i  ,n]] = +1/Sqrt[2];
     m[[2i-1,n]] = -I/Sqrt[2];
     -I*m + I*Transpose[m]
 ];
-CWE6[i_, n_]:=Block[{m=ConstantArray[0,{n,n}]}, 
-    m[[2i  ,n]] = 1/Sqrt[2];
-    m[[2i-1,n]] = I/Sqrt[2];
-    -I*m + I*Transpose[m]
-];
-CWH[i_, n_]:=T[2i-1,2i,n];
-
-(* Chevalley Basis *)
-ChHo[i_, n_]:=Block[{m=ConstantArray[0,{n,n}], l=(n-1)/2},
-    If[i==l,
-        m[[2l-1, 2l]] -= 2I; 
-        m[[2l, 2l-1]] += 2I;
-        ,
-        m[[2i-1, 2i]] -= I; 
-        m[[2i, 2i-1]] += I;
-        m[[2i+1, 2i+2]] += I; 
-        m[[2i+2, 2i+1]] -= I;
+SOCWF[{n_,1},{i_, j_}]:= Conjugate @ Transpose @ SOCWE[{n,1},{i,j}];
+SOCWF[{n_,2},{i_, j_}]:= Conjugate @ Transpose @ SOCWE[{n,2},{i,j}];
+SOCWF[{n_,3},{i_}    ]:= Conjugate @ Transpose @ SOCWE[{n,3},{i}  ];
+SOCW[n_]:=Block[{l,p,i,j,h,e={},f},
+    {l,p} = QuotientRemainder[n,2];
+    h = Table[SOCWH[n,i], {i,l}];
+    For[j=2, j<=l, j++,
+        For[i=1, i<j, i++,
+            AppendTo[e, SOCWE[{n,1},{i,j}]];
+            AppendTo[e, SOCWE[{n,2},{i,j}]];
+        ];
     ];
-    m
-];
-ChHe[i_, n_]:=Block[{m=ConstantArray[0,{n,n}], l=n/2},
-    If[i==l,
-        m[[2l-1, 2l]] -= I; 
-        m[[2l, 2l-1]] += I;
-        m[[2l-3, 2l-2]] -= I; 
-        m[[2l-2, 2l-3]] += I;
-        ,
-        m[[2i-1, 2i]] -= I; 
-        m[[2i, 2i-1]] += I;
-        m[[2i+1, 2i+2]] += I; 
-        m[[2i+2, 2i+1]] -= I;
+    If[p==1, 
+        For[i=1,i<=l,i++,
+            AppendTo[e, SOCWE[{n,3}, {i}]];
+        ];
     ];
-    m
-];
-ChEo[i_, n_]:=If[i==(n-1)/2, Sqrt[2]*CWE5[i,n], CWE1[i,i+1,n]];
-ChEe[i_, n_]:=If[i==n/2, CWE3[n/2-1,n/2,n], CWE1[i,i+1,n]];
-ChFo[i_, n_]:=If[i==(n-1)/2, Sqrt[2]*CWE6[i,n], CWE2[i,i+1,n]];
-ChFe[i_, n_]:=If[i==n/2, CWE4[n/2-1,n/2,n], CWE2[i,i+1,n]];
-AllCh[n_]:=Block[{h,e,f},
-    If[EvenQ[n], 
-        l = n/2;
-        h = Table[ChHe[i, n], {i,l}];
-        e = Table[ChEe[i, n], {i,l}];
-        f = Table[ChFe[i, n], {i,l}];
-        , 
-        l = (n-1)/2;
-        h = Table[ChHo[i, n], {i,l}];
-        e = Table[ChEo[i, n], {i,l}];
-        f = Table[ChFo[i, n], {i,l}];
-    ];
+    f = Conjugate @* Transpose /@ e;
     {h,e,f}
 ];
 
-(* Root System *)
-RootSystem[i_, n_]:=Block[{l,rt=ConstantArray[0, {n,n}]},
-    If[EvenQ[n],
-        If[i==n/2, 
-            rt[[i,i  ]] = 1, 
-            rt[[i,i  ]] = 1; 
-            rt[[i,i+1]] = -1
-        ],
-        If[i==(n-1)/2,
-            rt[[i,i-1]] = 1; 
-            rt[[i,i  ]] = -1,
-            rt[[i,i  ]] = 1; 
-            rt[[i,i+1]] = -1
-        ];
+(* Chevalley Basis *)
+SOChH[2,1]:={{0,-I},{I,0}};
+SOChH[n_?OddQ,i_]:=Block[{m=ConstantArray[0,{n,n}], l=(n-1)/2},
+    If[i==l,
+        m[[2l-1, 2l]] = -2I; 
+        m[[2l, 2l-1]] = +2I;
+        ,
+        m[[2i-1, 2i  ]] = -I; 
+        m[[2i  , 2i-1]] = +I;
+        m[[2i+1, 2i+2]] = +I; 
+        m[[2i+2, 2i+1]] = -I;
     ];
-    rt
+    m
+];
+SOChH[n_?EvenQ,i_]:=Block[{m=ConstantArray[0,{n,n}], l=n/2},
+    If[i==l,
+        m[[2l-1, 2l  ]] = -I; 
+        m[[2l  , 2l-1]] = +I;
+        m[[2l-3, 2l-2]] = -I; 
+        m[[2l-2, 2l-3]] = +I;
+        ,
+        m[[2i-1, 2i  ]] = -I; 
+        m[[2i  , 2i-1]] = +I;
+        m[[2i+1, 2i+2]] = +I; 
+        m[[2i+2, 2i+1]] = -I;
+    ];
+    m
+];
+SOChE[2,1]:= Nothing;
+SOChE[n_?OddQ,i_]:=Block[{m=ConstantArray[0,{n,n}], l=(n-1)/2},
+    If[i==l,
+        m[[2i  ,n]] = +1;
+        m[[2i-1,n]] = -I;
+        ,
+        m[[2i  ,2i+1]] = +1/2;
+        m[[2i-1,2i+1]] = -I/2;
+        m[[2i  ,2i+2]] = -I/2;
+        m[[2i-1,2i+2]] = -1/2;
+    ];
+    -I*m + I*Transpose[m]
+];
+SOChE[n_?EvenQ,i_]:=Block[{m=ConstantArray[0,{n,n}], l=n/2},
+    If[i==l,
+        m[[2i-2,2i-1]] = +1/2;
+        m[[2i-3,2i-1]] = -I/2;
+        m[[2i-2,2i  ]] = +I/2;
+        m[[2i-3,2i  ]] = +1/2;
+        ,
+        m[[2i  ,2i+1]] =  1/2;
+        m[[2i-1,2i+1]] = -I/2;
+        m[[2i  ,2i+2]] = -I/2;
+        m[[2i-1,2i+2]] = -1/2;
+    ];
+    -I*m + I*Transpose[m]
+];
+SOChF[n_,i_]:= Conjugate @ Transpose @ SOChE[n,i];
+SOCh[n_]:=Block[{l,h,e,f},
+    l = Quotient[n,2];
+    h = Table[SOChH[n,i], {i,l}];
+    e = Table[SOChE[n,i], {i,l}];
+    f = Conjugate @* Transpose /@ e;
+    {h,e,f}
 ];
 
 (* Spherical Harmonic Basis *)
-Basiso[n_]:=Block[{l=(n-1)/2, b},
+SOBasis[n_?OddQ]:=Block[{l=(n-1)/2, b},
     b = ConstantArray[0, {n,n}];
     For[i=1, i<=l, i++,
         b[[i,2i-1]] = (-1)^(l-i+1)/Sqrt[2];
@@ -147,7 +164,7 @@ Basiso[n_]:=Block[{l=(n-1)/2, b},
     ];
     b
 ];
-Basise[n_]:=Block[{l=n/2, b},
+SOBasis[n_?OddQ]:=Block[{l=n/2, b},
     b = ConstantArray[0, {n,n}];
     For[i=1, i<=l, i++,
         b[[i,2i-1]] = (-1)^(l-i)/Sqrt[2];
@@ -160,11 +177,64 @@ Basise[n_]:=Block[{l=n/2, b},
     b
 ];
 
-(* Outer Function *)
-SO[n_Integer]:=AllT[n];
-SO[n_Integer, "Simple"]:=AllCh[n];
-SO[n_Integer, "T", l_]:=T[l[[1]], l[[2]], n];
-SO[n_Integer, "Basis"]:=If[EvenQ[n], Basise[n], Basiso[n]];
+(* Chevalley in new Basis *)
+SOH[n_?OddQ, i_]:=Block[{m=ConstantArray[0,{n,n}], l=(n-1)/2},
+    If[i==l,
+        m[[i  , i  ]] = +2; 
+        m[[i+2, i+2]] = -2;
+        ,
+        m[[i  , i  ]] = +1; 
+        m[[i+1, i+1]] = -1;
+        m[[n-i, n-i]] = +1; 
+        m[[n-i+1, n-i+1]] = -1;
+    ];
+    m
+];
+SOE[n_?OddQ, i_]:=Block[{m=ConstantArray[0,{n,n}], l=(n-1)/2},
+    If[i==l,
+        m[[i  , i+1]] = +Sqrt[2]; 
+        m[[i+1, i+2]] = +Sqrt[2];
+        ,
+        m[[i  ,   i+1]] = +1; 
+        m[[n-i, n-i+1]] = +1;
+    ];
+    m
+];
+SOH[2,1]:={{1,0},{0,-1}};
+SOH[n_?EvenQ, i_]:=Block[{m=ConstantArray[0,{n,n}], l=n/2},
+    If[i==l,
+        m[[i-1, i-1]] = +1; 
+        m[[i  , i  ]] = +1;
+        m[[i+1, i+1]] = -1; 
+        m[[i+2, i+2]] = -1;
+        ,
+        m[[i  , i  ]] = +1; 
+        m[[i+1, i+1]] = -1;
+        m[[n-i  , n-i  ]] = +1; 
+        m[[n-i+1, n-i+1]] = -1;
+    ];
+    m
+];
+SOE[2, 1]:= Nothing;
+SOE[n_?EvenQ, i_]:=Block[{m=ConstantArray[0,{n,n}], l=n/2},
+    If[i==l,
+        m[[i-1, i+1]] = +1; 
+        m[[i  , i+2]] = +1;
+        ,
+        m[[i  ,   i+1]] = +1; 
+        m[[n-i, n-i+1]] = +1;
+    ];
+    m
+];
+SOF[n_, i_]:= Transpose @ SOE[n, i];
+SOn[n_]:=Block[{l,h,e,f},
+    l = Quotient[n,2];
+    h = Table[SOH[n,i], {i,l}];
+    e = Table[SOE[n,i], {i,l}];
+    f = Transpose /@ e;
+    {h,e,f}
+];
+
 
 End[];
 EndPackage[];
