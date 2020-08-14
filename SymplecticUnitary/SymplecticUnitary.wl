@@ -158,8 +158,8 @@ SpCh[n_]:=Block[{l=n/2, Hl, El={}, Fl, i},
 (* Permuted Basis *)
 SpBasis[n_]:= Block[{m=ConstantArray[0, {n,n}], l=n/2, i},
     For[i=1,i<=l,i++,
-        m[[2i-1, i]] = 1;
-        m[[n+2-2i, l+i]] = 1;
+        m[[i, 2i-1]] = 1;
+        m[[l+i, n+2-2i]] = 1;
     ];
     m
 ];
