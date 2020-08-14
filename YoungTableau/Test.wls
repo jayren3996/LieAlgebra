@@ -175,12 +175,5 @@ Module[{t,v},
     ];
 ];
 
-(* Test Canonical *)
-Module[{t,p,tp},
-    t = {{4,3,1},{2,2},{3,1},{1}};
-    {p, tp} = ColumnCanonicalize[t];
-    Test[tp, {{1,1,1},{2,2},{3,3},{4}}];
-    Test[p, 1];
-];
 
 Result[];

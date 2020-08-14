@@ -164,7 +164,7 @@ SOBasis[n_?OddQ]:=Block[{l=(n-1)/2, b},
     ];
     b
 ];
-SOBasis[n_?OddQ]:=Block[{l=n/2, b},
+SOBasis[n_?EvenQ]:=Block[{l=n/2, b},
     b = ConstantArray[0, {n,n}];
     For[i=1, i<=l, i++,
         b[[i,2i-1]] = (-1)^(l-i)/Sqrt[2];

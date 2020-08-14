@@ -27,8 +27,12 @@ TensorTableau
 
 TableauForm
 ToTensor
+TableauPermute
+TableauDot
 TensorDot
 TensorNorm
+TableauNormalization
+TableauOrthogonalization
 
 Begin["Private`"];
 
@@ -37,28 +41,32 @@ protectlist={
     "SO",
     "Sp",
 
-    "Generators"
-    "CartanWeyl"
-    "CartanWeylH"
-    "CartanWeylE"
-    "CartanWeylF"
-    "Chevalley"
-    "ChevalleyH"
-    "ChevalleyE"
-    "ChevalleyF"
-    "StandardBasis"
-    "StandardChevalley"
-    "StandardChevalleyH"
-    "StandardChevalleyE"
-    "StandardChevalleyF"
+    "Generators",
+    "CartanWeyl",
+    "CartanWeylH",
+    "CartanWeylE",
+    "CartanWeylF",
+    "Chevalley",
+    "ChevalleyH",
+    "ChevalleyE",
+    "ChevalleyF",
+    "StandardBasis",
+    "StandardChevalley",
+    "StandardChevalleyH",
+    "StandardChevalleyE",
+    "StandardChevalleyF",
 
     "Tableau",
     "Psi",
     "TensorTableau",
     "TableauForm",
     "ToTensor",
+    "TableauPermute",
+    "TableauDot",
     "TensorDot",
-    "TensorNorm"
+    "TensorNorm",
+    "TableauNormalization",
+    "TableauOrthogonalization"
 };
 
 (*----------BEGIN SPECIAL-UNITARY-ALGEBRA----------*)
@@ -283,7 +291,7 @@ SOBasis[n_?OddQ]:=Block[{l=(n-1)/2, b},
     ];
     b
 ];
-SOBasis[n_?OddQ]:=Block[{l=n/2, b},
+SOBasis[n_?EvenQ]:=Block[{l=n/2, b},
     b = ConstantArray[0, {n,n}];
     For[i=1, i<=l, i++,
         b[[i,2i-1]] = (-1)^(l-i)/Sqrt[2];
@@ -618,26 +626,24 @@ ListToTensor[t_List]:=Block[{l=Length[t], li=Length/@t, i, p=1, tab={}},
     TableauPermute[Tableau[tab], Psi @@ Flatten[t]]
 ];
 TableauToTensor[t_TensorTableau]:= ListToTensor @ t[[1]];
-TableauToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[2]];
+TableauToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[1]];
 
 ToTensor[t_TensorTableau]:= ListToTensor @ t[[1]];
-ToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[2]];
+ToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[1]];
 ToTensor[t1_+t2_]:= ToTensor[t1] + ToTensor[t2];
 
-(* Canonicalize Tensor Tableau *)
-ColumnCanonicalize[tab_]:=Block[{t=tab, l, li, i, c, s, p=1},
-    l = Length @ t;
-    li = Length /@ t;
-    l1 = li[[1]];
-    cl = ConstantArray[0, l1];
-    For[i=1,i<=l,i++, cl[[1;;li[[i]] ]] += 1];
-    For[i=1,i<=l1, i++,
-        c = t[[1;;cl[[i]], i]];
-        s = Sort[c];
-        t[[1;;cl[[i]], i]] = s;
-        p *= Parity @ FindPermutation[c, s]
-    ];
-    {p, t}
+(* Normalization & Orthogonalization *)
+TableauNormalization[t_]:= Expand[t / TensorNorm @ Expand @ ToTensor @ Expand @ t];
+TableauOrthogonalization[t1_, t2_]:= Block[{v1,v2,ov},
+    v1 = Expand @ ToTensor @ Expand @ t1;
+    v2 = Expand @ ToTensor @ Expand @ t2;
+    ov = TensorDot[v1,v2]/TensorNorm[v1]^2;
+    {t1, Expand[t2 - ov*t1]}
+];
+TableauDot[t1_,t2_]:= Block[{v1,v2},
+    v1 = Expand @ ToTensor @ Expand @ t1;
+    v2 = Expand @ ToTensor @ Expand @ t2;
+    TensorDot[v1,v2]
 ];
 (*-----------------END YOUNG-TABLEAU-----------------*)
 
@@ -692,7 +698,7 @@ ChevalleyF[Sp[n_], i_]:= SpF[n, i];
 
 (*---------------------END MAIN---------------------*)
 
-Protect /@ protectlist;
+(*Protect @@ protectlist;*)
 
 End[];
 

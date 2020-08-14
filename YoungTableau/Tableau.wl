@@ -20,22 +20,13 @@ TableauPermute
 ToTensor
 TensorTableau
 
+TableauNormalization
+TableauOrthogonalization
+
 ColumnCanonicalize
 
 
 Begin["`Private`"];
-
-protectlist={
-    "Tableau",
-    "Psi",
-    "TensorTableau",
-    "Symmetrizer",
-    "TableauForm",
-    "ToTensor",
-    "TensorDot",
-    "TensorNorm"
-};
-
 
 (*Permutation*)
 CycleDotAtom[c1_Cycles, c2_Cycles]:= PermutationProduct[c2, c1];
@@ -113,31 +104,24 @@ ListToTensor[t_List]:=Block[{l=Length[t], li=Length/@t, i, p=1, tab={}},
     TableauPermute[Tableau[tab], Psi @@ Flatten[t]]
 ];
 TableauToTensor[t_TensorTableau]:= ListToTensor @ t[[1]];
-TableauToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[2]];
+TableauToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[1]];
 
 ToTensor[t_TensorTableau]:= ListToTensor @ t[[1]];
-ToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[2]];
+ToTensor[a_*t_TensorTableau]:= a * ListToTensor @ t[[1]];
 ToTensor[t1_+t2_]:= ToTensor[t1] + ToTensor[t2];
 
-(* Canonicalize Tensor Tableau *)
-ColumnCanonicalize[tab_]:=Block[{t=tab, l, li, i, c, s, p=1},
-    l = Length @ t;
-    li = Length /@ t;
-    l1 = li[[1]];
-    cl = ConstantArray[0, l1];
-    For[i=1,i<=l,i++, cl[[1;;li[[i]] ]] += 1];
-    For[i=1,i<=l1, i++,
-        c = t[[1;;cl[[i]], i]];
-        s = Sort[c];
-        t[[1;;cl[[i]], i]] = s;
-        p *= Parity @ FindPermutation[c, s]
-    ];
-    {p, t}
+(* Normalization & Orthogonalization *)
+TableauNormalization[t_]:= t/TensorNorm@Expand@ToTensor[t];
+TableauOrthogonalization[t1_, t2_]:= Block[{v1,v2,ov},
+    v1 = Expand @ ToTensor[t1];
+    v2 = Expand @ ToTensor[t2];
+    ov = TensorDot[v1,v2]/TensorNorm[v1]^2;
+    {t1, Expand[t2 - ov*t1]}
 ];
 
 
-(*Protection*)
-Protect/@protectlist;
+
+
 End[];
 
 EndPackage[];
