@@ -1,3 +1,5 @@
+# Representations of Lie Algebra
+
 A **simple Lie algebra** is a Lie algebra that is non-abelian and contains no nonzero proper ideals. A finite-dimensional simple complex Lie algebra is isomorphic to either one of the following **classical Lie algebras**: 
 
 - $A_{n-1}$: generators of $\mathrm{SU}(n)$ group,
