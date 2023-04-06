@@ -1,5 +1,3 @@
-# Representations of Lie Algebra
-
 A **simple Lie algebra** is a Lie algebra that is non-abelian and contains no nonzero proper ideals. A finite-dimensional simple complex Lie algebra is isomorphic to either one of the following **classical Lie algebras**: 
 
 - $A_{n-1}$: generators of $\mathrm{SU}(n)$ group,
@@ -7,7 +5,7 @@ A **simple Lie algebra** is a Lie algebra that is non-abelian and contains no no
 - $C_n$: generators of $\mathrm{SO}(2n)$ group,
 - $D_n$: Generators of $\mathrm{USp}(2n)$ group,
 
-or one of the five exceptional Lie algebras: $\mathrm{G}_2$, $\mathrm{F}_4$, $\mathrm{E}_6$, $\mathrm{E}_7$, and $\mathrm{E}_8$. This notes discusses the linear irreducible representations of the classical Lie algebras. I have summarized some tedious calculations into a `Mathematica` package: [LieAlgebra](https://github.com/jayren3996/LieAlgebra), which will be used to perform calculations for several concrete representations of Lie groups. There are generally two parallel methods for Lie algebra representations:
+or one of the five exceptional Lie algebras: $\mathrm{G}_2$, $\mathrm{F}_4$, $\mathrm{E}_6$, $\mathrm{E}_7$, and $\mathrm{E}_8$. This notes discusses the linear irreducible representations of the classical Lie algebras. I have summarized some tedious calculations into this `Mathematica` package, which will be used to perform calculations for several concrete representations of Lie groups. There are generally two parallel methods for Lie algebra representations:
 
 1. Analyzing the **root system** of the algebra and obtaining the **weight states** by subtracting simple roots from the highest weight state, with different weight states and their connections forming a weight diagram. This method can quickly obtain representations for smaller problems, but the meaning of each weight state is unclear, especially when there are degenerate weights. 
 2. Using the **tensor representation** of Lie groups and obtaining irreducible representations through **Young tableaux**. This method requires more operations, but each state has a clear "physical meaning," and the analysis of the degenerate weights is clearer.
