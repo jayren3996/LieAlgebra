@@ -14,5 +14,7 @@ HighestWeight[Irrep[g_LieAlgebra, w_]] := w;
 
 RepresentationDimension[Irrep[g_LieAlgebra, w_]] := ClassicalLieAlgebra`Weights`Private`weylDim[g, w];
 
+CasimirEigenvalue[Irrep[g_LieAlgebra, w_]] := ClassicalLieAlgebra`Weights`Private`casimir[g, w];
+
 End[];
 EndPackage[];

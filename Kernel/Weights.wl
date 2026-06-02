@@ -16,5 +16,10 @@ weylVector[g_] := Total[FundamentalWeights[g]];   (* rho = sum of fundamental we
 weylDim[g_, lambda_] := Module[{lam = toEuclidean[g, lambda], rho = weylVector[g], pos = PositiveRoots[g]},
    Times @@ Table[((lam + rho) . a)/(rho . a), {a, pos}]];
 
+(* form normalized to long-root^2 = 2: raw Dot already correct for A,B,D; halve for C. *)
+casimirForm[g_, u_, v_] := If[g[[1]] === "C", (u . v)/2, u . v];
+casimir[g_, lambda_] := Module[{lam = toEuclidean[g, lambda], rho = weylVector[g]},
+   casimirForm[g, lam, lam + 2 rho]];
+
 End[];
 EndPackage[];

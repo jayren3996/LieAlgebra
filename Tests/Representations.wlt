@@ -12,3 +12,7 @@ VerificationTest[ RepresentationDimension[Irrep[Sp[4], {1, 0}]], 4, TestID->"dim
 VerificationTest[ RepresentationDimension[Irrep[Sp[4], {0, 1}]], 5, TestID->"dim-sp4-omega2" ];
 VerificationTest[ RepresentationDimension[Irrep[SU[4], {0, 0, 0}]], 1, TestID->"dim-trivial" ];
 VerificationTest[ RepresentationDimension[Irrep[SO[7], {0, 0, 1}]], 8, TestID->"dim-so7-spinor" ];
+VerificationTest[ CasimirEigenvalue[Irrep[SU[2], {1}]], 3/2, TestID->"cas-su2-fund" ];
+VerificationTest[ CasimirEigenvalue[Irrep[SU[3], {1, 1}]], 6, TestID->"cas-su3-adjoint-2hv" ];
+VerificationTest[ CasimirEigenvalue[Irrep[SU[3], {0, 0}]], 0, TestID->"cas-trivial" ];
+VerificationTest[ CasimirEigenvalue[Irrep[Sp[4], {2, 0}]], 6, TestID->"cas-sp4-adjoint-2hv" ];
