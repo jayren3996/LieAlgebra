@@ -12,5 +12,7 @@ Irrep[g_LieAlgebra, w_] /; ! validWeightQ[g, w] := (Message[Irrep::badweight, w,
 
 HighestWeight[Irrep[g_LieAlgebra, w_]] := w;
 
+RepresentationDimension[Irrep[g_LieAlgebra, w_]] := ClassicalLieAlgebra`Weights`Private`weylDim[g, w];
+
 End[];
 EndPackage[];

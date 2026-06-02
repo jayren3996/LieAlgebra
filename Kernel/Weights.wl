@@ -12,5 +12,9 @@ toDynkin[g_, mu_] := With[{sr = SimpleRoots[g]},
 
 weylVector[g_] := Total[FundamentalWeights[g]];   (* rho = sum of fundamental weights *)
 
+(* Weyl dimension formula: Prod_{alpha>0} (lambda+rho, alpha)/(rho, alpha), exact. *)
+weylDim[g_, lambda_] := Module[{lam = toEuclidean[g, lambda], rho = weylVector[g], pos = PositiveRoots[g]},
+   Times @@ Table[((lam + rho) . a)/(rho . a), {a, pos}]];
+
 End[];
 EndPackage[];
