@@ -14,17 +14,12 @@
 
 - **Running Wolfram on this machine:** the system `wolframscript` is broken; use the app-bundled one. Define for your shell session:
   `WS=/Applications/Wolfram.app/Contents/MacOS/wolframscript`
-  Run a single test file: `"$WS" -code 'r=TestReport["Tests/Algebras.wlt"]; Print[r["AllTestsSucceeded"]," ",r["TestsFailedCount"]]'`
+  Run a single test file (load the paclet first, then run the file): `"$WS" -code 'PacletDirectoryLoad["'"$PWD"'"]; r=TestReport["Tests/Algebras.wlt"]; Print[r["AllTestsSucceeded"]," ",r["TestsFailedCount"]]'`
   The committed `scripts/runTests.wls` and CI use plain `wolframscript` (correct inside the engine container).
 - **Dev load loop:** `"$WS" -code 'PacletDirectoryLoad["'"$PWD"'"]; Needs["ClassicalLieAlgebra`"]; <expr>'`. Editing source then re-running a fresh `wolframscript` always loads current source (new process), so no reload dance is needed for test runs.
 - **TDD:** every task writes the `.wlt` test first, runs it red, implements, runs it green, commits. A test "fails red" if `AllTestsSucceeded` is `False` (or the file errors on load).
 - **Commits:** conventional-commit style, on `master` only with the user's say-so — otherwise commit to a `paclet-refactor` branch. End commit messages with the Co-Authored-By trailer.
-- **Each `.wlt` begins with** loading the package:
-  ```wolfram
-  PacletDirectoryLoad[DirectoryName[$InputFileName, 2]]; (* repo root from Tests/X.wlt *)
-  Needs["ClassicalLieAlgebra`"];
-  ```
-  (When run via `TestReport[file]`, `$InputFileName` is the file; `DirectoryName[#,2]` is the repo root.)
+- **Each `.wlt` begins with only** `Needs["ClassicalLieAlgebra`"];` — do NOT call `PacletDirectoryLoad` or rely on `$InputFileName` inside a `.wlt` (it is not reliably set under `TestReport`). The **caller** loads the paclet first: both `scripts/runTests.wls` and the dev one-liner call `PacletDirectoryLoad[<repo root>]` before `TestReport`, after which the `.wlt`'s `Needs` resolves. (The skeletons below show `PacletDirectoryLoad[...]` as a comment reminder — implement the single `Needs` line.)
 
 ---
 
