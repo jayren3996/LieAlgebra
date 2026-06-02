@@ -7,7 +7,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Wolfram Language](https://img.shields.io/badge/Wolfram%20Language-13.0%2B-d10000.svg)](https://www.wolfram.com/language/)
 ![Paclet](https://img.shields.io/badge/paclet-ClassicalLieAlgebra%201.0-f57c00.svg)
-[![Tests](https://github.com/jayren3996/LieAlgebra/actions/workflows/test.yml/badge.svg)](https://github.com/jayren3996/LieAlgebra/actions/workflows/test.yml)
 
 </div>
 
