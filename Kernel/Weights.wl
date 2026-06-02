@@ -21,5 +21,20 @@ casimirForm[g_, u_, v_] := If[g[[1]] === "C", (u . v)/2, u . v];
 casimir[g_, lambda_] := Module[{lam = toEuclidean[g, lambda], rho = weylVector[g]},
    casimirForm[g, lam, lam + 2 rho]];
 
+dynkinLabelOf[g_, mu_, i_] := With[{a = SimpleRoots[g][[i]]}, 2 (mu . a)/(a . a)];
+weylReflect[g_, mu_, i_] := mu - dynkinLabelOf[g, mu, i] SimpleRoots[g][[i]];
+
+(* BFS with descent-only dedup: from weight w, reflect at node i only when its
+   i-th Dynkin label is positive; collect every distinct image. *)
+weylOrbit[g_, mu0_] := Module[{r = Rank[g], orbit = {mu0}, frontier = {mu0}, next, c, nu},
+   While[frontier =!= {},
+     next = {};
+     Do[ Do[ c = dynkinLabelOf[g, w, i];
+             If[c > 0, nu = weylReflect[g, w, i];
+                If[! MemberQ[orbit, nu], AppendTo[orbit, nu]; AppendTo[next, nu]]],
+          {i, r}], {w, frontier}];
+     frontier = next];
+   orbit];
+
 End[];
 EndPackage[];
