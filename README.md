@@ -198,6 +198,25 @@ Print["|c> = ", TableauForm[nc], ", |d> = ", TableauForm[nd], ", <d|b> = ", Tabl
 
 The inner product `TableauDot[nd, b]` is the transition matrix element.
 
+## Representations
+
+Build an irreducible representation from its highest weight (Dynkin labels) and read off its data:
+
+```mathematica
+ir = Irrep[SU[3], {1, 1}];           (* the adjoint / octet *)
+RepresentationDimension[ir]           (* 8 *)
+CasimirEigenvalue[ir]                 (* 6 *)
+WeightSystem[ir]                      (* <|{1,1}->1, ..., {0,0}->2, ...|> *)
+m = RepresentationMatrices[ir];       (* <|"Cartan"->{H1,H2}, "Raising"->{E1,E2}, "Lowering"->{F1,F2}|> *)
+```
+
+`RepresentationMatrices` gives the Chevalley generators of the algebra (one `H`, `E`, `F` per simple root) as matrices in the irrep, in an orthonormal basis where `E_i = ConjugateTranspose[F_i]` and `H_i` is diagonal. The construction is the abstract highest-weight / Shapovalov method, so it works for **all** classical types and every irrep — including the orthogonal and symplectic spinor representations that do not live in tensor powers of the defining representation, e.g. the 4-dimensional spinor of `so(5)`:
+
+```mathematica
+RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4 *)
+RepresentationMatrices[Irrep[SO[5], {0, 1}]]
+```
+
 ## Regenerating the figures
 
 Every figure in this README is generated directly from the package by [`pics/MakeFigures.wls`](pics/MakeFigures.wls), so the figures stay in step with the code. Rasterizing the typeset matrices and tableaux needs a Wolfram front end, so run the script with a full installation rather than a bare command-line kernel:
