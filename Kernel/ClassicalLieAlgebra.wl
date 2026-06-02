@@ -20,6 +20,10 @@ SU::baddim = "SU[`1`] requires an integer n>=2.";
 SO::baddim = "SO[`1`] requires an integer n>=3.";
 Sp::evenrank = "Sp[`1`] requires an even integer n>=2.";
 
+Irrep::usage = "Irrep[g, w] represents the irreducible representation of the classical Lie algebra g with highest weight given by the Dynkin labels w (a list of Rank[g] non-negative integers).";
+HighestWeight::usage = "HighestWeight[Irrep[g, w]] returns the highest weight w (Dynkin labels).";
+Irrep::badweight = "`1` is not a valid highest weight for `2`; expected a list of `3` non-negative integers.";
+
 Generators::usage = "Generators[g] gives the defining-representation generators of g. Generators[g,\"CartanWeyl\"] and Generators[g,\"Chevalley\"] give associations <|\"Cartan\"->..,\"Raising\"->..,\"Lowering\"->..|>. Option \"Realization\"->\"Diagonal\"|\"Antisymmetric\" applies to so/sp.";
 
 CartanWeyl::usage = "CartanWeyl[g] is shorthand for Generators[g, \"CartanWeyl\"].";
@@ -50,6 +54,7 @@ Get["ClassicalLieAlgebra`SpecialOrthogonal`"];
 Get["ClassicalLieAlgebra`Symplectic`"];
 Get["ClassicalLieAlgebra`YoungTableaux`"];
 Get["ClassicalLieAlgebra`Weights`"];
+Get["ClassicalLieAlgebra`Representations`"];
 Generators[HoldPattern[_LieAlgebra], s_, OptionsPattern[]] := (Message[Generators::badscheme, s]; $Failed);
 
 CartanWeyl[g_] := Generators[g, "CartanWeyl"];
