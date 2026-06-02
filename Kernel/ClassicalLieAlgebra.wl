@@ -49,6 +49,7 @@ Get["ClassicalLieAlgebra`SpecialUnitary`"];
 Get["ClassicalLieAlgebra`SpecialOrthogonal`"];
 Get["ClassicalLieAlgebra`Symplectic`"];
 Get["ClassicalLieAlgebra`YoungTableaux`"];
+Get["ClassicalLieAlgebra`Weights`"];
 Generators[HoldPattern[_LieAlgebra], s_, OptionsPattern[]] := (Message[Generators::badscheme, s]; $Failed);
 
 CartanWeyl[g_] := Generators[g, "CartanWeyl"];
