@@ -22,6 +22,9 @@ Sp::evenrank = "Sp[`1`] requires an even integer n>=2.";
 
 Generators::usage = "Generators[g] gives the defining-representation generators of g. Generators[g,\"CartanWeyl\"] and Generators[g,\"Chevalley\"] give associations <|\"Cartan\"->..,\"Raising\"->..,\"Lowering\"->..|>. Option \"Realization\"->\"Diagonal\"|\"Antisymmetric\" applies to so/sp.";
 
+CartanWeyl::usage = "CartanWeyl[g] is shorthand for Generators[g, \"CartanWeyl\"].";
+Chevalley::usage = "Chevalley[g] is shorthand for Generators[g, \"Chevalley\"].";
+
 Tableau::usage = "Tableau[rows] represents a Young tableau given as a list of row-lists.";
 TensorTableau::usage = "TensorTableau[rows] represents a tensor-product Young tableau with explicit index entries.";
 Psi::usage = "Psi[i1,i2,...] represents a basis tensor |i1,i2,...> in the tensor product space.";
@@ -47,6 +50,12 @@ Get["ClassicalLieAlgebra`SpecialOrthogonal`"];
 Get["ClassicalLieAlgebra`Symplectic`"];
 Get["ClassicalLieAlgebra`YoungTableaux`"];
 Generators[HoldPattern[_LieAlgebra], s_, OptionsPattern[]] := (Message[Generators::badscheme, s]; $Failed);
+
+CartanWeyl[g_] := Generators[g, "CartanWeyl"];
+Chevalley[g_] := Generators[g, "Chevalley"];
+
 End[];
+
+Protect[Evaluate[Names["ClassicalLieAlgebra`*"]]];
 
 EndPackage[];
