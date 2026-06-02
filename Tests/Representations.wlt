@@ -16,3 +16,10 @@ VerificationTest[ CasimirEigenvalue[Irrep[SU[2], {1}]], 3/2, TestID->"cas-su2-fu
 VerificationTest[ CasimirEigenvalue[Irrep[SU[3], {1, 1}]], 6, TestID->"cas-su3-adjoint-2hv" ];
 VerificationTest[ CasimirEigenvalue[Irrep[SU[3], {0, 0}]], 0, TestID->"cas-trivial" ];
 VerificationTest[ CasimirEigenvalue[Irrep[Sp[4], {2, 0}]], 6, TestID->"cas-sp4-adjoint-2hv" ];
+VerificationTest[ Total[Values[WeightSystem[Irrep[SU[3], {1, 0}]]]], 3, TestID->"ws-su3-fund-total" ];
+VerificationTest[ Max[Values[WeightSystem[Irrep[SU[3], {1, 0}]]]], 1, TestID->"ws-su3-fund-mult1" ];
+VerificationTest[ Total[Values[WeightSystem[Irrep[SU[3], {1, 1}]]]], 8, TestID->"ws-su3-adj-total" ];
+VerificationTest[ WeightSystem[Irrep[SU[3], {1, 1}]][{0, 0}], 2, TestID->"ws-su3-adj-zeroweight-mult2" ];
+VerificationTest[ Total[Values[WeightSystem[Irrep[SO[5], {1, 0}]]]], RepresentationDimension[Irrep[SO[5], {1, 0}]], TestID->"ws-so5-sum-eq-dim" ];
+VerificationTest[ Total[Values[WeightSystem[Irrep[Sp[4], {0, 1}]]]], 5, TestID->"ws-sp4-sum" ];
+VerificationTest[ Total[Values[WeightSystem[Irrep[SU[3], {2, 0}]]]], 6, TestID->"ws-su3-6plet" ];

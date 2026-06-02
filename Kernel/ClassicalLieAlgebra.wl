@@ -26,6 +26,8 @@ RepresentationDimension::usage = "RepresentationDimension[Irrep[g, w]] gives the
 CasimirEigenvalue::usage = "CasimirEigenvalue[Irrep[g, w]] gives the eigenvalue of the quadratic Casimir on the irrep, normalized so that long roots have squared length 2.";
 Irrep::badweight = "`1` is not a valid highest weight for `2`; expected a list of `3` non-negative integers.";
 
+WeightSystem::usage = "WeightSystem[Irrep[g, w]] gives an association <|weight -> multiplicity, ...|> over all weights of the irrep, with weights expressed as Dynkin-label lists.";
+
 Generators::usage = "Generators[g] gives the defining-representation generators of g. Generators[g,\"CartanWeyl\"] and Generators[g,\"Chevalley\"] give associations <|\"Cartan\"->..,\"Raising\"->..,\"Lowering\"->..|>. Option \"Realization\"->\"Diagonal\"|\"Antisymmetric\" applies to so/sp.";
 
 CartanWeyl::usage = "CartanWeyl[g] is shorthand for Generators[g, \"CartanWeyl\"].";

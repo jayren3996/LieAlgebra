@@ -16,5 +16,7 @@ RepresentationDimension[Irrep[g_LieAlgebra, w_]] := ClassicalLieAlgebra`Weights`
 
 CasimirEigenvalue[Irrep[g_LieAlgebra, w_]] := ClassicalLieAlgebra`Weights`Private`casimir[g, w];
 
+WeightSystem[Irrep[g_LieAlgebra, w_]] := ClassicalLieAlgebra`Weights`Private`weightSystemDynkin[g, w];
+
 End[];
 EndPackage[];

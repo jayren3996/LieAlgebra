@@ -36,5 +36,81 @@ weylOrbit[g_, mu0_] := Module[{r = Rank[g], orbit = {mu0}, frontier = {mu0}, nex
      frontier = next];
    orbit];
 
+(* ------------------------------------------------------------------ *)
+(* Freudenthal multiplicity recursion                                  *)
+(* ------------------------------------------------------------------ *)
+
+(* freudenthalMults[g, lambda] returns Association[euclideanWeight -> multiplicity]
+   for ALL weights in the irrep with highest weight lambda (Dynkin labels).
+   Uses BFS layered by level = (number of simple roots subtracted from lam). *)
+
+freudenthalMults[g_, lambda_] := Module[
+  {lam, rho, pos, simple, r, mult, frontier, nextFrontier, nu, alpha,
+   denom, accum, mu2, k, multVal},
+
+  lam    = toEuclidean[g, lambda];
+  rho    = weylVector[g];
+  pos    = PositiveRoots[g];
+  simple = SimpleRoots[g];
+  r      = Length[simple];
+
+  (* Start: highest weight has multiplicity 1 *)
+  mult     = <| lam -> 1 |>;
+  frontier = {lam};
+
+  While[frontier =!= {},
+    nextFrontier = {};
+
+    (* For each weight mu in current frontier, try subtracting each simple root *)
+    Do[
+      Do[
+        nu = mu - simple[[i]];
+
+        (* Only process nu if not already computed *)
+        If[! KeyExistsQ[mult, nu],
+
+          (* Freudenthal denominator *)
+          denom = (lam + rho) . (lam + rho) - (nu + rho) . (nu + rho);
+
+          (* If denom == 0, nu is not in the weight system (same Casimir shell as lam
+             but not the highest weight — can only happen when accum = 0 too, so
+             multVal = 0; skip to avoid 0/0 messages) *)
+          If[denom == 0, Continue[]];
+
+          (* denom > 0 for genuine descendant weights *)
+          accum = 0;
+          Do[
+            k   = 1;
+            mu2 = nu + alpha;
+            While[KeyExistsQ[mult, mu2],
+              accum += mult[mu2] * (mu2 . alpha);
+              k++;
+              mu2 = nu + k * alpha
+            ],
+          {alpha, pos}];
+
+          multVal = 2 * accum / denom;
+
+          (* Integrality check: must be a positive integer *)
+          If[multVal > 0,
+            Assert[IntegerQ[multVal]];
+            mult[nu] = multVal;
+            AppendTo[nextFrontier, nu]
+          ]
+        ],
+      {i, r}],
+    {mu, frontier}];
+
+    (* Deduplicate nextFrontier before next BFS level *)
+    frontier = DeleteDuplicates[nextFrontier]
+  ];
+
+  mult
+];
+
+(* weightSystemDynkin: convert Euclidean-keyed association to Dynkin-label keys *)
+weightSystemDynkin[g_, lambda_] :=
+  KeyMap[toDynkin[g, #] &, freudenthalMults[g, lambda]];
+
 End[];
 EndPackage[];
