@@ -32,6 +32,7 @@ Needs["ClassicalLieAlgebra`Common`"];
 Get["ClassicalLieAlgebra`Algebras`"];
 Get["ClassicalLieAlgebra`SpecialUnitary`"];
 Get["ClassicalLieAlgebra`SpecialOrthogonal`"];
+Get["ClassicalLieAlgebra`Symplectic`"];
 (* << subfiles added in later tasks *)
 Generators[HoldPattern[_LieAlgebra], s_, OptionsPattern[]] := (Message[Generators::badscheme, s]; $Failed);
 End[];
