@@ -21,6 +21,18 @@ SO::baddim = "SO[`1`] requires an integer n>=3.";
 Sp::evenrank = "Sp[`1`] requires an even integer n>=2.";
 
 Generators::usage = "Generators[g] gives the defining-representation generators of g. Generators[g,\"CartanWeyl\"] and Generators[g,\"Chevalley\"] give associations <|\"Cartan\"->..,\"Raising\"->..,\"Lowering\"->..|>. Option \"Realization\"->\"Diagonal\"|\"Antisymmetric\" applies to so/sp.";
+
+Tableau::usage = "Tableau[rows] represents a Young tableau given as a list of row-lists.";
+TensorTableau::usage = "TensorTableau[rows] represents a tensor-product Young tableau with explicit index entries.";
+Psi::usage = "Psi[i1,i2,...] represents a basis tensor |i1,i2,...> in the tensor product space.";
+TableauForm::usage = "TableauForm[t] displays a TensorTableau (or linear combination thereof) as a grid.";
+ToTensor::usage = "ToTensor[t] converts a TensorTableau (or linear combination) to a linear combination of Psi basis tensors.";
+TableauPermute::usage = "TableauPermute[t,v] applies the Young symmetrizer of Tableau t to a Psi tensor v.";
+TableauDot::usage = "TableauDot[t1,t2] computes the inner product of two TensorTableau expressions.";
+TensorDot::usage = "TensorDot[p1,p2] computes the Hermitian inner product of two linear combinations of Psi tensors.";
+TensorNorm::usage = "TensorNorm[p] gives the norm of a linear combination of Psi tensors.";
+TableauNormalization::usage = "TableauNormalization[t] normalizes a TensorTableau expression to unit norm.";
+TableauOrthogonalization::usage = "TableauOrthogonalization[t1,t2] returns {t1, t2 - <t2,t1>/<t1,t1> t1}, the Gram-Schmidt step.";
 BasisTransform::usage = "BasisTransform[g] gives the matrix conjugating the antisymmetric realization of so/sp into the diagonal one (identity for su).";
 Generators::badscheme = "`1` is not a valid scheme; use \"Standard\", \"CartanWeyl\" or \"Chevalley\".";
 Generators::badrealization = "`1` is not a valid \"Realization\"; use \"Diagonal\" or \"Antisymmetric\".";
@@ -33,7 +45,7 @@ Get["ClassicalLieAlgebra`Algebras`"];
 Get["ClassicalLieAlgebra`SpecialUnitary`"];
 Get["ClassicalLieAlgebra`SpecialOrthogonal`"];
 Get["ClassicalLieAlgebra`Symplectic`"];
-(* << subfiles added in later tasks *)
+Get["ClassicalLieAlgebra`YoungTableaux`"];
 Generators[HoldPattern[_LieAlgebra], s_, OptionsPattern[]] := (Message[Generators::badscheme, s]; $Failed);
 End[];
 
