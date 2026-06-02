@@ -23,3 +23,12 @@ VerificationTest[ WeightSystem[Irrep[SU[3], {1, 1}]][{0, 0}], 2, TestID->"ws-su3
 VerificationTest[ Total[Values[WeightSystem[Irrep[SO[5], {1, 0}]]]], RepresentationDimension[Irrep[SO[5], {1, 0}]], TestID->"ws-so5-sum-eq-dim" ];
 VerificationTest[ Total[Values[WeightSystem[Irrep[Sp[4], {0, 1}]]]], 5, TestID->"ws-sp4-sum" ];
 VerificationTest[ Total[Values[WeightSystem[Irrep[SU[3], {2, 0}]]]], 6, TestID->"ws-su3-6plet" ];
+
+(* Task 7: Shapovalov contravariant form *)
+VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[2], {2}, <|{} -> 1|>, <|{} -> 1|>], 1, TestID->"shap-hw-norm" ];
+VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[2], {2}, <|{1} -> 1|>, <|{1} -> 1|>], 2, TestID->"shap-f-norm" ];
+VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[2], {2}, <|{1, 1} -> 1|>, <|{1, 1} -> 1|>], 4, TestID->"shap-ff-norm" ];
+(* su(3) fundamental {1,0}: <f_1 v, f_1 v> = lambda_1 = 1 *)
+VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[3], {1, 0}, <|{1} -> 1|>, <|{1} -> 1|>], 1, TestID->"shap-su3-f1" ];
+(* orthogonality of different weights: <f_1 v, f_2 v> = 0 for su(3) *)
+VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[3], {1, 0}, <|{1} -> 1|>, <|{2} -> 1|>], 0, TestID->"shap-orthog-weights" ];
