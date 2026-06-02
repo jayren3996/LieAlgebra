@@ -18,7 +18,8 @@
 
 scriptDir = If[$InputFileName === "", Directory[], DirectoryName[$InputFileName]];
 root = ParentDirectory[scriptDir];
-Get[FileNameJoin[{root, "ClassicalLieAlgebra.wl"}]];
+PacletDirectoryLoad[root];
+Needs["ClassicalLieAlgebra`"];
 out[name_] := FileNameJoin[{scriptDir, name}];
 
 (* ----- generator action on tensor (Psi) states: F_total = sum_sites G ----- *)

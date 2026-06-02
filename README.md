@@ -17,13 +17,21 @@ This package builds the generators and the irreducible representations of these 
 
 ## Usage
 
-Place `ClassicalLieAlgebra.wl` in a folder, create a notebook in the same folder, and load the package on the first line:
+The package is a Wolfram paclet. From a local checkout:
 
 ```mathematica
-Import[NotebookDirectory[] <> "ClassicalLieAlgebra.wl"];
+PacletDirectoryLoad["/path/to/LieAlgebra"];
+Needs["ClassicalLieAlgebra`"];
 ```
 
-See `Demo.nb` for worked examples.
+or install a released build:
+
+```mathematica
+PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/v1.0.0/ClassicalLieAlgebra-1.0.0.paclet"];
+Needs["ClassicalLieAlgebra`"];
+```
+
+> **API note (v1.0).** This release is a restructured paclet with a redesigned API. Algebras canonicalize to `LieAlgebra["A"|"B"|"C"|"D", rank]`, with `SU[n]`/`SO[n]`/`Sp[n]` as shorthands. `CartanWeyl[g]` and `Chevalley[g]` now return an association (`"Cartan"`, `"Raising"`, `"Lowering"`) instead of an `{H, E, F}` list; both are shorthands for `Generators[g, "CartanWeyl"|"Chevalley"]`. New root-system helpers: `Rank`, `LieAlgebraDimension`, `CartanMatrix`, `SimpleRoots`, `PositiveRoots`, `FundamentalWeights`. The old per-element accessors and `StandardChevalley` are gone, and `StandardBasis` is now `BasisTransform`. The sp(2n) standard generators (previously not closed under the bracket) were corrected. (`Demo.nb` predates this redesign.)
 
 ## Example: su(3)
 
@@ -41,11 +49,11 @@ MatrixForm /@ Generators[SU[3]]
 
 ### Cartan–Weyl basis
 
-`CartanWeyl` returns the basis as a triple `{H, E, F}`: the diagonal Cartan generators `H`, the raising operators `E`, and the lowering operators `F`.
+`CartanWeyl[g]` returns an association with the diagonal Cartan generators (`"Cartan"`), the raising operators (`"Raising"`), and the lowering operators (`"Lowering"`).
 
 ```mathematica
-{h, e, f} = CartanWeyl[SU[3]];
-Print["H = ", MatrixForm /@ h, ", E = ", MatrixForm /@ e, ", F = ", MatrixForm /@ f];
+cw = CartanWeyl[SU[3]];
+Print["H = ", MatrixForm /@ cw["Cartan"], ", E = ", MatrixForm /@ cw["Raising"], ", F = ", MatrixForm /@ cw["Lowering"]];
 ```
 
 ![Cartan–Weyl basis of su(3)](pics/su3-cartan-weyl.png)
@@ -55,8 +63,8 @@ Print["H = ", MatrixForm /@ h, ", E = ", MatrixForm /@ e, ", F = ", MatrixForm /
 The most convenient basis for building representations is the Chevalley basis:
 
 ```mathematica
-{h, e, f} = Chevalley[SU[3]];
-Print["H = ", MatrixForm /@ h, ", E = ", MatrixForm /@ e, ", F = ", MatrixForm /@ f];
+ch = Chevalley[SU[3]];
+Print["H = ", MatrixForm /@ ch["Cartan"], ", E = ", MatrixForm /@ ch["Raising"], ", F = ", MatrixForm /@ ch["Lowering"]];
 ```
 
 ![Chevalley basis of su(3)](pics/su3-chevalley.png)
