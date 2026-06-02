@@ -18,3 +18,8 @@ VerificationTest[
   TestID -> "scalar-over-sum-distributes" ];
 VerificationTest[ Head[TableauForm[(TensorTableau[{{1, 2}, {3}}] + TensorTableau[{{1, 3}, {2}}])/Sqrt[6]]] =!= TableauForm,
   True, TestID -> "tableauform-evaluates" ];
+(* regression: inner product of a normalized state with itself is 1 (TensorDot must
+   distribute the scalar-times-sum that ToTensor produces for a normalized tableau) *)
+VerificationTest[
+  With[{na = TableauNormalization[TensorTableau[{{1, 2}, {2}}]]}, TableauDot[na, na]],
+  1, TestID -> "normalized-self-dot-is-1" ];

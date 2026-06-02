@@ -70,7 +70,9 @@ iDotPsi[p1_Psi, p2_Psi] := If[SameQ[p1, p2], 1, 0];
 iDotPsi[a_*p1_Psi, p2_Psi] := If[SameQ[p1, p2], Conjugate[a], 0];
 iDotPsi[p1_Psi, b_*p2_Psi] := If[SameQ[p1, p2], b, 0];
 iDotPsi[a_*p1_Psi, b_*p2_Psi] := If[SameQ[p1, p2], Conjugate[a]*b, 0];
-TensorDot[p1_, p2_] := Distribute @ iDotPsi[p1, p2];
+(* Expand first so a scalar times a sum (e.g. (Psi[..]+Psi[..])/Sqrt[6]) distributes
+   onto the per-Psi iDotPsi rules; otherwise the inner product stays unevaluated. *)
+TensorDot[p1_, p2_] := Distribute @ iDotPsi[Expand[p1], Expand[p2]];
 
 (* ---- TensorTableau -> tensor conversion (private helpers) ---- *)
 ListToTensor[t_List] := Module[
