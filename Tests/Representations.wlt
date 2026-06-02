@@ -32,3 +32,15 @@ VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[2], 
 VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[3], {1, 0}, <|{1} -> 1|>, <|{1} -> 1|>], 1, TestID->"shap-su3-f1" ];
 (* orthogonality of different weights: <f_1 v, f_2 v> = 0 for su(3) *)
 VerificationTest[ ClassicalLieAlgebra`Representations`Private`shapovalov[SU[3], {1, 0}, <|{1} -> 1|>, <|{2} -> 1|>], 0, TestID->"shap-orthog-weights" ];
+
+(* Task 8: RepresentationMatrices via Shapovalov highest-weight construction *)
+bracket[a_, b_] := a.b - b.a;
+VerificationTest[ Module[{m = RepresentationMatrices[Irrep[SU[2], {2}]]},
+   bracket[m["Raising"][[1]], m["Lowering"][[1]]] == m["Cartan"][[1]]], True, TestID->"su2-spin1-EF=H" ];
+VerificationTest[ Sort[Diagonal[RepresentationMatrices[Irrep[SU[2], {2}]]["Cartan"][[1]]]], {-2, 0, 2}, TestID->"su2-spin1-H-spectrum" ];
+VerificationTest[ Length[RepresentationMatrices[Irrep[SU[2], {2}]]["Cartan"][[1]]], 3, TestID->"su2-spin1-size3" ];
+VerificationTest[ Module[{m = RepresentationMatrices[Irrep[SU[3], {1, 0}]]},
+   And @@ Table[bracket[m["Raising"][[i]], m["Lowering"][[i]]] == m["Cartan"][[i]], {i, 2}]], True, TestID->"su3-fund-EF=H" ];
+VerificationTest[ Length[RepresentationMatrices[Irrep[SU[3], {1, 0}]]["Cartan"][[1]]], 3, TestID->"su3-fund-size3" ];
+VerificationTest[ Module[{m = RepresentationMatrices[Irrep[SU[3], {1, 0}]]},
+   bracket[m["Raising"][[1]], m["Lowering"][[2]]] == 0 IdentityMatrix[3]], True, TestID->"su3-fund-EF-offdiag-0" ];

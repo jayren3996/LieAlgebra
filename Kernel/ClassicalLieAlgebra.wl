@@ -28,6 +28,8 @@ Irrep::badweight = "`1` is not a valid highest weight for `2`; expected a list o
 
 WeightSystem::usage = "WeightSystem[Irrep[g, w]] gives an association <|weight -> multiplicity, ...|> over all weights of the irrep, with weights expressed as Dynkin-label lists.";
 
+RepresentationMatrices::usage = "RepresentationMatrices[Irrep[g, w]] gives <|\"Cartan\"->{H_i}, \"Raising\"->{E_i}, \"Lowering\"->{F_i}|>, the Chevalley generators of g (one per simple root) as matrices in the irrep. Default basis is orthonormal (E_i = ConjugateTranspose[F_i]).";
+
 Generators::usage = "Generators[g] gives the defining-representation generators of g. Generators[g,\"CartanWeyl\"] and Generators[g,\"Chevalley\"] give associations <|\"Cartan\"->..,\"Raising\"->..,\"Lowering\"->..|>. Option \"Realization\"->\"Diagonal\"|\"Antisymmetric\" applies to so/sp.";
 
 CartanWeyl::usage = "CartanWeyl[g] is shorthand for Generators[g, \"CartanWeyl\"].";
