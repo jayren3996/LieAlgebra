@@ -1,82 +1,94 @@
 # ClassicalLieAlgebra
 
-A **simple Lie algebra** is a Lie algebra that is non-abelian and contains no nonzero proper ideals. A finite-dimensional simple complex Lie algebra is isomorphic to either one of the following **classical Lie algebras**: 
+A Mathematica package for constructing explicit irreducible representations of the classical simple Lie algebras.
 
-- $A_{n-1}$: generators of $\mathrm{SU}(n)$ group,
-- $B_n$: generators of $\mathrm{SO}(2n+1)$ group,
-- $C_n$: generators of $\mathrm{SO}(2n)$ group,
-- $D_n$: Generators of $\mathrm{USp}(2n)$ group,
+## Background
 
-or one of the five exceptional Lie algebras: $\mathrm{G}_2$, $\mathrm{F}_4$, $\mathrm{E}_6$, $\mathrm{E}_7$, and $\mathrm{E}_8$. This `Mathematica` package helps construct the linear irreducible representations of the classical Lie algebras. 
+A Lie algebra is *simple* if it is non-abelian and contains no nonzero proper ideal. Every finite-dimensional simple complex Lie algebra falls into one of four infinite families ($A_n$, $B_n$, $C_n$, $D_n$), or is one of the five exceptional algebras $G_2$, $F_4$, $E_6$, $E_7$, $E_8$. The four families are the complexified Lie algebras of the classical matrix groups:
+
+| Family | Algebra | Group |
+| :--- | :--- | :--- |
+| $A_{n-1}$ | $\mathfrak{su}(n)$ | $\mathrm{SU}(n)$ |
+| $B_n$ | $\mathfrak{so}(2n+1)$ | $\mathrm{SO}(2n+1)$ |
+| $C_n$ | $\mathfrak{sp}(2n)$ | $\mathrm{USp}(2n)$ |
+| $D_n$ | $\mathfrak{so}(2n)$ | $\mathrm{SO}(2n)$ |
+
+This package builds the generators and the irreducible representations of these algebras. It provides three entry points: `SU[n]`, `SO[n]` (which covers both the $B$ and $D$ families), and `Sp[n]`, together with the Young-tableau tools used to label and orthogonalize representation states.
 
 ## Usage
 
-Place the file `ClassicalLieAlgebra.wl` in a folder, create a new notebook file with extension `.nb` in the same folder, and input the import command on the first line:
+Place `ClassicalLieAlgebra.wl` in a folder, create a notebook in the same folder, and load the package on the first line:
 
 ```mathematica
-Import[NotebookDirectory[]<>"ClassicalLieAlgebra.wl"];
+Import[NotebookDirectory[] <> "ClassicalLieAlgebra.wl"];
 ```
 
-For more examples of usage, see `Demo.nb` notebook.
+See `Demo.nb` for worked examples.
 
-## Example of su(3)
+## Example: su(3)
 
-Here we discuss the SU(3) group, which has no essential difference compared to higher SU(N) groups. 
+We walk through SU(3). Higher SU(N) groups work in exactly the same way.
 
-The first function of this package is to give us the specific information of the algebra generators. For example, the command to obtain the standard generators of SU(3) is:
+### Generators
+
+`Generators` returns the standard generators of the algebra. For SU(3) these are the eight Gell-Mann matrices:
 
 ```mathematica
-MatrixForm/@Generators[SU[3]]
+MatrixForm /@ Generators[SU[3]]
 ```
 
-The result is 8 Gell-Mann matrices:
+![Gell-Mann generators of SU(3)](pics/su3-generators.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/O1.png)
+### Cartan–Weyl basis
 
-We can also obtain the **Cartan-Weyl basis** of this algebra using the following command:
+`CartanWeyl` returns the basis as a triple `{H, E, F}`: the diagonal Cartan generators `H`, the raising operators `E`, and the lowering operators `F`.
 
 ```mathematica
 {h, e, f} = CartanWeyl[SU[3]];
-Print["H = ", MatrixForm /@ h, ", E = ", MatrixForm/@e, ", F = ", MatrixForm /@ f];
+Print["H = ", MatrixForm /@ h, ", E = ", MatrixForm /@ e, ", F = ", MatrixForm /@ f];
 ```
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/O2.png)
+![Cartan–Weyl basis of su(3)](pics/su3-cartan-weyl.png)
 
-For building representations, the most useful generator is the **Chevalley basis**, whose specific form is:
+### Chevalley basis
+
+The most convenient basis for building representations is the Chevalley basis:
 
 ```mathematica
 {h, e, f} = Chevalley[SU[3]];
 Print["H = ", MatrixForm /@ h, ", E = ", MatrixForm /@ e, ", F = ", MatrixForm /@ f];
 ```
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/O3.png)
+![Chevalley basis of su(3)](pics/su3-chevalley.png)
 
-We see that under the Chevalley basis, the generators form two coupled SU(2) groups, whose relationship can be visually expressed as a 3-level system transition:
+In this basis the generators split into two coupled SU(2) subalgebras, which we can picture as transitions in a three-level system:
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/P1.png)
+![SU(3) as a three-level system](pics/su3-levels.png)
 
-We see that the three types of Chevalley basis generators have the following effects on this 3-level system:
+The three kinds of Chevalley generator act on the system as follows:
 
-- $E_1, E_2$ are operators that raise the energy levels, while $F_1, F_2$ are operators that lower the energy levels.
-- $E_1, F_1, H_1$ form the SU(2) algebra between $\left| 1 \right \rangle$ and $\left| 2 \right \rangle$, while $E_2, F_2, H_2$ form the SU(2) algebra between $\left| 2 \right \rangle$ and $\left| 3 \right \rangle$.
-- $H_1, H_2$ correspond to the two "magnetic quantum numbers" of this 3-level system, and each energy level has an eigenvalue determined by $H_1, H_2$.
-- From the eigenvalues of $H_1, H_2$, we can see that $E_1$ increases the magnetic quantum numbers by $(2,-1)$, while $E_2$ increases the magnetic quantum numbers by $(-1,2)$. Correspondingly, the operators $F_1, F_2$ decrease the corresponding magnetic quantum numbers.
+- $E_1, E_2$ raise the energy level, and $F_1, F_2$ lower it.
+- $E_1, F_1, H_1$ generate the SU(2) acting between $|1\rangle$ and $|2\rangle$, and $E_2, F_2, H_2$ generate the SU(2) acting between $|2\rangle$ and $|3\rangle$.
+- $H_1, H_2$ are the two "magnetic quantum numbers" of the system: each level is an eigenstate with eigenvalues set by $H_1$ and $H_2$.
+- Reading those eigenvalues off, $E_1$ shifts the magnetic quantum numbers by $(2, -1)$ and $E_2$ shifts them by $(-1, 2)$; $F_1$ and $F_2$ shift them in the opposite direction.
 
-This 3-level system provides the fundamental representation of SU(3). To obtain larger representations, we only need to consider the representations given by $N$ such 3-level systems under the action of generators. For an N-body system, the total generators are:
+This three-level system is the fundamental representation of SU(3). Larger representations are built from $N$ copies of it: for an $N$-body system the total generators are
+
 $$
-H = \sum_i H_i ,\quad  E = \sum_i E_i ,\quad  F = \sum_i F_i.
+H = \sum_i H_i, \qquad E = \sum_i E_i, \qquad F = \sum_i F_i.
 $$
-The total magnetic quantum numbers can be used to label different states in the representation. This is also known as the weight of the state, and states with different weight values must be orthogonal. But sometimes certain weight values in space are expressed as several linearly independent states. These states may not be orthogonal, and this is when we encounter the issue of degenerate weights. At this point, orthogonalization is required. The procedure for orthogonalization is similar to that in quantum mechanics.
 
-### Young Tableau and Wave Function
+The total magnetic quantum numbers label the states of the representation. This label is the *weight* of the state. States of different weight are orthogonal, but a single weight may be shared by several linearly independent states. Those states need not be orthogonal, so when a weight is degenerate we orthogonalize them, just as one does in quantum mechanics.
 
-To obtain an irreducible representation space, we actually only need to start from any wave function in this space and continuously act on the group generators to generate a closed space, which is the irreducible representation space. Therefore, the most important thing for the SU(3) irreducible representation is to find a state for each irreducible representation space.
+### Young tableaux and wave functions
 
-The Young tableaux provide such a state, which is the highest-weight state of the irreducible representation. The SU(3) group irreducible representation can be represented by a Young tableau $[\lambda_1, \lambda_2]$ with no more than two rows, and the corresponding representation is denoted as $(\lambda_1-\lambda_2,\lambda_3)$. The index of the representation represents the weight value of the highest weight state or the "magnetic quantum number" of the highest weight state (determined by the eigenvalue of the Chevalley basis generator $H_i$). The tensor Young tableau of the highest weight state of each representation is to fill all the 1 in the first row of the Young diagram and all the 2 in the second row. For example, for the $(1,1)$ representation, its tensor Young tableau is:
+To build an irreducible representation it is enough to start from any state in it and apply the generators until the space closes. The natural starting point is the highest-weight state, and a Young tableau hands it to us directly.
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/Y1.png)
+An SU(3) irrep corresponds to a Young diagram of at most two rows. A diagram with row lengths $[\mu_1, \mu_2]$ carries the irrep with Dynkin labels $(\mu_1 - \mu_2, \mu_2)$; equivalently, the $(l_1, l_2)$ irrep has a highest-weight tableau of shape $[l_1 + l_2, l_2]$, filled with $1$s along the first row and $2$s along the second. For the $(1, 1)$ irrep the shape is $[2, 1]$:
 
-The corresponding wave function of this tensor Young tableau can be implemented with the following command:
+![Highest-weight tableau of the (1,1) irrep](pics/rep11-highest-weight.png)
+
+To get the wave function of a tensor tableau, apply its Young symmetrizer:
 
 ```mathematica
 ct = Tableau[{{1, 2}, {3}}];
@@ -84,76 +96,74 @@ v = Psi[1, 1, 2];
 TableauPermute[ct, v]
 ```
 
-The output result is
-
 ```mathematica
-2 Psi[1,1,2] - Psi[1,2,1] - Psi[2,1,1]
+2 Psi[1, 1, 2] - Psi[1, 2, 1] - Psi[2, 1, 1]
 ```
 
-That is to say, for the $(l_1,l_2)$ representation of SU(3), the tensor Young tableau with the shape $[l_1+l_2,l_2]$ filled according to the above rules is the highest weight state of this representation.
+We keep the tensor-tableau form because it is a compact notation for the many-body wave function and because it shows the permutation symmetry directly. Since the columns of a Young symmetrizer are antisymmetric, a repeated entry within a column makes the wave function vanish.
 
-Next, as long as we continuously act on the highest weight state with the generators until we cannot obtain more linearly independent wave functions, we can obtain the representation space. From here on, we can actually complete the next calculation entirely on the wave function. However, we still keep the form of the tensor Young tableau because it provides a "compact" form for the many-body wave function. At the same time, the tensor Young tableau intuitively displays some permutation symmetries of the wave function. For example, since the elements of the Young operator are all anti-symmetric, the same number cannot appear in the same column of the tensor Young tableau, otherwise the wave function is 0.
+### The (1,1) representation of su(3)
 
-### The (1, 1) representation of su(3)
+Starting from the highest-weight state, we apply the lowering generators and follow the transitions they produce. A single line denotes the action of $F_1$ and a double line the action of $F_2$; we leave the size of each matrix element until later. The first level of transitions is
 
-Now, we start from the highest weight state and act on two generators under the Chevalley basis on this wave function. The new wave function obtained by the action represents a "transition" process under the action of the generators, and we can use lines to represent a "transition" process (a single line represents the action of $F_1$, and a double line represents the action of $F_2$). We temporarily do not discuss the size of the transition matrix elements here. The results of the first-level "transition" are:
+![First-level transitions of the (1,1) irrep](pics/rep11-first-level.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/T1.png)
+with the weight of each state shown beside its tableau. (A weight can be found either by summing the magnetic quantum numbers of its cells or by tracking how the lowering operators shift it.)
 
-We labeled the weight of each state next to each Young tableau (the weight calculation can be obtained by adding up the magnetic quantum numbers of each small cell or by using the lowering operator to obtain the weight change of the weight).
+At the second level, take the state on the left:
 
-Now let's consider level 2 and pay attention to the state on the left:
+![The (-1,2) state](pics/rep11-state-a.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/Y4.png)
+Acting with $F_1$ annihilates it, because a repeated entry then appears in a column. Acting with $F_2$ turns it into a superposition of two tableaux:
 
-Under the action of $F_1$, it is annihilated (the same number appears in the same column), and under the action of $F_2$, it becomes a superposition state of two tensor Young diagrams:
+![F2 acting on the (-1,2) state](pics/rep11-f2-superposition.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/Y5.png)
+The state on the right is annihilated by $F_2$, since it contains no entry that $F_2$ can lower, and $F_1$ sends it to
 
-On the right-hand side, the state is annihilated under the action of $F_2$ (no digit 2 appears in the tensor Young diagram), and the state obtained under the action of $F_1$ is:
+![F1 acting on the (2,-1) state](pics/rep11-f1-result.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/Y7.png)
+The second tableau is not standard, but the symmetry of the Young symmetrizer (which exchanges the entry $1$ with $2$ and $3$) rewrites it:
 
-The second table is not a regular Young tableau, but can be symmetric using the symmetry of the Young operator (1 exchanges with 2,3).
+![Symmetrizing the non-standard tableau](pics/rep11-symmetrize.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/Y8.png)
+and in standard form the result is
 
-Converted to regular tensor Young diagram, finally:
+![Regularized result](pics/rep11-regular.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/Y9.png)
-
-At this point, the weights of the two wave functions obtained by level 3 are $(0,0)$, which indicates a situation of heavy weight. At this time, we need to orthogonalize the weight space. Just like the orthogonalization in quantum mechanics, the choice of the basis is not unique. The customary selection is to retain the state generated by the generator with smaller index, and orthogonalize the other states relative to this state. Here, it corresponds to retaining the state on the right. Now, we can orthogonalize these two Young diagrams into wave functions. This mechanical procedure can be completed using the Mathematica package. First, establish two tensor Young diagrams:
+Both states reached at the third level have weight $(0, 0)$, so this weight is degenerate and we orthogonalize within it. As with Gram–Schmidt orthogonalization in quantum mechanics, the choice of basis is not unique; the usual convention keeps the state generated by the lower-index operator and orthogonalizes the others against it. Here we keep the state on the right. The package does this mechanically. First build the two tableaux:
 
 ```mathematica
 a = 2 TensorTableau[{{1, 2}, {3}}] - TensorTableau[{{1, 3}, {2}}];
 b = TensorTableau[{{1, 3}, {2}}] + TensorTableau[{{1, 2}, {3}}];
 ```
 
-The orthogonalization function is:
+then orthogonalize:
 
 ```mathematica
 {c, d} = TableauOrthogonalization[a, b];
 ```
 
-Finally, we can print the results:
+and print the result:
 
 ```mathematica
 TableauForm /@ {c, d}
 ```
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/O4.png)
+![Orthogonalized (0,0) states](pics/rep11-orthogonalized.png)
 
-In this way, we have drawn the structure diagram of the (1,1) representation of the SU(3) Lie algebra, and we see that this is an 8-dimensional space, and 8 nodes give a set of orthonormal bases for this space. At the same time, the transition behavior between the generating elements in this space basis state may also be determined by this structural diagram.
+This completes the structure of the $(1, 1)$ representation: an eight-dimensional space whose nodes give an orthonormal basis, with the transitions between basis states laid out by the diagram.
 
-Now, there is one more question, which is the size of the transition matrix element between the generating elements among these nodes. This is actually similar to a quantum mechanics problem. The coefficient of the transition is largely determined by the normalization of each state. Here we analyze a specific transition process, which is the one in the above figure:
+#### Transition matrix elements
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/T4.png)
+What remains is the size of each transition. As in quantum mechanics, the coefficients follow largely from the normalization of the states. Consider this transition:
 
-We start from the state:
+![A transition in the (1,1) irrep](pics/rep11-transition.png)
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/Y4.png)
+Start from the state
 
-and denote it as $\left| a \right\rangle$, first normalize it by the following command:
+![The state |a>](pics/rep11-state-a.png)
+
+call it $|a\rangle$, and normalize it:
 
 ```mathematica
 a = TensorTableau[{{1, 2}, {2}}];
@@ -161,13 +171,13 @@ na = TableauNormalization[a];
 Print["|a> = ", TableauForm[na]];
 ```
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/O5.png)
+![Normalized |a>](pics/rep11-state-a-normalized.png)
 
-The result of the action of the generating element $F_2$ is:
+Acting with $F_2$ gives
 
-![img](https://raw.github.com/jayren3996/LieAlgebra/master/pics/O6.png)
+![F2 acting on |a>](pics/rep11-f2-action.png)
 
-We denote this state as $\left| b \right\rangle$, and the two basis states $\left| c \right \rangle,\left| d \right \rangle$​. First, we normalize the states $\left| c \right \rangle$ and $\left| d \right \rangle$ and calculate their inner product separately. This calculation can be performed using the following command (which also displays the normalized states):
+Call this $|b\rangle$. Together with the two basis states $|c\rangle$ and $|d\rangle$ of the $(0, 0)$ space, we normalize and take inner products to read off the transition matrix element:
 
 ```mathematica
 b = TensorTableau[{{1, 2}, {3}}]/Sqrt[6] + TensorTableau[{{1, 3}, {2}}]/Sqrt[6];
@@ -175,8 +185,17 @@ c = TensorTableau[{{1, 3}, {2}}];
 d = 2 TensorTableau[{{1, 2}, {3}}] - TensorTableau[{{1, 3}, {2}}];
 nc = TableauNormalization[c];
 nd = TableauNormalization[d];
-Print["|c> = ", TableauForm[nc], ", |d> = ", TableauForm[nd], ", |d> = ", TableauForm[nd],", <d|b> = ", TableauDot[nd, b]];
+Print["|c> = ", TableauForm[nc], ", |d> = ", TableauForm[nd], ", <d|b> = ", TableauDot[nd, b]];
 ```
 
-The corresponding wave function inner product is the transition matrix element.
+The inner product `TableauDot[nd, b]` is the transition matrix element.
 
+## Regenerating the figures
+
+Every figure in this README is generated directly from the package by [`pics/MakeFigures.wls`](pics/MakeFigures.wls), so the figures stay in step with the code. Rasterizing the typeset matrices and tableaux needs a Wolfram front end, so run the script with a full installation rather than a bare command-line kernel:
+
+```sh
+wolframscript -file pics/MakeFigures.wls
+```
+
+The script also prints a short report confirming that the $(1, 1)$ expressions it draws agree with the package.
