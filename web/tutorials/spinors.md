@@ -1,0 +1,83 @@
+# Spinors of so(N)
+
+The spinor representations are the package's distinctive reach: they do **not**
+appear in any tensor power of the defining (vector) representation, so tableau and
+tensor methods cannot build them — but the abstract highest-weight (Shapovalov)
+construction reaches them, with explicit matrices, like any other irrep.
+
+```mathematica
+Needs["ClassicalLieAlgebra`"];
+```
+
+## Where the spinors sit
+
+In the Bourbaki labelling the package uses, the spinor highest weights are the
+**last** Dynkin label(s):
+
+| Algebra | Type | Spinor highest weight(s) | Dimension |
+| :--- | :--- | :--- | :---: |
+| so(2n+1) | $B_n$ | one spinor: `{0, …, 0, 1}` | $2^n$ |
+| so(2n) | $D_n$ | two half-spinors: `{0, …, 1, 0}`, `{0, …, 0, 1}` | $2^{n-1}$ each |
+
+So so(5) $=B_2$ has a single $2^2=4$-dimensional spinor `{0, 1}`; so(7) $=B_3$ a
+single $2^3=8$-dimensional spinor `{0, 0, 1}`; so(6) $=D_3$ two 4-dimensional
+half-spinors; and so(8) $=D_4$ two 8-dimensional half-spinors (the famous triality
+with the 8-dimensional vector).
+
+The half-integer fundamental weight is the giveaway — for so(5):
+
+```mathematica
+FundamentalWeights[SO[5]]    (* {{1, 0}, {1/2, 1/2}} — the second is the spinor *)
+```
+
+## Building the so(5) spinor
+
+```mathematica
+sp5 = Irrep[SO[5], {0, 1}];
+RepresentationDimension[sp5]   (* 4 *)
+CasimirEigenvalue[sp5]         (* 5/2 *)
+WeightSystem[sp5]              (* four weight-1 states *)
+```
+
+The generator matrices are explicit $4\times 4$ matrices — here the first Cartan
+generator's diagonal, the spinor's $H_1$ "magnetic quantum numbers":
+
+```mathematica
+Diagonal[RepresentationMatrices[sp5]["Cartan"][[1]]]
+```
+
+And they really satisfy the algebra. Using the `chevalleyHolds[g, w]` check from the
+[physics-applications tutorial](physics-applications.md):
+
+```mathematica
+chevalleyHolds[SO[5], {0, 1}]      (* True *)
+chevalleyHolds[SO[7], {0, 0, 1}]   (* True: the 8-dim so(7) spinor *)
+chevalleyHolds[SO[8], {0, 0, 1, 0}] (* True: an so(8) half-spinor *)
+```
+
+!!! note "Why tableaux cannot reach these"
+
+    For su(n) the irreps are the Young diagrams — every one sits inside a tensor
+    power of the defining representation. For so(N) the spinors do not: no tensor
+    power of the $N$-dimensional vector contains them. The construction here does
+    not go through tensor powers, so it reaches them anyway. This is the feature
+    that [sets the package apart](../comparison.md).
+
+## so(5) ≅ sp(4)
+
+A nice consistency check: the algebras $B_2=\mathfrak{so}(5)$ and
+$C_2=\mathfrak{sp}(4)$ are isomorphic, and the so(5) spinor matches the sp(4)
+defining representation — both 4-dimensional, both with Casimir `5/2`:
+
+```mathematica
+{RepresentationDimension[Irrep[SO[5], {0, 1}]], RepresentationDimension[Irrep[Sp[4], {1, 0}]]}  (* {4, 4} *)
+{CasimirEigenvalue[Irrep[SO[5], {0, 1}]], CasimirEigenvalue[Irrep[Sp[4], {1, 0}]]}              (* {5/2, 5/2} *)
+```
+
+## Next
+
+- The full representation engine: [Representations](representations.md).
+- Where this lands among other tools: [Why this package](../comparison.md).
+- Reference: [`Irrep`](../reference/representations.md#irrep) ·
+  [`RepresentationMatrices`](../reference/representations.md#representationmatrices) ·
+  [`FundamentalWeights`](../reference/root-system.md#fundamentalweights).

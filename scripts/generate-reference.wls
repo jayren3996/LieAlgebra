@@ -59,6 +59,9 @@ groups = {
 (* symbol -> page slug, so "see also" can link across pages *)
 symbolPage = Association @@ Flatten[Function[g, (# -> g["slug"]) & /@ g["symbols"]] /@ groups];
 anchor[name_] := ToLowerCase[name];
+(* a "see also" entry is either a symbol name (linked to its reference anchor) or
+   a {label, url} pair linking out to a narrative page (tour, tutorials, ...) *)
+seeAlsoLink[{label_String, url_String}] := "[" <> label <> "](" <> url <> ")";
 seeAlsoLink[name_] := If[KeyExistsQ[symbolPage, name],
    "[`" <> name <> "`](" <> symbolPage[name] <> ".md#" <> anchor[name] <> ")",
    "`" <> name <> "`"];
@@ -76,24 +79,35 @@ runExample[in_String] := Module[{res, bad = False},
 ];
 fmtOut[res_] := ToString[res, InputForm, PageWidth -> 76];
 
-(* an example is either "expr" (run, embed output) or {"expr", "note"} (run to
-   validate, but show the note instead of output, for front-end display forms) *)
-renderExample[ex_] := If[ListQ[ex],
-   With[{in = ex[[1]], note = ex[[2]]},
-      runExample[in];
-      StringJoin["```mathematica\n", in, "\n```\n\n", "*", note, "*\n\n"]],
-   With[{res = runExample[ex]},
-      StringJoin["```mathematica\n", ex, "\n```\n\n", "```\n", fmtOut[res], "\n```\n\n"]]];
+(* an example is one of:
+     "expr"                       run it, embed the output;
+     {"expr", "note"}             run to validate, show the italic note instead
+                                  of output (for front-end display forms);
+     {"expr", "image", "path"}    run to validate, embed an image at path (a
+                                  committed rasterization, e.g. from MakeFigures.wls). *)
+renderExample[ex_] := Which[
+   ListQ[ex] && Length[ex] >= 3 && ex[[2]] === "image",
+     (runExample[ex[[1]]];
+      StringJoin["```mathematica\n", ex[[1]], "\n```\n\n",
+         "![", If[Length[ex] >= 4, ex[[4]], "output"], "](", ex[[3]], "){ .center }\n\n"]),
+   ListQ[ex],
+     (runExample[ex[[1]]];
+      StringJoin["```mathematica\n", ex[[1]], "\n```\n\n", "*", ex[[2]], "*\n\n"]),
+   True,
+     With[{res = runExample[ex]},
+        StringJoin["```mathematica\n", ex, "\n```\n\n", "```\n", fmtOut[res], "\n```\n\n"]]];
 
 argRow[{a_, d_}] := "| `" <> a <> "` | " <> d <> " |\n";
 optRow[{o_, def_, d_}] := "| `" <> o <> "` | `" <> def <> "` | " <> d <> " |\n";
+msgRow[{m_, w_}] := "| `" <> m <> "` | " <> w <> " |\n";
 
 renderSymbol[name_] := Module[
-   {d = Lookup[details, name, <||>], u = usageOf[name], sigs, desc, args, opts, exs, notes, see},
+   {d = Lookup[details, name, <||>], u = usageOf[name], sigs, desc, args, opts, msgs, exs, notes, see},
    sigs = Lookup[d, "signatures", {name}];
    desc = Lookup[d, "description", If[StringQ[u], mdEscape[u], ""]];
    args = Lookup[d, "args", {}];
    opts = Lookup[d, "options", {}];
+   msgs = Lookup[d, "messages", {}];
    exs = Lookup[d, "examples", {}];
    notes = Lookup[d, "notes", {}];
    see = Lookup[d, "seealso", {}];
@@ -103,6 +117,7 @@ renderSymbol[name_] := Module[
       desc, "\n\n",
       If[args =!= {}, "**Arguments**\n\n| Argument | Description |\n| :-- | :-- |\n" <> StringJoin[argRow /@ args] <> "\n", ""],
       If[opts =!= {}, "**Options**\n\n| Option | Default | Description |\n| :-- | :-- | :-- |\n" <> StringJoin[optRow /@ opts] <> "\n", ""],
+      If[msgs =!= {}, "**Messages**\n\nEmits a message and returns `$Failed` on invalid input.\n\n| Message | When |\n| :-- | :-- |\n" <> StringJoin[msgRow /@ msgs] <> "\n", ""],
       If[exs =!= {}, "**Examples**\n\n" <> StringJoin[renderExample /@ exs], ""],
       If[notes =!= {}, "**Notes**\n\n" <> StringJoin[("- " <> # <> "\n") & /@ notes] <> "\n", ""],
       If[see =!= {}, "**See also:** " <> StringRiffle[seeAlsoLink /@ see, dot] <> "\n", ""]

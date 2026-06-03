@@ -1,24 +1,77 @@
+<div class="cla-hero" markdown>
+
 # ClassicalLieAlgebra
 
-**Exact generators, bases, Young tableaux, and irreducible representations of the classical Lie algebras — for the Wolfram Language.**
+Exact generators, bases, Young tableaux, and irreducible representations of the
+classical Lie algebras — **su(n)**, **so(n)**, **sp(2n)** — for the Wolfram Language.
 
-`ClassicalLieAlgebra` is a Wolfram Language paclet for working with the classical simple Lie algebras — the special unitary `su(n)`, special orthogonal `so(n)`, and symplectic `sp(2n)` families. It gives you their generators in several standard bases, a Young-tableau toolkit for many-body wavefunctions, and a representation engine that builds any irreducible representation from its highest weight: its dimension, weight system, Casimir eigenvalue, and the explicit generator matrices. Everything is computed in exact arithmetic, and the construction reaches every irrep, including the orthogonal and symplectic **spinor** representations.
+[Guided tour of SU(3)](walkthrough.md){ .md-button .md-button--primary }
+[API reference](reference/index.md){ .md-button }
+
+</div>
+
+![The (1,1) "octet" of SU(3), pictured as a three-level system](pics/su3-levels.png){ .center width="520" }
+
+`ClassicalLieAlgebra` is a Wolfram Language paclet for working with the classical
+simple Lie algebras — the special unitary `su(n)`, special orthogonal `so(n)`, and
+symplectic `sp(2n)` families. It gives you their generators in several standard
+bases, a Young-tableau toolkit for many-body wavefunctions, and a representation
+engine that builds any irreducible representation from its highest weight: its
+dimension, weight system, Casimir eigenvalue, and the explicit generator matrices.
+
+## Why ClassicalLieAlgebra
+
+<div class="grid cards" markdown>
+
+-   :material-check-decagram-outline:{ .lg .middle } __Exact, all the way down__
+
+    ---
+
+    Every root, weight, and matrix element is computed over the rationals — no
+    floating point. Results you can trust and verify.
+
+    [:octicons-arrow-right-24: How it's validated](validation.md)
+
+-   :material-set-all:{ .lg .middle } __All four families, one interface__
+
+    ---
+
+    `su`, `so` (both `B` and `D`), and `sp` behind a single API: `SU[n]`,
+    `SO[n]`, `Sp[n]`, or the canonical `LieAlgebra[type, rank]`.
+
+    [:octicons-arrow-right-24: The concepts](concepts.md)
+
+-   :material-atom-variant:{ .lg .middle } __Reaches the spinors__
+
+    ---
+
+    Explicit generator matrices for **every** irrep — including the orthogonal and
+    symplectic **spinor** representations that no tensor power of the defining
+    representation reaches.
+
+    [:octicons-arrow-right-24: Spinors of so(N)](tutorials/spinors.md)
+
+</div>
+
+Coming from another tool? See [how it compares](comparison.md).
 
 ## Installation
 
-Work from a local checkout:
+=== "From a checkout"
 
-```mathematica
-PacletDirectoryLoad["/path/to/LieAlgebra"];
-Needs["ClassicalLieAlgebra`"];
-```
+    ```mathematica
+    PacletDirectoryLoad["/path/to/LieAlgebra"];
+    Needs["ClassicalLieAlgebra`"];
+    ```
 
-Once a tagged release is published, you can install the built paclet from its release asset instead:
+=== "From a release"
 
-```mathematica
-PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/vX.Y.Z/ClassicalLieAlgebra-X.Y.Z.paclet"];
-Needs["ClassicalLieAlgebra`"];
-```
+    Once a tagged release is published, install the built paclet from its release asset:
+
+    ```mathematica
+    PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/vX.Y.Z/ClassicalLieAlgebra-X.Y.Z.paclet"];
+    Needs["ClassicalLieAlgebra`"];
+    ```
 
 ## Quick start
 
@@ -49,11 +102,47 @@ RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4: the so(5) spinor *)
 | Irreps: explicit generator matrices | ✓ | ✓ | ✓ | ✓ |
 | Spinor representations | — | ✓ | — | ✓ |
 
-## Learn more
+## Where to next
 
-- **[Guided tour of SU(3)](walkthrough.md)** — the long-form walkthrough: the construction of the SU(3) representations step by step, with figures, and the representation engine in depth.
-- **[Runnable demos](demos.md)** — four self-contained scripts you can run straight from a checkout: a getting-started tour, the representation engine, the Young-tableau toolkit, and physics applications.
-- **[API reference](reference/index.md)** — every public symbol, grouped by theme.
+<div class="grid cards" markdown>
+
+-   :material-school-outline:{ .lg .middle } __Concepts__
+
+    ---
+
+    New to roots, weights, and Dynkin labels? Start with the vocabulary the rest
+    of the docs assume — type-agnostic, not just SU(3).
+
+    [:octicons-arrow-right-24: Read the concepts](concepts.md)
+
+-   :material-compass-outline:{ .lg .middle } __Guided tour__
+
+    ---
+
+    Build the SU(3) representations step by step — the Cartan–Weyl and Chevalley
+    bases, Young tableaux, and the weight diagram, with figures.
+
+    [:octicons-arrow-right-24: Take the tour](walkthrough.md)
+
+-   :material-flask-outline:{ .lg .middle } __Tutorials__
+
+    ---
+
+    Four worked, runnable walkthroughs: getting started, the representation
+    engine, the tableau toolkit, and physics applications.
+
+    [:octicons-arrow-right-24: Browse tutorials](tutorials/index.md)
+
+-   :material-book-open-variant:{ .lg .middle } __API reference__
+
+    ---
+
+    Every public symbol, grouped by theme, with signatures and
+    build-evaluated examples.
+
+    [:octicons-arrow-right-24: Open the reference](reference/index.md)
+
+</div>
 
 ## License
 

@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use ClassicalLieAlgebra in your research, please cite it as below."
+title: "ClassicalLieAlgebra: generators, bases, Young tableaux, and irreducible representations of the classical Lie algebras"
+abstract: >-
+  A Wolfram Language paclet for the classical simple Lie algebras (su, so, sp):
+  generators in the standard, Cartan-Weyl, and Chevalley bases; root-system data;
+  a Young-tableau toolkit for many-body wavefunctions; and a representation engine
+  that builds any irreducible representation from its highest weight -- dimension,
+  weight system, Casimir eigenvalue, and explicit generator matrices, including the
+  orthogonal and symplectic spinor representations -- in exact arithmetic.
+type: software
+authors:
+  - family-names: Ren
+    given-names: Jie
+version: "1.0.0"
+date-released: "2026-06-03"
+license: MIT
+repository-code: "https://github.com/jayren3996/LieAlgebra"
+url: "https://jayren3996.github.io/LieAlgebra/"
+keywords:
+  - Lie algebra
+  - representation theory
+  - Wolfram Language
+  - Young tableaux
+  - Casimir
+  - spinor representation
