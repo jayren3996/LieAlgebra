@@ -23,7 +23,7 @@ WeightSystem[Irrep[g_LieAlgebra, w_]] := ClassicalLieAlgebra`Weights`Private`wei
 (* Weight of a word in Dynkin-label coordinates.
    w_λ has weight λ; applying f_i shifts the weight by -α_i, which in
    Dynkin coordinates subtracts the i-th row of the Cartan matrix. *)
-wordWeight[g_, lam_, word_List] :=
+wordWeight[g_, lam_, word_List] := wordWeight[g, lam, word] =
   lam - Total[CartanMatrix[g][[#]] & /@ word, 1];
 
 (* applyF[i, vec]: prepend root index i to every word key (= act with f_i). *)
@@ -38,7 +38,7 @@ applyH[g_, lam_, i_Integer, word_List] :=
 
 (* applyE[g, lam, i, word]: single-word action of e_i.
    Uses e_i f_j = f_j e_i + δ_{ij} h_i and e_i v_λ = 0. *)
-applyE[g_, lam_, i_Integer, word_List] :=
+applyE[g_, lam_, i_Integer, word_List] := applyE[g, lam, i, word] =
   If[word === {},
     <||>,  (* e_i annihilates v_λ *)
     Module[{j = First[word], rest = Rest[word]},
@@ -80,14 +80,15 @@ shapovalov[g_, lam_, vec1_Association, vec2_Association] :=
    one entry per basis vector, ordered by descending weight level.
    Uses BFS + Gram-Schmidt w.r.t. the Shapovalov form. *)
 buildModule[g_, lam_] :=
-  Module[{r, mult, dim, basis, allWeights, changed, nu, candidates, mu,
-          i, cand, proj, nrm2, b, bvec, bwt, orderedBasis},
+  Module[{r, mult, basis, changed, nu, candidates, mu,
+          i, cand, proj, nrm2, bvec, bn2, orderedBasis},
     r    = Rank[g];
     mult = ClassicalLieAlgebra`Weights`Private`weightSystemDynkin[g, lam];
-    dim  = ClassicalLieAlgebra`Weights`Private`weylDim[g, lam];
 
-    (* basis: dynkinWeight -> list of orthonormal module-vectors *)
-    basis = <| lam -> {<|{} -> 1|>} |>;
+    (* basis: dynkinWeight -> list of {orthogonal module-vector, its Shapovalov norm^2}.
+       Vectors stay ORTHOGONAL with rational coefficients (no Sqrt); the 1/||.||
+       normalization is deferred to the matrices, keeping the construction in Q. *)
+    basis = <| lam -> {{<|{} -> 1|>, 1}} |>;
 
     (* Iterate until every weight space has the right multiplicity *)
     changed = True;
@@ -105,7 +106,7 @@ buildModule[g_, lam_] :=
           mu = nu + CartanMatrix[g][[i]];  (* mu = nu + i-th simple root in Dynkin coords *)
           If[KeyExistsQ[basis, mu],
             Do[
-              AppendTo[candidates, applyF[i, u]],
+              AppendTo[candidates, applyF[i, First[u]]],
             {u, basis[mu]}]
           ],
         {i, r}];
@@ -116,20 +117,20 @@ buildModule[g_, lam_] :=
           (* subtract projections onto accepted basis at nu *)
           If[KeyExistsQ[basis, nu],
             Do[
+              {bvec, bn2} = u;
               proj = shapovalov[g, lam, bvec, cand];
               If[proj =!= 0,
                 cand = mergeVecs[cand,
-                          Map[(-proj * #) &, bvec]]
+                          Map[(-(proj/bn2) * #) &, bvec]]
               ],
-            {bvec, basis[nu]}]
+            {u, basis[nu]}]
           ];
-          (* compute norm^2 *)
+          (* Shapovalov norm^2 (rational); accept the orthogonal vector with its norm *)
           nrm2 = shapovalov[g, lam, cand, cand];
-          If[nrm2 =!= 0 && nrm2 =!= 0,
-            b = Map[(# / Sqrt[nrm2]) &, cand];
+          If[nrm2 =!= 0,
             If[!KeyExistsQ[basis, nu], basis[nu] = {}];
             If[Length[basis[nu]] < mult[nu],
-              AppendTo[basis[nu], b];
+              AppendTo[basis[nu], {cand, nrm2}];
               changed = True
             ]
           ],
@@ -143,8 +144,8 @@ buildModule[g_, lam_] :=
       nu = wt;
       If[KeyExistsQ[basis, nu],
         Do[
-          AppendTo[orderedBasis, {bvec, nu}],
-        {bvec, basis[nu]}]
+          AppendTo[orderedBasis, {First[u], nu, Last[u]}],
+        {u, basis[nu]}]
       ],
     {wt, SortBy[Keys[mult], (Total[lam - #]) &]}];
 
@@ -155,26 +156,29 @@ buildModule[g_, lam_] :=
 repMatricesCache = <||>;
 
 RepresentationMatrices[Irrep[g_LieAlgebra, w_]] :=
-  Module[{key, r, basisList, dim, B, Bwts, Hmats, Fmats, Emats, i, a, b, val},
+  Module[{key, r, basisList, dim, B, Bwts, Bn2, invs, Hmats, Fmats, Emats, i, a, b},
     key = {g, w};
     If[KeyExistsQ[repMatricesCache, key], Return[repMatricesCache[key]]];
 
     r         = Rank[g];
     basisList = buildModule[g, w];
     dim       = Length[basisList];
-    B         = basisList[[All, 1]];   (* list of module-vectors *)
-    Bwts      = basisList[[All, 2]];   (* list of dynkin-weight lists *)
+    B         = basisList[[All, 1]];   (* orthogonal module-vectors (rational) *)
+    Bwts      = basisList[[All, 2]];   (* dynkin-weight lists *)
+    Bn2       = basisList[[All, 3]];   (* Shapovalov norm^2 of each (rational) *)
+    invs      = 1/Sqrt[Bn2];           (* 1/||B_a|| *)
 
     (* H matrices: diagonal, with i-th Dynkin label of each basis vector's weight *)
     Hmats = Table[
       DiagonalMatrix[Table[Bwts[[a]][[i]], {a, dim}]],
     {i, r}];
 
-    (* F matrices: F[[i]][[a,b]] = <B_a, f_i B_b> *)
+    (* F matrices in the ORTHOGONAL basis (rational, no radicals), rescaled to the
+       orthonormal basis: F_hat[a,b] = <B_a, f_i B_b> / (||B_a|| ||B_b||). The only Sqrt's
+       in the whole construction enter here, in the final rescale. *)
     Fmats = Table[
-      Table[
-        shapovalov[g, w, B[[a]], applyF[i, B[[b]]]],
-      {a, dim}, {b, dim}],
+      With[{fB = Table[applyF[i, B[[b]]], {b, dim}], dm = DiagonalMatrix[invs]},
+        dm . Table[shapovalov[g, w, B[[a]], fB[[b]]], {a, dim}, {b, dim}] . dm],
     {i, r}];
 
     (* E matrices: E_i = ConjugateTranspose[F_i] *)
