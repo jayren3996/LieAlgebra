@@ -12,12 +12,6 @@
 
 `ClassicalLieAlgebra` is a Wolfram Language paclet for working with the classical simple Lie algebras — the special unitary `su(n)`, special orthogonal `so(n)`, and symplectic `sp(2n)` families. It gives you their generators in several standard bases, a Young-tableau toolkit for many-body wavefunctions, and a representation engine that builds any irreducible representation from its highest weight: its dimension, weight system, Casimir eigenvalue, and the explicit generator matrices. Everything is computed in exact arithmetic, and the construction reaches every irrep, including the orthogonal and symplectic **spinor** representations.
 
-<p align="center">
-  <img src="pics/su3-levels.png" width="32%" alt="SU(3) as a three-level system">
-  <img src="pics/rep11-first-level.png" width="32%" alt="Weight-lowering tree of the (1,1) representation">
-  <img src="pics/rep11-transition.png" width="32%" alt="A transition in the (1,1) representation">
-</p>
-
 <div align="center">
 <a href="#features">Features</a> ·
 <a href="#installation">Installation</a> ·
@@ -32,7 +26,7 @@
 - **Every basis.** The standard (defining-representation) generators, the Cartan–Weyl basis, and the Chevalley basis, as exact matrices, with the change of basis between realizations.
 - **Young-tableau machinery.** Tensor tableaux, their wavefunctions, inner products, normalization, and orthogonalization of degenerate weight spaces.
 - **A representation engine.** `Irrep[g, λ]` gives the dimension (Weyl formula), the weight system with multiplicities (Freudenthal), the Casimir eigenvalue, and the explicit Chevalley generator matrices in the irrep, for every classical irrep (**spinors included**).
-- **Exact and tested.** Exact arithmetic throughout, with a `VerificationTest` suite and continuous integration.
+- **Exact and tested.** Exact arithmetic throughout, with a `VerificationTest` suite.
 
 ## Installation
 
@@ -83,14 +77,6 @@ RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4: the so(5) spinor *)
 
 - **[Guided tour of SU(3)](docs/walkthrough.md)** — the long-form walkthrough: the construction of the SU(3) representations step by step, with figures, and the representation engine in depth.
 - **[Runnable demos](demos/)** — four self-contained scripts you can run straight from a checkout: a getting-started tour, the representation engine, the Young-tableau toolkit, and physics applications.
-
-## Regenerating the figures
-
-Every figure is generated from the package by [`pics/MakeFigures.wls`](pics/MakeFigures.wls), so they stay in step with the code. Rasterizing the typeset matrices and tableaux needs a Wolfram front end:
-
-```sh
-wolframscript -file pics/MakeFigures.wls
-```
 
 ## License
 
