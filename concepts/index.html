@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://jayren3996.github.io/LieAlgebra/reference/representations/">
+        <link rel="canonical" href="https://jayren3996.github.io/LieAlgebra/concepts/">
       
       
-        <link rel="prev" href="../root-system/">
+        <link rel="prev" href="..">
       
       
-        <link rel="next" href="../young-tableaux/">
+        <link rel="next" href="../walkthrough/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Representations - ClassicalLieAlgebra</title>
+        <title>Concepts - ClassicalLieAlgebra</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#representations" class="md-skip">
+        <a href="#concepts" class="md-skip">
           Skip to content
         </a>
       
@@ -93,8 +93,8 @@
             
   <span class="cla-announce">
     ✨ <strong>v1.0</strong> &middot; new docs &mdash; take the
-    <a href="../../walkthrough/">guided tour</a>
-    or browse the <a href="../">API reference</a>
+    <a href="../walkthrough/">guided tour</a>
+    or browse the <a href="../reference/">API reference</a>
   </span>
 
           </div>
@@ -110,7 +110,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ClassicalLieAlgebra" class="md-header__button md-logo" aria-label="ClassicalLieAlgebra" data-md-component="logo">
+    <a href=".." title="ClassicalLieAlgebra" class="md-header__button md-logo" aria-label="ClassicalLieAlgebra" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-3.1 3.9s-.7-.3-1-.3c-.6-.1-1 .1-1.2 1.1L12 16.8c-.2.8-.5 1.4-1 1.8-.4.3-.8.4-1.3.4-.8 0-2-.5-2-.5l.5-1.4s.8.3 1 .3c.3.1.5 0 .7-.1s.3-.4.4-.7l1.6-9.2c.1-.8.5-1.4 1-1.9.6-.4 1.3-.5 2.1-.4.7.1 1.5.5 1.5.5z"/></svg>
@@ -130,7 +130,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Representations
+              Concepts
             
           </span>
         </div>
@@ -252,7 +252,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href=".." class="md-tabs__link">
         
   
   
@@ -269,9 +269,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../../concepts/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -290,7 +292,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../walkthrough/" class="md-tabs__link">
+      <a href="../walkthrough/" class="md-tabs__link">
         
   
   
@@ -311,7 +313,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tutorials/" class="md-tabs__link">
+        <a href="../tutorials/" class="md-tabs__link">
           
   
   
@@ -329,13 +331,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../reference/" class="md-tabs__link">
           
   
   
@@ -357,7 +357,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../comparison/" class="md-tabs__link">
+        <a href="../comparison/" class="md-tabs__link">
           
   
   
@@ -399,7 +399,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ClassicalLieAlgebra" class="md-nav__button md-logo" aria-label="ClassicalLieAlgebra" data-md-component="logo">
+    <a href=".." title="ClassicalLieAlgebra" class="md-nav__button md-logo" aria-label="ClassicalLieAlgebra" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-3.1 3.9s-.7-.3-1-.3c-.6-.1-1 .1-1.2 1.1L12 16.8c-.2.8-.5 1.4-1 1.8-.4.3-.8.4-1.3.4-.8 0-2-.5-2-.5l.5-1.4s.8.3 1 .3c.3.1.5 0 .7-.1s.3-.4.4-.7l1.6-9.2c.1-.8.5-1.4 1-1.9.6-.4 1.3-.5 2.1-.4.7.1 1.5.5 1.5.5z"/></svg>
@@ -429,7 +429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -453,10 +453,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../concepts/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -472,6 +499,114 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-lie-algebras-and-the-abcd-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Lie algebras and the ABCD classification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-cartan-subalgebra-roots-and-the-root-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Cartan subalgebra, roots, and the root system
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weights-dynkin-labels-and-fundamental-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weights, Dynkin labels, and fundamental weights
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-three-generator-bases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three generator bases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#highest-weights-dimension-and-the-casimir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highest weights, dimension, and the Casimir
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#young-tableaux-for-sun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Young tableaux for su(n)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conventions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-deeper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Going deeper
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -483,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../walkthrough/" class="md-nav__link">
+      <a href="../walkthrough/" class="md-nav__link">
         
   
   
@@ -541,7 +676,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../tutorials/" class="md-nav__link ">
+            <a href="../tutorials/" class="md-nav__link ">
               
   
   
@@ -585,7 +720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/getting-started/" class="md-nav__link">
+      <a href="../tutorials/getting-started/" class="md-nav__link">
         
   
   
@@ -613,7 +748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/representations/" class="md-nav__link">
+      <a href="../tutorials/representations/" class="md-nav__link">
         
   
   
@@ -641,7 +776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/spinors/" class="md-nav__link">
+      <a href="../tutorials/spinors/" class="md-nav__link">
         
   
   
@@ -669,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/young-tableaux/" class="md-nav__link">
+      <a href="../tutorials/young-tableaux/" class="md-nav__link">
         
   
   
@@ -697,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/physics-applications/" class="md-nav__link">
+      <a href="../tutorials/physics-applications/" class="md-nav__link">
         
   
   
@@ -729,8 +864,6 @@
       
   
   
-    
-  
   
   
     
@@ -754,21 +887,18 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../reference/" class="md-nav__link ">
               
   
   
@@ -786,13 +916,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -812,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../algebras/" class="md-nav__link">
+      <a href="../reference/algebras/" class="md-nav__link">
         
   
   
@@ -840,7 +970,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../root-system/" class="md-nav__link">
+      <a href="../reference/root-system/" class="md-nav__link">
         
   
   
@@ -865,37 +995,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Representations
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../reference/representations/" class="md-nav__link">
         
   
   
@@ -911,92 +1014,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#irrep" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Irrep
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#highestweight" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HighestWeight
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#representationdimension" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RepresentationDimension
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#representationmatrices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        RepresentationMatrices
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#casimireigenvalue" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CasimirEigenvalue
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#weightsystem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        WeightSystem
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1009,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../young-tableaux/" class="md-nav__link">
+      <a href="../reference/young-tableaux/" class="md-nav__link">
         
   
   
@@ -1037,7 +1054,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../glossary/" class="md-nav__link">
+      <a href="../glossary/" class="md-nav__link">
         
   
   
@@ -1132,7 +1149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../comparison/" class="md-nav__link">
+      <a href="../comparison/" class="md-nav__link">
         
   
   
@@ -1160,7 +1177,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../validation/" class="md-nav__link">
+      <a href="../validation/" class="md-nav__link">
         
   
   
@@ -1188,7 +1205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
+      <a href="../changelog/" class="md-nav__link">
         
   
   
@@ -1216,7 +1233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cite/" class="md-nav__link">
+      <a href="../cite/" class="md-nav__link">
         
   
   
@@ -1271,10 +1288,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#irrep" class="md-nav__link">
+  <a href="#simple-lie-algebras-and-the-abcd-classification" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Irrep
+        Simple Lie algebras and the ABCD classification
       
     </span>
   </a>
@@ -1282,10 +1299,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#highestweight" class="md-nav__link">
+  <a href="#the-cartan-subalgebra-roots-and-the-root-system" class="md-nav__link">
     <span class="md-ellipsis">
       
-        HighestWeight
+        The Cartan subalgebra, roots, and the root system
       
     </span>
   </a>
@@ -1293,10 +1310,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#representationdimension" class="md-nav__link">
+  <a href="#weights-dynkin-labels-and-fundamental-weights" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RepresentationDimension
+        Weights, Dynkin labels, and fundamental weights
       
     </span>
   </a>
@@ -1304,10 +1321,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#representationmatrices" class="md-nav__link">
+  <a href="#the-three-generator-bases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        RepresentationMatrices
+        The three generator bases
       
     </span>
   </a>
@@ -1315,10 +1332,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#casimireigenvalue" class="md-nav__link">
+  <a href="#highest-weights-dimension-and-the-casimir" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CasimirEigenvalue
+        Highest weights, dimension, and the Casimir
       
     </span>
   </a>
@@ -1326,10 +1343,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#weightsystem" class="md-nav__link">
+  <a href="#young-tableaux-for-sun" class="md-nav__link">
     <span class="md-ellipsis">
       
-        WeightSystem
+        Young tableaux for su(n)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conventions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#going-deeper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Going deeper
       
     </span>
   </a>
@@ -1354,46 +1393,6 @@
   
 
 
-  <nav class="md-path" aria-label="Navigation" >
-    <ol class="md-path__list">
-      
-        
-  
-  
-    <li class="md-path__item">
-      <a href="../.." class="md-path__link">
-        
-  <span class="md-ellipsis">
-    Home
-  </span>
-
-      </a>
-    </li>
-  
-
-      
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Reference
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-    </ol>
-  </nav>
-
               
               <article class="md-content__inner md-typeset">
                 
@@ -1401,230 +1400,179 @@
 
 
 
-<!-- Generated by scripts/generate-reference.wls. Do not edit by hand. -->
-
-<h1 id="representations">Representations<a class="headerlink" href="#representations" title="Permanent link">&para;</a></h1>
-<p>Build an irreducible representation from its highest weight, then read off its dimension, weight system, Casimir eigenvalue, and explicit generator matrices.</p>
-<h3 id="irrep">Irrep<a class="headerlink" href="#irrep" title="Permanent link">&para;</a></h3>
-<p><code>Irrep[g, w]</code></p>
-<p>Represents the irreducible representation of <code>g</code> with highest weight <code>w</code>. This is an inert label: a valid <code>Irrep[...]</code> returns unchanged, and the data functions (<code>RepresentationDimension</code>, <code>WeightSystem</code>, <code>CasimirEigenvalue</code>, <code>RepresentationMatrices</code>) take it and compute from it.</p>
-<p><strong>Arguments</strong></p>
+<h1 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h1>
+<p>This page defines the vocabulary the rest of the documentation uses — simple Lie
+algebras, roots and weights, Dynkin labels, the three generator bases, the
+highest-weight construction, and Young tableaux. It is deliberately
+<strong>type-agnostic</strong>: the <a href="../walkthrough/">guided tour</a> works everything out in
+detail for SU(3), while this page gives the concepts for <code>su</code>, <code>so</code>, and <code>sp</code>
+alike, and points at the function that computes each one.</p>
+<p>If you just want to see the package in action, jump to the
+<a href="../tutorials/">tutorials</a>; if you know the vocabulary already, the
+<a href="../reference/">API reference</a> has every symbol.</p>
+<h2 id="simple-lie-algebras-and-the-abcd-classification">Simple Lie algebras and the ABCD classification<a class="headerlink" href="#simple-lie-algebras-and-the-abcd-classification" title="Permanent link">&para;</a></h2>
+<p>A Lie algebra is <strong>simple</strong> if it is non-abelian and has no nonzero proper ideal.
+Every finite-dimensional simple complex Lie algebra is one of four infinite
+families — <span class="arithmatex">\(A_n\)</span>, <span class="arithmatex">\(B_n\)</span>, <span class="arithmatex">\(C_n\)</span>, <span class="arithmatex">\(D_n\)</span> — or one of five exceptional algebras
+(<span class="arithmatex">\(G_2\)</span>, <span class="arithmatex">\(F_4\)</span>, <span class="arithmatex">\(E_6\)</span>, <span class="arithmatex">\(E_7\)</span>, <span class="arithmatex">\(E_8\)</span>). This package covers the four classical
+families, which are the complexified Lie algebras of the classical matrix groups:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Argument</th>
-<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Family</th>
+<th style="text-align: left;">Algebra</th>
+<th style="text-align: left;">Group</th>
+<th style="text-align: left;">Build it with</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>g</code></td>
-<td style="text-align: left;">a Lie algebra</td>
+<td style="text-align: left;"><span class="arithmatex">\(A_{n-1}\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathfrak{su}(n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{SU}(n)\)</span></td>
+<td style="text-align: left;"><code>SU[n]</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>w</code></td>
-<td style="text-align: left;">the highest weight as Dynkin labels: a list of Rank[g] non-negative integers</td>
+<td style="text-align: left;"><span class="arithmatex">\(B_n\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathfrak{so}(2n+1)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{SO}(2n+1)\)</span></td>
+<td style="text-align: left;"><code>SO[2n+1]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex">\(C_n\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathfrak{sp}(2n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{USp}(2n)\)</span></td>
+<td style="text-align: left;"><code>Sp[2n]</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span class="arithmatex">\(D_n\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathfrak{so}(2n)\)</span></td>
+<td style="text-align: left;"><span class="arithmatex">\(\mathrm{SO}(2n)\)</span></td>
+<td style="text-align: left;"><code>SO[2n]</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Messages</strong></p>
-<p>Emits a message and returns <code>$Failed</code> on invalid input.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Message</th>
-<th style="text-align: left;">When</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>Irrep::badweight</code></td>
-<td style="text-align: left;">w is not a list of Rank[g] non-negative integers (wrong length or a negative entry)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples</strong></p>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Irrep[LieAlgebra[&quot;A&quot;, 2], {1, 1}]
-</span></code></pre></div>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">RepresentationDimension</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SO</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>6
-</span></code></pre></div>
-<p><strong>Notes</strong></p>
+<p>The constructors <code>SU</code>, <code>SO</code>, and <code>Sp</code> are shorthands that normalize to a canonical
+<code>LieAlgebra[type, rank]</code>, so <code>SU[3]</code> and <code>LieAlgebra["A", 2]</code> are the same object.</p>
+<p>→ Reference: <a href="../reference/algebras/#liealgebra"><code>LieAlgebra</code></a> ·
+<a href="../reference/algebras/#su"><code>SU</code></a> · <a href="../reference/algebras/#so"><code>SO</code></a> ·
+<a href="../reference/algebras/#sp"><code>Sp</code></a></p>
+<h2 id="the-cartan-subalgebra-roots-and-the-root-system">The Cartan subalgebra, roots, and the root system<a class="headerlink" href="#the-cartan-subalgebra-roots-and-the-root-system" title="Permanent link">&para;</a></h2>
+<p>Inside the algebra sits a maximal commuting set of generators, the <strong>Cartan
+subalgebra</strong>; its dimension is the <strong>rank</strong> of the algebra. The remaining
+generators are simultaneous eigenvectors of the Cartan subalgebra, and their
+eigenvalue vectors are the <strong>roots</strong>. A choice of which roots are "positive"
+singles out a set of <strong>simple roots</strong> — a basis from which every positive root is
+a non-negative integer combination.</p>
+<p>The <strong>Cartan matrix</strong> records the geometry of the simple roots,
+<span class="arithmatex">\(A_{ij} = 2(\alpha_i,\alpha_j)/(\alpha_j,\alpha_j)\)</span>, and encodes the whole algebra
+up to isomorphism.</p>
+<p>→ Reference: <a href="../reference/root-system/#rank"><code>Rank</code></a> ·
+<a href="../reference/root-system/#simpleroots"><code>SimpleRoots</code></a> ·
+<a href="../reference/root-system/#positiveroots"><code>PositiveRoots</code></a> ·
+<a href="../reference/root-system/#cartanmatrix"><code>CartanMatrix</code></a> ·
+<a href="../reference/root-system/#liealgebradimension"><code>LieAlgebraDimension</code></a></p>
+<h2 id="weights-dynkin-labels-and-fundamental-weights">Weights, Dynkin labels, and fundamental weights<a class="headerlink" href="#weights-dynkin-labels-and-fundamental-weights" title="Permanent link">&para;</a></h2>
+<p>A representation assigns to each state a <strong>weight</strong> — the vector of its Cartan
+eigenvalues, i.e. its "magnetic quantum numbers." Weights are most naturally
+written in the basis dual to the simple roots: the coordinates are the <strong>Dynkin
+labels</strong>, a list of <code>Rank[g]</code> integers. The basis vectors of that dual basis are
+the <strong>fundamental weights</strong>.</p>
+<p>A weight may be shared by several independent states; that count is its
+<strong>multiplicity</strong>, and the collection of all weights with multiplicities is the
+<strong>weight system</strong>.</p>
+<p>→ Reference: <a href="../reference/root-system/#fundamentalweights"><code>FundamentalWeights</code></a> ·
+<a href="../reference/representations/#weightsystem"><code>WeightSystem</code></a></p>
+<h2 id="the-three-generator-bases">The three generator bases<a class="headerlink" href="#the-three-generator-bases" title="Permanent link">&para;</a></h2>
+<p>The same algebra can be presented in three bases, each suited to a different job:</p>
 <ul>
-<li>The highest weight must be non-negative; the weights returned by WeightSystem may have negative entries.</li>
+<li><strong>Defining representation</strong> — <code>Generators[g]</code> returns the algebra acting on its
+  smallest faithful representation (for <code>su(n)</code>, the <span class="arithmatex">\(n\times n\)</span> traceless
+  anti-Hermitian matrices; the <code>su(3)</code> case gives the normalized Gell-Mann
+  matrices <span class="arithmatex">\(T_a=\lambda_a/2\)</span>).</li>
+<li><strong>Cartan–Weyl</strong> — <code>CartanWeyl[g]</code> splits the generators into the diagonal Cartan
+  generators and the <strong>raising</strong>/<strong>lowering</strong> operators that move between weights.</li>
+<li><strong>Chevalley</strong> — <code>Chevalley[g]</code> is the basis the representation engine uses: one
+  <span class="arithmatex">\(H_i\)</span>, <span class="arithmatex">\(E_i\)</span>, <span class="arithmatex">\(F_i\)</span> per simple root, with integer structure constants.</li>
 </ul>
-<p><strong>See also:</strong> <a href="./#representationdimension"><code>RepresentationDimension</code></a> · <a href="./#weightsystem"><code>WeightSystem</code></a> · <a href="./#casimireigenvalue"><code>CasimirEigenvalue</code></a> · <a href="./#representationmatrices"><code>RepresentationMatrices</code></a> · <a href="./#highestweight"><code>HighestWeight</code></a> · <a href="../../tutorials/representations/">Tutorial: representations</a></p>
-<hr />
-<h3 id="highestweight">HighestWeight<a class="headerlink" href="#highestweight" title="Permanent link">&para;</a></h3>
-<p><code>HighestWeight[Irrep[g, w]]</code></p>
-<p>Returns the highest weight <code>w</code> (Dynkin labels) of an irrep.</p>
-<p><strong>Arguments</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Argument</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>ir</code></td>
-<td style="text-align: left;">an Irrep[g, w]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples</strong></p>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">HighestWeight</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{1, 1}
-</span></code></pre></div>
-<p><strong>See also:</strong> <a href="./#irrep"><code>Irrep</code></a></p>
-<hr />
-<h3 id="representationdimension">RepresentationDimension<a class="headerlink" href="#representationdimension" title="Permanent link">&para;</a></h3>
-<p><code>RepresentationDimension[Irrep[g, w]]</code></p>
-<p>The dimension of the irrep, computed in closed form from the Weyl dimension formula (no enumeration of states needed).</p>
-<p><strong>Arguments</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Argument</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>ir</code></td>
-<td style="text-align: left;">an Irrep[g, w]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples</strong></p>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">RepresentationDimension</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>8
-</span></code></pre></div>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">RepresentationDimension</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SO</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>4
-</span></code></pre></div>
-<p><strong>Notes</strong></p>
+<p><code>CartanWeyl</code> and <code>Chevalley</code> return an association keyed by <code>"Cartan"</code>,
+<code>"Raising"</code>, <code>"Lowering"</code>. For <code>so</code>/<code>sp</code> the invariant form can be realized in two
+ways, and <code>BasisTransform[g]</code> is the matrix relating them.</p>
+<p><img alt="su(3) in the Chevalley basis" class="center" src="../pics/su3-chevalley.png" width="520" /></p>
+<p>→ Reference: <a href="../reference/algebras/#generators"><code>Generators</code></a> ·
+<a href="../reference/algebras/#cartanweyl"><code>CartanWeyl</code></a> ·
+<a href="../reference/algebras/#chevalley"><code>Chevalley</code></a> ·
+<a href="../reference/algebras/#basistransform"><code>BasisTransform</code></a>. See it worked out in the
+<a href="../walkthrough/#chevalley-basis">guided tour</a>.</p>
+<h2 id="highest-weights-dimension-and-the-casimir">Highest weights, dimension, and the Casimir<a class="headerlink" href="#highest-weights-dimension-and-the-casimir" title="Permanent link">&para;</a></h2>
+<p>An irreducible representation is determined by a single <strong>highest weight</strong> <span class="arithmatex">\(\lambda\)</span>
+(non-negative Dynkin labels). <code>Irrep[g, w]</code> is the inert label for that irrep; the
+data functions compute from it:</p>
 <ul>
-<li>Reaches the spinor representations: the so(5) irrep {0, 1} above is the 4-dimensional spinor.</li>
+<li><code>RepresentationDimension</code> — the dimension, in closed form from the <strong>Weyl
+  dimension formula</strong> (no enumeration of states).</li>
+<li><code>WeightSystem</code> — the full weight system, from the <strong>Freudenthal multiplicity
+  recursion</strong>.</li>
+<li><code>CasimirEigenvalue</code> — the eigenvalue of the quadratic <strong>Casimir</strong> operator,
+  <span class="arithmatex">\((\lambda, \lambda + 2\rho)\)</span>.</li>
+<li><code>RepresentationMatrices</code> — the explicit <span class="arithmatex">\(H_i, E_i, F_i\)</span> matrices in the irrep,
+  built by the abstract highest-weight (<strong>Shapovalov</strong>) construction in an
+  orthonormal basis with <span class="arithmatex">\(E_i = F_i^\dagger\)</span> and <span class="arithmatex">\(H_i\)</span> diagonal.</li>
 </ul>
-<p><strong>See also:</strong> <a href="./#weightsystem"><code>WeightSystem</code></a> · <a href="./#casimireigenvalue"><code>CasimirEigenvalue</code></a> · <a href="./#irrep"><code>Irrep</code></a> · <a href="../../tutorials/representations/">Tutorial: representations</a></p>
-<hr />
-<h3 id="representationmatrices">RepresentationMatrices<a class="headerlink" href="#representationmatrices" title="Permanent link">&para;</a></h3>
-<p><code>RepresentationMatrices[Irrep[g, w]]</code></p>
-<p>The Chevalley generators of <code>g</code> (one <code>H</code>, <code>E</code>, <code>F</code> per simple root) as explicit matrices in the irrep, returned as an association with keys <code>"Cartan"</code>, <code>"Raising"</code>, <code>"Lowering"</code>. The default basis is orthonormal, with each <code>E</code> the conjugate transpose of the corresponding <code>F</code> and each <code>H</code> diagonal; each value is a list of <code>Rank[g]</code> matrices of size <code>RepresentationDimension</code> square.</p>
-<p><strong>Arguments</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Argument</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>ir</code></td>
-<td style="text-align: left;">an Irrep[g, w]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples</strong></p>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">RepresentationMatrices</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>&lt;|&quot;Cartan&quot; -&gt; {{{1, 0}, {0, -1}}}, &quot;Raising&quot; -&gt; {{{0, 1}, {0, 0}}}, 
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a> &quot;Lowering&quot; -&gt; {{{0, 0}, {1, 0}}}|&gt;
-</span></code></pre></div>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Diagonal</span><span class="p">[</span><span class="n">RepresentationMatrices</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SO</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]][</span><span class="s">&quot;Cartan&quot;</span><span class="p">][[</span><span class="mi">1</span><span class="p">]]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>{0, -1, 1, 0}
-</span></code></pre></div>
-<p><strong>Notes</strong></p>
+<p>Because the construction is abstract, it reaches <strong>every</strong> irrep — including the
+<code>so</code>/<code>sp</code> spinors that do not appear in any tensor power of the defining
+representation.</p>
+<p>→ Reference: <a href="../reference/representations/#irrep"><code>Irrep</code></a> ·
+<a href="../reference/representations/#representationdimension"><code>RepresentationDimension</code></a> ·
+<a href="../reference/representations/#casimireigenvalue"><code>CasimirEigenvalue</code></a> ·
+<a href="../reference/representations/#representationmatrices"><code>RepresentationMatrices</code></a>.
+Worked examples: <a href="../tutorials/representations/">Representations tutorial</a>.</p>
+<h2 id="young-tableaux-for-sun">Young tableaux for su(n)<a class="headerlink" href="#young-tableaux-for-sun" title="Permanent link">&para;</a></h2>
+<p>For <code>su(n)</code>, an irrep corresponds to a <strong>Young diagram</strong>. A diagram with row
+lengths <span class="arithmatex">\([\mu_1, \mu_2, \dots]\)</span> carries the irrep whose Dynkin labels are the
+successive row-length differences <span class="arithmatex">\((\mu_1 - \mu_2,\ \mu_2 - \mu_3,\ \dots)\)</span>. The
+states of the irrep are the <strong>standard tableaux</strong>, read as symmetrized many-body
+wavefunctions: each column is antisymmetric (so a repeated entry in a column makes
+the state vanish), each row symmetric.</p>
+<p>The toolkit builds these states, applies the <strong>Young symmetrizer</strong>, takes inner
+products, normalizes, and orthogonalizes a degenerate weight space — the same
+Gram–Schmidt step you do in quantum mechanics.</p>
+<p>→ Reference: <a href="../reference/young-tableaux/#tableau"><code>Tableau</code></a> ·
+<a href="../reference/young-tableaux/#tensortableau"><code>TensorTableau</code></a> ·
+<a href="../reference/young-tableaux/#tableauorthogonalization"><code>TableauOrthogonalization</code></a>.
+Worked end to end in the <a href="../walkthrough/">guided tour</a> and the
+<a href="../tutorials/young-tableaux/">Young-tableaux tutorial</a>.</p>
+<h2 id="conventions">Conventions<a class="headerlink" href="#conventions" title="Permanent link">&para;</a></h2>
+<p>A few conventions are worth pinning down before you compare results against a
+textbook or another package. They are listed in full on the
+<a href="../reference/#conventions">reference overview</a>; the ones that most often
+trip people up:</p>
+<div class="admonition note">
+<p class="admonition-title">Conventions that differ between sources</p>
 <ul>
-<li>Built by the abstract highest-weight (Shapovalov) construction, so it works for every classical type and every irrep, spinors included -- the so(5) spinor {0, 1} above is a genuine 4x4 example.</li>
-<li>Cost grows quickly with the dimension of the irrep; build small irreps, or wrap larger ones in TimeConstrained.</li>
+<li><strong>Dynkin-label ordering</strong> follows the Bourbaki labelling of the Dynkin
+  diagram. For <span class="arithmatex">\(B_n=\mathfrak{so}(2n{+}1)\)</span> the short simple root is the last
+  node, so the <strong>spinor</strong> is <code>{0, …, 0, 1}</code>; for <span class="arithmatex">\(C_n=\mathfrak{sp}(2n)\)</span> the
+  long root is the last node; for <span class="arithmatex">\(D_n\)</span> the two half-spinor nodes are the last
+  two.</li>
+<li><strong>Cartan-matrix convention.</strong> <code>CartanMatrix[g]</code> returns
+  <span class="arithmatex">\(A_{ij} = 2(\alpha_i,\alpha_j)/(\alpha_j,\alpha_j)\)</span>, equivalently
+  <span class="arithmatex">\([H_i, E_j] = A_{ji}\,E_j\)</span>. For the non-simply-laced types (<span class="arithmatex">\(B\)</span>, <span class="arithmatex">\(C\)</span>) this
+  is the <strong>transpose</strong> of the matrix some references (e.g. LieART) print — for
+  example <code>CartanMatrix[SO[5]]</code> is <code>{{2, -2}, {-1, 2}}</code>. The package is
+  internally consistent in this convention.</li>
+<li><strong>Casimir normalization</strong> is the mathematicians' one (long roots have
+  squared length 2), so the <code>su(2)</code> spin-½ value is <span class="arithmatex">\(3/2\)</span>, twice the physics
+  value <span class="arithmatex">\(3/4\)</span>.</li>
+<li>Everything is computed in <strong>exact arithmetic</strong> over <span class="arithmatex">\(\mathbb{Q}\)</span>; radicals
+  enter only in the final orthonormal rescaling of representation matrices.</li>
 </ul>
-<p><strong>See also:</strong> <a href="../algebras/#chevalley"><code>Chevalley</code></a> · <a href="./#weightsystem"><code>WeightSystem</code></a> · <a href="./#casimireigenvalue"><code>CasimirEigenvalue</code></a> · <a href="./#irrep"><code>Irrep</code></a> · <a href="../../walkthrough/#representations">Guided tour</a> · <a href="../../tutorials/physics-applications/">Tutorial: physics applications</a></p>
-<hr />
-<h3 id="casimireigenvalue">CasimirEigenvalue<a class="headerlink" href="#casimireigenvalue" title="Permanent link">&para;</a></h3>
-<p><code>CasimirEigenvalue[Irrep[g, w]]</code></p>
-<p>The eigenvalue of the quadratic Casimir operator on the irrep, normalized so that long roots have squared length 2 (the mathematicians' normalization).</p>
-<p><strong>Arguments</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Argument</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>ir</code></td>
-<td style="text-align: left;">an Irrep[g, w]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples</strong></p>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">CasimirEigenvalue</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>6
-</span></code></pre></div>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">CasimirEigenvalue</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>3/2
-</span></code></pre></div>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">CasimirEigenvalue</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SO</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>5/2
-</span></code></pre></div>
-<p><strong>Notes</strong></p>
-<ul>
-<li>With this normalization the su(2) spin-1/2 value is 3/2 -- twice the physics value 3/4.</li>
-</ul>
-<p><strong>See also:</strong> <a href="./#representationdimension"><code>RepresentationDimension</code></a> · <a href="./#weightsystem"><code>WeightSystem</code></a> · <a href="./#irrep"><code>Irrep</code></a></p>
-<hr />
-<h3 id="weightsystem">WeightSystem<a class="headerlink" href="#weightsystem" title="Permanent link">&para;</a></h3>
-<p><code>WeightSystem[Irrep[g, w]]</code></p>
-<p>The complete weight system of the irrep: an association from each weight (a length-<code>Rank[g]</code> Dynkin-label list) to its multiplicity (a positive integer), obtained from the Freudenthal multiplicity recursion. The multiplicities sum to <code>RepresentationDimension</code>.</p>
-<p><strong>Arguments</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Argument</th>
-<th style="text-align: left;">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><code>ir</code></td>
-<td style="text-align: left;">an Irrep[g, w]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples</strong></p>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">WeightSystem</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>&lt;|{1, 0} -&gt; 1, {-1, 1} -&gt; 1, {0, -1} -&gt; 1|&gt;
-</span></code></pre></div>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">WeightSystem</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SU</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>&lt;|{1, 1} -&gt; 1, {-1, 2} -&gt; 1, {2, -1} -&gt; 1, {0, 0} -&gt; 2, {-2, 1} -&gt; 1, 
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a> {1, -2} -&gt; 1, {-1, -1} -&gt; 1|&gt;
-</span></code></pre></div>
-<div class="language-mathematica highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">WeightSystem</span><span class="p">[</span><span class="n">Irrep</span><span class="p">[</span><span class="n">SO</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}]]</span>
-</span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>&lt;|{0, 1} -&gt; 1, {1, -1} -&gt; 1, {-1, 1} -&gt; 1, {0, -1} -&gt; 1|&gt;
-</span></code></pre></div>
-<p><strong>Notes</strong></p>
-<ul>
-<li>A weight may have multiplicity above 1: in the adjoint {1, 1} of su(3) the zero weight {0, 0} appears twice.</li>
-</ul>
-<p><strong>See also:</strong> <a href="./#representationdimension"><code>RepresentationDimension</code></a> · <a href="./#highestweight"><code>HighestWeight</code></a> · <a href="./#irrep"><code>Irrep</code></a> · <a href="../../tutorials/physics-applications/">Tutorial: physics applications</a></p>
+</div>
+<h2 id="going-deeper">Going deeper<a class="headerlink" href="#going-deeper" title="Permanent link">&para;</a></h2>
+<p>For the underlying theory, standard references are Humphreys, <em>Introduction to Lie
+Algebras and Representation Theory</em>; Fulton &amp; Harris, <em>Representation Theory: A
+First Course</em>; and, for the physics conventions, Georgi, <em>Lie Algebras in Particle
+Physics</em>.</p>
 
 
 
@@ -1660,7 +1608,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../root-system/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Root system">
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1670,20 +1618,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Root system
+                Home
               </div>
             </div>
           </a>
         
         
           
-          <a href="../young-tableaux/" class="md-footer__link md-footer__link--next" aria-label="Next: Young tableaux">
+          <a href="../walkthrough/" class="md-footer__link md-footer__link--next" aria-label="Next: Guided tour">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Young tableaux
+                Guided tour
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1734,12 +1682,12 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.tracking", "navigation.path", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "toc.follow", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.tracking", "navigation.path", "navigation.top", "navigation.footer", "navigation.instant", "navigation.instant.progress", "toc.follow", "content.code.copy", "content.code.annotate", "content.tooltips", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../javascripts/mathjax.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
