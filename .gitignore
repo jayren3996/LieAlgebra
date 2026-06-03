@@ -1,0 +1,5 @@
+# macOS Finder metadata
+.DS_Store
+
+# Wolfram paclet build artifacts
+*.paclet
