@@ -30,17 +30,17 @@
 
 ## Installation
 
-Install a released build and load it:
-
-```mathematica
-PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/v1.0.0/ClassicalLieAlgebra-1.0.0.paclet"];
-Needs["ClassicalLieAlgebra`"];
-```
-
-Or work from a local checkout:
+Work from a local checkout:
 
 ```mathematica
 PacletDirectoryLoad["/path/to/LieAlgebra"];
+Needs["ClassicalLieAlgebra`"];
+```
+
+Once a tagged release is published, you can install the built paclet from its release asset instead:
+
+```mathematica
+PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/vX.Y.Z/ClassicalLieAlgebra-X.Y.Z.paclet"];
 Needs["ClassicalLieAlgebra`"];
 ```
 
@@ -50,7 +50,7 @@ Needs["ClassicalLieAlgebra`"];
 Needs["ClassicalLieAlgebra`"];
 
 (* defining-representation generators *)
-Generators[SU[3]]                  (* the eight Gell-Mann matrices *)
+Generators[SU[3]]                  (* the 8 su(3) generators, T_a = lambda_a/2 *)
 Generators[SU[3], "Chevalley"]     (* <|"Cartan"->{H1,H2}, "Raising"->.., "Lowering"->..|> *)
 
 (* build a representation from its highest weight (Dynkin labels) *)

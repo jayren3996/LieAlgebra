@@ -55,12 +55,12 @@ TensorPermuteAtom[a_*c_Cycles, b_*v_Psi] := a*b * Permute[v, c];
 iTensorPermute[a_, b_Psi] := Distribute @ TensorPermuteAtom[a, b];
 TableauPermute[t_Tableau, v_Psi] := iTensorPermute[Symmetrizer[t], v];
 
-(* ---- Tensor norm (private iSquarePsi / iTensorNorm; public TensorNorm) ---- *)
-iSquarePsi[p_Psi] := 1;
-iSquarePsi[a_*p_Psi] := Abs[a]^2;
+(* ---- Tensor norm (private iTensorNorm; public TensorNorm) ---- *)
 iTensorNorm[p_Psi] := 1;
 iTensorNorm[a_*p_Psi] := Abs[a];
-iTensorNorm[p_] := Sqrt @ Total[iSquarePsi /@ List @@ p];
+(* General case via the inner product, so coincident-Psi cross terms are not dropped.
+   Summing |coeff|^2 term-by-term was wrong for non-combining symbolic coefficients. *)
+iTensorNorm[p_] := Sqrt[TensorDot[p, p]];
 
 (* Public TensorNorm Expands first so scalars distribute over sums *)
 TensorNorm[expr_] := iTensorNorm[Expand[expr]];
@@ -70,6 +70,10 @@ iDotPsi[p1_Psi, p2_Psi] := If[SameQ[p1, p2], 1, 0];
 iDotPsi[a_*p1_Psi, p2_Psi] := If[SameQ[p1, p2], Conjugate[a], 0];
 iDotPsi[p1_Psi, b_*p2_Psi] := If[SameQ[p1, p2], b, 0];
 iDotPsi[a_*p1_Psi, b_*p2_Psi] := If[SameQ[p1, p2], Conjugate[a]*b, 0];
+(* the literal 0 (e.g. the residual of orthogonalizing two parallel states) dots to 0,
+   instead of leaking the private iDotPsi head into user output *)
+iDotPsi[0, _] := 0;
+iDotPsi[_, 0] := 0;
 (* Expand first so a scalar times a sum (e.g. (Psi[..]+Psi[..])/Sqrt[6]) distributes
    onto the per-Psi iDotPsi rules; otherwise the inner product stays unevaluated. *)
 TensorDot[p1_, p2_] := Distribute @ iDotPsi[Expand[p1], Expand[p2]];
@@ -87,6 +91,7 @@ ListToTensor[t_List] := Module[
 (* Private inner ToTensor rules that handle atoms *)
 iToTensor[t_TensorTableau] := ListToTensor @ t[[1]];
 iToTensor[a_*t_TensorTableau] := a * ListToTensor @ t[[1]];
+iToTensor[0] := 0;
 iToTensor[t1_ + t2_] := iToTensor[t1] + iToTensor[t2];
 
 (* Public ToTensor Expands first so scalar*sum distributes *)

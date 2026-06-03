@@ -24,10 +24,10 @@ PacletDirectoryLoad["/path/to/LieAlgebra"];
 Needs["ClassicalLieAlgebra`"];
 ```
 
-or install a released build:
+or, once a tagged release is published, install the built paclet from its release asset:
 
 ```mathematica
-PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/v1.0.0/ClassicalLieAlgebra-1.0.0.paclet"];
+PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/vX.Y.Z/ClassicalLieAlgebra-X.Y.Z.paclet"];
 Needs["ClassicalLieAlgebra`"];
 ```
 
@@ -39,7 +39,7 @@ We walk through SU(3). Higher SU(N) groups work in exactly the same way.
 
 ### Generators
 
-`Generators` returns the standard generators of the algebra. For SU(3) these are the eight Gell-Mann matrices:
+`Generators` returns the standard generators of the algebra. For SU(3) these are the eight su(3) generators $T_a = \lambda_a/2$ (the normalized Gell-Mann matrices):
 
 ```mathematica
 MatrixForm /@ Generators[SU[3]]
@@ -219,7 +219,7 @@ RepresentationMatrices[Irrep[SO[5], {0, 1}]]
 
 ## Regenerating the figures
 
-Every figure in this README is generated directly from the package by [`pics/MakeFigures.wls`](../pics/MakeFigures.wls), so the figures stay in step with the code. Rasterizing the typeset matrices and tableaux needs a Wolfram front end, so run the script with a full installation rather than a bare command-line kernel:
+Every figure in this walkthrough is generated directly from the package by [`pics/MakeFigures.wls`](../pics/MakeFigures.wls), so the figures stay in step with the code. Rasterizing the typeset matrices and tableaux needs a Wolfram front end, so run the script with a full installation rather than a bare command-line kernel:
 
 ```sh
 wolframscript -file pics/MakeFigures.wls

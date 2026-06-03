@@ -23,3 +23,17 @@ VerificationTest[ Head[TableauForm[(TensorTableau[{{1, 2}, {3}}] + TensorTableau
 VerificationTest[
   With[{na = TableauNormalization[TensorTableau[{{1, 2}, {2}}]]}, TableauDot[na, na]],
   1, TestID -> "normalized-self-dot-is-1" ];
+
+(* regression: TensorNorm must agree with the inner product even when coincident-Psi terms
+   carry non-combining (symbolic) coefficients. Summing |coeff|^2 term-by-term dropped the
+   cross term, giving Sqrt[2] instead of 2 for (1+x)Psi[1] at x->1. *)
+VerificationTest[ TensorNorm[(1 + x) Psi[1]] /. x -> 1, 2, TestID -> "tensornorm-noncombining-coeff" ];
+
+(* regression: inner products involving the literal 0 -- e.g. the residual of orthogonalizing
+   two parallel states -- must be 0, not a leaked private iDotPsi/iToTensor symbol. *)
+VerificationTest[ TensorDot[0, 0], 0, TestID -> "tensordot-zero-no-leak" ];
+VerificationTest[ TableauDot[0, 0], 0, TestID -> "tableaudot-zero-no-leak" ];
+VerificationTest[
+  With[{d = Last @ TableauOrthogonalization[TensorTableau[{{1, 2}, {3}}], 3 TensorTableau[{{1, 2}, {3}}]]},
+    {d, TableauDot[d, d]}],
+  {0, 0}, TestID -> "orthogonalization-parallel-residual-zero" ];

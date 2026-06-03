@@ -67,11 +67,11 @@ p["2 * #posRoots + rank", 2 Length[PositiveRoots[g]] + Rank[g]];
 section["Generators of su(3) in three bases"];
 
 Print["Generators[g] returns the defining-representation generators."];
-Print["For su(3) these are the eight Gell-Mann matrices (3x3):"];
+Print["For su(3) these are the eight generators T_a = lambda_a/2 (3x3):"];
 gens = Generators[SU[3]];
 p["count", Length[gens]];
 p["each is", Dimensions[First[gens]]];
-pm["the first Gell-Mann matrix", First[gens]];
+pm["the first generator, lambda_1/2", First[gens]];
 
 Print[];
 Print["CartanWeyl[g] and Chevalley[g] return an association keyed by"];
