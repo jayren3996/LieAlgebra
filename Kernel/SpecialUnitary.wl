@@ -90,5 +90,9 @@ Generators[HoldPattern[LieAlgebra["A", r_]], "Standard", OptionsPattern[]] := su
 Generators[HoldPattern[LieAlgebra["A", r_]], "CartanWeyl", OptionsPattern[]] := toAssoc[suCartanWeyl[r + 1]];
 Generators[HoldPattern[LieAlgebra["A", r_]], "Chevalley", OptionsPattern[]] := toAssoc[suChevalley[r + 1]];
 
+(* ---- BasisTransform: su has a single realization, so the change of basis ----
+   into the diagonal one is the identity on the (r+1)-dim defining space. *)
+BasisTransform[g_LieAlgebra /; MatchQ[g[[1]], "A"]] := IdentityMatrix[g[[2]] + 1];
+
 End[];
 EndPackage[];
