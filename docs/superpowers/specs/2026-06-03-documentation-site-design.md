@@ -28,6 +28,9 @@ Settled during brainstorming:
 - **API reference granularity:** grouped by theme (~5 pages), not one page per
   symbol and not a single long page. The generator still emits a per-symbol block
   within each page so Phase 2 can lift each symbol into its own notebook.
+- **API entry depth:** full entries — signature, fuller description, argument
+  table, options, examples with build-time-evaluated output, notes, and See-also
+  links — via a curated detail layer, plus an enriched narrative Overview page.
 - **Automation:** local build the author runs and deploys; **no GitHub Actions**,
   consistent with the recent removal of CI in favour of local testing.
 - **Figures:** a staged build that leaves every source file untouched (see
@@ -86,16 +89,28 @@ A headless `.wls` using the repo's existing preamble (resolve repo root →
 - Enumerates the public symbols as the names in the `ClassicalLieAlgebra`` context
   that carry a `::usage` string.
 - Maps each symbol to one of four theme groups (mapping below).
-- For each group, writes `site-src/reference/<group>.md`: a short group intro,
-  then one block per symbol — heading (the symbol name), the call signature(s)
-  and usage prose taken from the `::usage` string (unescaping `\"`; usage strings
-  are confirmed plain text with no box markup), and, where one fits, a short
-  example lifted from the corresponding demo.
-- Writes `site-src/reference/index.md` — a one-line-per-symbol index linking into
-  the group pages.
-- **Self-check:** asserts every public symbol lands in exactly one group and every
-  group symbol exists, printing `ok` / `FAIL`, so the reference cannot silently
-  drift from the API — the same discipline as the demos and `MakeFigures.wls`.
+- Merges each symbol's code-sourced `::usage` with a **curated detail layer** from
+  `scripts/reference-details.wl` to write a full entry per symbol: signature(s), a
+  fuller description, an argument table, options (e.g. `Generators`'
+  `"Realization"`), worked examples, notes, and cross-page **See also** links.
+  Curated prose is authored Markdown-safe; the `::usage` fallback is passed through
+  an HTML-entity escaper (brackets become `&#91;`/`&#93;`, not `\[`/`\]`, so
+  `arithmatex` does not read signatures as math).
+- **Evaluates every example in the kernel at build time** and embeds its output
+  (front-end display forms such as `TableauForm` show a note instead), so the
+  examples are guaranteed to match the current code.
+- Writes `site-src/reference/index.md` from `scripts/reference-overview.md` (a
+  narrative introduction — the mental model and conventions) followed by the
+  grouped symbol index linking into the group pages.
+- **Self-checks** (print `ok` / `FAIL`, non-zero exit on failure): every public
+  symbol is grouped exactly once and exists in the paclet; every grouped symbol has
+  a curated detail entry; and every example evaluates cleanly. So the reference
+  cannot silently drift from the API — the same discipline as the demos and
+  `MakeFigures.wls`.
+
+  Note: `.wls` source is read as Latin-1 by `wolframscript`, so the generator
+  keeps its source pure ASCII (e.g. the `·` separator is built with
+  `FromCharacterCode`) and writes output with `CharacterEncoding -> "UTF-8"`.
 
 Theme mapping (31 symbols):
 
