@@ -82,7 +82,7 @@ RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4: the so(5) spinor *)
 ## Learn more
 
 - **[Guided tour of SU(3)](docs/walkthrough.md)** — the long-form walkthrough: the construction of the SU(3) representations step by step, with figures, and the representation engine in depth.
-- **`Demo.nb`** — a notebook of further examples.
+- **[Runnable demos](demos/)** — four self-contained scripts you can run straight from a checkout: a getting-started tour, the representation engine, the Young-tableau toolkit, and physics applications.
 
 ## Regenerating the figures
 

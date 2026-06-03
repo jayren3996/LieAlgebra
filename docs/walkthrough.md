@@ -31,7 +31,7 @@ PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/v1.0.0
 Needs["ClassicalLieAlgebra`"];
 ```
 
-> **API note (v1.0).** This release is a restructured paclet with a redesigned API. Algebras canonicalize to `LieAlgebra["A"|"B"|"C"|"D", rank]`, with `SU[n]`/`SO[n]`/`Sp[n]` as shorthands. `CartanWeyl[g]` and `Chevalley[g]` now return an association (`"Cartan"`, `"Raising"`, `"Lowering"`) instead of an `{H, E, F}` list; both are shorthands for `Generators[g, "CartanWeyl"|"Chevalley"]`. New root-system helpers: `Rank`, `LieAlgebraDimension`, `CartanMatrix`, `SimpleRoots`, `PositiveRoots`, `FundamentalWeights`. The old per-element accessors and `StandardChevalley` are gone, and `StandardBasis` is now `BasisTransform`. The sp(2n) standard generators (previously not closed under the bracket) were corrected. (`Demo.nb` predates this redesign.)
+> **API note (v1.0).** This release is a restructured paclet with a redesigned API. Algebras canonicalize to `LieAlgebra["A"|"B"|"C"|"D", rank]`, with `SU[n]`/`SO[n]`/`Sp[n]` as shorthands. `CartanWeyl[g]` and `Chevalley[g]` now return an association (`"Cartan"`, `"Raising"`, `"Lowering"`) instead of an `{H, E, F}` list; both are shorthands for `Generators[g, "CartanWeyl"|"Chevalley"]`. New root-system helpers: `Rank`, `LieAlgebraDimension`, `CartanMatrix`, `SimpleRoots`, `PositiveRoots`, `FundamentalWeights`. The old per-element accessors and `StandardChevalley` are gone, and `StandardBasis` is now `BasisTransform`. The sp(2n) standard generators (previously not closed under the bracket) were corrected. (For runnable, up-to-date examples, see [`demos/`](../demos/).)
 
 ## Example: su(3)
 
