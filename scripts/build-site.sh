@@ -32,7 +32,7 @@ GH_BLOB="https://github.com/jayren3996/LieAlgebra/blob/master"
 echo "==> assembling site-src/"
 rm -rf site-src
 mkdir -p site-src
-cp -R web/. site-src/                       # index.md, demos.md, javascripts/
+cp -R web/. site-src/                       # index.md, concepts.md, tutorials/, stylesheets/, javascripts/
 
 echo "==> generating API reference"
 "$WOLFRAM" -file scripts/generate-reference.wls   # writes site-src/reference/
@@ -47,7 +47,7 @@ sed -i '' \
   -e "s#\.\./pics/MakeFigures\.wls#${GH_BLOB}/pics/MakeFigures.wls#g" \
   -e 's#\.\./pics/#pics/#g' \
   -e 's#\.\./README\.md#index.md#g' \
-  -e 's#\.\./demos/#demos.md#g' \
+  -e 's#\.\./demos/#tutorials/index.md#g' \
   site-src/walkthrough.md
 
 case "${1:-build}" in

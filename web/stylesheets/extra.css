@@ -1,0 +1,144 @@
+/* Custom styling for the ClassicalLieAlgebra docs.
+   Staged into site-src/ by scripts/build-site.sh (cp -R web/. site-src/). */
+
+:root {
+  --cla-grad: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 45%, #7e57c2 100%);
+}
+
+/* --- Figures -------------------------------------------------------------
+   The walkthrough/reference figures are black-on-white typeset math with an
+   opaque white background. On the slate (dark) theme they would otherwise
+   render as glaring white slabs, so give every content image a light card
+   backing that reads as intentional in both colour schemes. */
+.md-typeset img {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+}
+[data-md-color-scheme="slate"] .md-typeset img {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+
+/* Centered, width-constrained figures: ![alt](x.png){ .center } */
+.md-typeset img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 8px 28px rgba(40, 30, 90, 0.18);
+}
+
+/* --- Reading comfort for a math-heavy site ------------------------------- */
+.md-typeset {
+  line-height: 1.7;
+}
+.md-typeset .arithmatex {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* --- Landing-page hero (gradient banner) --------------------------------- */
+.cla-hero {
+  background: var(--cla-grad);
+  color: #fff;
+  border-radius: 14px;
+  padding: 2.6rem 1.6rem 2.2rem;
+  text-align: center;
+  margin: 0.4rem 0 1.8rem;
+  box-shadow: 0 14px 40px rgba(63, 81, 181, 0.30);
+}
+.cla-hero > * { color: #fff !important; }
+.cla-hero h1 {
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+.cla-hero p {
+  font-size: 1.06rem;
+  max-width: 44rem;
+  margin: 0.4rem auto 1.3rem;
+  opacity: 0.96;
+}
+/* Buttons on the gradient: white primary, ghost secondary. */
+.cla-hero .md-button {
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.9);
+  color: #fff;
+  margin: 0.25rem 0.3rem 0;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.cla-hero .md-button:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: #fff;
+  color: #fff;
+}
+.cla-hero .md-button--primary {
+  background: #fff;
+  color: #3f51b5;
+  border-color: #fff;
+}
+.cla-hero .md-button--primary:hover {
+  background: rgba(255, 255, 255, 0.88);
+  color: #3f51b5;
+}
+
+/* --- Grid cards: premium hover + icon chips ------------------------------ */
+.md-typeset .grid.cards > ul > li {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.7rem;
+  padding: 1.1rem 1.1rem 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.md-typeset .grid.cards > ul > li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(40, 30, 90, 0.16);
+  border-color: var(--md-accent-fg-color);
+}
+/* The leading icon becomes a tinted circular chip. */
+.md-typeset .grid.cards > ul > li > p:first-child > .twemoji:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: rgba(63, 81, 181, 0.12);
+  color: var(--md-primary-fg-color);
+  margin-bottom: 0.5rem;
+}
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li > p:first-child > .twemoji:first-child {
+  background: rgba(124, 137, 232, 0.18);
+}
+.md-typeset .grid.cards > ul > li > hr {
+  margin: 0.4rem 0 0.8rem;
+}
+
+/* --- Section headings: subtle accent rule -------------------------------- */
+.md-typeset h2 {
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* --- Tables: rounded, tinted header -------------------------------------- */
+.md-typeset table:not([class]) {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 0 var(--md-default-fg-color--lightest);
+}
+.md-typeset table:not([class]) th {
+  background: var(--md-default-fg-color--lightest);
+  font-weight: 700;
+}
+
+/* --- Announcement bar ---------------------------------------------------- */
+.md-banner {
+  background: var(--cla-grad);
+  color: #fff;
+}
+.md-banner a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+}
