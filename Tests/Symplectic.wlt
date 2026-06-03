@@ -23,3 +23,14 @@ VerificationTest[
 VerificationTest[ Det[BasisTransform[Sp[4]]] != 0, True, TestID -> "sp4-basistransform-invertible" ];
 VerificationTest[ DiagonalMatrixQ[Generators[Sp[6], "Chevalley"]["Cartan"][[1]]], True, TestID -> "sp6-diag-cartan" ];
 VerificationTest[ Generators[Sp[4], "Chevalley", "Realization" -> "Nope"], $Failed, {Generators::badrealization}, TestID -> "sp-bad-realization" ];
+
+(* Batch B: BasisTransform conjugates the antisymmetric Chevalley realization into the
+   diagonal one. For sp (type C) this holds exactly on H, E and F. (The so analogue does
+   not, and is tracked separately.) *)
+conjOK[b_, a_, d_, k_] := AllTrue[Flatten[((b . # . Inverse[b]) & /@ a[k]) - d[k]], Simplify[#] === 0 &];
+VerificationTest[
+  With[{b = BasisTransform[Sp[4]],
+        a = Generators[Sp[4], "Chevalley", "Realization" -> "Antisymmetric"],
+        d = Generators[Sp[4], "Chevalley", "Realization" -> "Diagonal"]},
+   conjOK[b, a, d, "Cartan"] && conjOK[b, a, d, "Raising"] && conjOK[b, a, d, "Lowering"]],
+  True, TestID -> "sp4-basistransform-conjugates-to-diagonal" ];

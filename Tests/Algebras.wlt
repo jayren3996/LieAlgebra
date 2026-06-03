@@ -19,3 +19,14 @@ VerificationTest[ CartanMatrix[LieAlgebra["C", 2]], {{2, -1}, {-2, 2}}, TestID -
 VerificationTest[ CartanMatrix[LieAlgebra["D", 4]], {{2,-1,0,0},{-1,2,-1,-1},{0,-1,2,0},{0,-1,0,2}}, TestID -> "cartan-D4" ];
 VerificationTest[ Length[PositiveRoots[LieAlgebra["A", 2]]], 3, TestID -> "posroots-A2-count" ];
 VerificationTest[ FundamentalWeights[LieAlgebra["A", 2]], {{2/3, -1/3, -1/3}, {1/3, 1/3, -2/3}}, TestID -> "fundweights-A2" ];
+
+(* ===== Batch B: reducible D2=so(4) and rank-1 family members ===== *)
+(* D2 = so(4) is reducible (A1+A1): decoupled Cartan, and the non-obvious label->rep map
+   (the two {1,0}/{0,1} half-spinors are 2-dim; the vector is {1,1}) *)
+VerificationTest[ CartanMatrix[LieAlgebra["D", 2]], {{2, 0}, {0, 2}}, TestID -> "cartan-D2-reducible" ];
+VerificationTest[ RepresentationDimension[Irrep[SO[4], {1, 0}]], 2, TestID -> "dim-so4-halfspinor1" ];
+VerificationTest[ RepresentationDimension[Irrep[SO[4], {0, 1}]], 2, TestID -> "dim-so4-halfspinor2" ];
+VerificationTest[ RepresentationDimension[Irrep[SO[4], {1, 1}]], 4, TestID -> "dim-so4-vector" ];
+(* smallest members of the B and C families: B1=so(3), C1=sp(2) *)
+VerificationTest[ RepresentationDimension[Irrep[SO[3], {2}]], 3, TestID -> "dim-so3-adjoint" ];
+VerificationTest[ RepresentationDimension[Irrep[Sp[2], {2}]], 3, TestID -> "dim-sp2-adjoint" ];

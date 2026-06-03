@@ -69,8 +69,6 @@ soCartanWeyl[m_] := Module[{l, p, hh, ee = {}, i, j},
 ];
 
 (* ---- Chevalley basis in antisymmetric realization (SOCh) ---- *)
-soChH[2, 1] = {{0, -I}, {I, 0}};
-
 soChH[m_?OddQ, i_] := Module[{mat = ConstantArray[0, {m, m}], l = (m - 1)/2},
   If[i == l,
     mat[[2 l - 1, 2 l]] = -2 I;
@@ -98,8 +96,6 @@ soChH[m_?EvenQ, i_] := Module[{mat = ConstantArray[0, {m, m}], l = m/2},
   ];
   mat
 ];
-
-soChE[2, 1] = Nothing;
 
 soChE[m_?OddQ, i_] := Module[{mat = ConstantArray[0, {m, m}], l = (m - 1)/2},
   If[i == l,
@@ -136,37 +132,25 @@ soChevalleyAntisym[m_] := Module[{l, hh, ee},
   {hh, ee, Conjugate @* Transpose /@ ee}
 ];
 
-(* ---- Change-of-basis matrix (antisymmetric -> diagonal) ---- *)
-soBasis[m_?OddQ] := Module[{l = (m - 1)/2, b, i},
-  b = ConstantArray[0, {m, m}];
-  For[i = 1, i <= l, i++,
-    b[[i, 2 i - 1]] = (-1)^(l - i + 1)/Sqrt[2];
-    b[[i, 2 i    ]] = (-1)^(l - i + 1)/Sqrt[2]*I;
-  ];
-  b[[l + 1, m]] = 1;
-  For[i = l + 2, i <= m, i++,
-    b[[i, 4 l - 2 i + 3]] =  1/Sqrt[2];
-    b[[i, 4 l - 2 i + 4]] = -I/Sqrt[2];
-  ];
-  b
-];
-
-soBasis[m_?EvenQ] := Module[{l = m/2, b, i},
-  b = ConstantArray[0, {m, m}];
-  For[i = 1, i <= l, i++,
-    b[[i, 2 i - 1]] = (-1)^(l - i)/Sqrt[2];
-    b[[i, 2 i    ]] = (-1)^(l - i)/Sqrt[2]*I;
-  ];
-  For[i = l + 1, i <= m, i++,
-    b[[i, 4 l - 2 i + 1]] =  1/Sqrt[2];
-    b[[i, 4 l - 2 i + 2]] = -I/Sqrt[2];
-  ];
-  b
+(* ---- Change-of-basis matrix (antisymmetric -> diagonal) ----
+   BasisTransform is, by definition, the change of basis that turns the antisymmetric
+   Chevalley realization into the diagonal one. We compute it directly as the intertwiner
+   B with  B . X_antisym . Inverse[B] == X_diagonal  for every Chevalley generator X
+   (unique up to scale by Schur, since the defining rep is irreducible), then normalize B
+   to be unitary. Solving  B . A_k == D_k . B  is the linear system
+   (I (x) A_k^T - D_k (x) I) . vec(B) == 0  (row-major vec), stacked over all generators. *)
+soBasis[m_] := Module[{anti, diag, sys, b0, c},
+  anti = soChevalleyAntisym[m];
+  diag = soChevalleyDiagonal[m];
+  sys = Join @@ MapThread[
+     KroneckerProduct[IdentityMatrix[m], Transpose[#1]] - KroneckerProduct[#2, IdentityMatrix[m]] &,
+     {Join @@ anti, Join @@ diag}];
+  b0 = ArrayReshape[First[NullSpace[sys]], {m, m}];
+  c = (b0 . ConjugateTranspose[b0])[[1, 1]];
+  b0 / Sqrt[c]
 ];
 
 (* ---- Chevalley basis in diagonal realization (SOn) ---- *)
-soH[2, 1] = {{1, 0}, {0, -1}};
-
 soH[m_?OddQ, i_] := Module[{mat = ConstantArray[0, {m, m}], l = (m - 1)/2},
   If[i == l,
     mat[[i,       i      ]] = +2;
@@ -194,8 +178,6 @@ soH[m_?EvenQ, i_] := Module[{mat = ConstantArray[0, {m, m}], l = m/2},
   ];
   mat
 ];
-
-soE[2, 1] = Nothing;
 
 soE[m_?OddQ, i_] := Module[{mat = ConstantArray[0, {m, m}], l = (m - 1)/2},
   If[i == l,
