@@ -7,12 +7,14 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Wolfram Language](https://img.shields.io/badge/Wolfram%20Language-13.0%2B-d10000.svg)](https://www.wolfram.com/language/)
 ![Paclet](https://img.shields.io/badge/paclet-ClassicalLieAlgebra%201.0-f57c00.svg)
+[![Documentation](https://img.shields.io/badge/docs-online-2ea44f.svg)](https://jayren3996.github.io/LieAlgebra/)
 
 </div>
 
 `ClassicalLieAlgebra` is a Wolfram Language paclet for working with the classical simple Lie algebras — the special unitary `su(n)`, special orthogonal `so(n)`, and symplectic `sp(2n)` families. It gives you their generators in several standard bases, a Young-tableau toolkit for many-body wavefunctions, and a representation engine that builds any irreducible representation from its highest weight: its dimension, weight system, Casimir eigenvalue, and the explicit generator matrices. Everything is computed in exact arithmetic, and the construction reaches every irrep, including the orthogonal and symplectic **spinor** representations.
 
 <div align="center">
+<a href="https://jayren3996.github.io/LieAlgebra/"><b>Documentation</b></a> ·
 <a href="#features">Features</a> ·
 <a href="#installation">Installation</a> ·
 <a href="#quick-start">Quick start</a> ·
@@ -75,6 +77,7 @@ RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4: the so(5) spinor *)
 
 ## Learn more
 
+- **[Documentation site](https://jayren3996.github.io/LieAlgebra/)** — the full reference: every public symbol with worked examples, plus the guided tour and demos, all in one browsable place.
 - **[Guided tour of SU(3)](docs/walkthrough.md)** — the long-form walkthrough: the construction of the SU(3) representations step by step, with figures, and the representation engine in depth.
 - **[Runnable demos](demos/)** — four self-contained scripts you can run straight from a checkout: a getting-started tour, the representation engine, the Young-tableau toolkit, and physics applications.
 
