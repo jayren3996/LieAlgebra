@@ -27,7 +27,7 @@ def convert_admonitions(text: str) -> str:
             continue
 
         kind, title = match.group(1), match.group(2) or ""
-        header = f"```{{{kind}}}" + (f" {title}" if title else "")
+        header = f"````{{{kind}}}" + (f" {title}" if title else "")
         out.append(header)
         i += 1
 
@@ -48,7 +48,7 @@ def convert_admonitions(text: str) -> str:
 
         while out and out[-1] == "":
             out.pop()
-        out.append("```")
+        out.append("````")
 
     return "\n".join(out) + ("\n" if text.endswith("\n") else "")
 

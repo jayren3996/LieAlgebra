@@ -16,23 +16,13 @@ API and the output you see below is exactly what the package produces.
 
 ## Running the scripts
 
-The demos print to the console and need no front end, so a command-line kernel is
-enough:
+The demos print to the console and do not need the notebook front end:
 
 ```sh
 wolframscript -file demos/01-getting-started.wls
 ```
 
-!!! warning "macOS: pick the right `wolframscript`"
-
-    The system `wolframscript` in `/usr/local/bin` can be misconfigured. If so,
-    use the binary bundled with the application:
-
-    ```sh
-    /Applications/Wolfram.app/Contents/MacOS/wolframscript -file demos/01-getting-started.wls
-    ```
-
 Each script loads the package from the repository via `PacletDirectoryLoad`, so you
-can run them straight from a checkout without installing the paclet first. Run them
-from anywhere — the path is resolved relative to the script. A clean run ends with
-every self-check reading `[ok]`.
+can run them straight from a checkout without installing the paclet first. If your
+shell cannot find `wolframscript`, use the Wolfram application binary or add it to
+your `PATH`. A clean run ends with every self-check reading `[ok]`.

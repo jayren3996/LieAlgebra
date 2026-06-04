@@ -12,8 +12,21 @@ import stage_sphinx_docs as stage
 class DocsStagingTests(unittest.TestCase):
     def test_rewrites_mkdocs_admonition_to_myst_fence(self):
         source = '!!! warning "Large irreps are expensive"\n\n    Build small irreps.\n'
-        expected = '```{warning} Large irreps are expensive\nBuild small irreps.\n```\n'
+        expected = '````{warning} Large irreps are expensive\nBuild small irreps.\n````\n'
         self.assertEqual(stage.convert_markdown(source, "web/tutorials/representations.md"), expected)
+
+    def test_rewrites_admonition_with_nested_code_fence(self):
+        source = (
+            '!!! warning "Shell command"\n\n'
+            "    Run this:\n\n"
+            "    ```sh\n"
+            "    wolframscript -file demos/01-getting-started.wls\n"
+            "    ```\n"
+        )
+        rendered = stage.convert_markdown(source, "web/tutorials/index.md")
+        self.assertIn('````{warning} Shell command', rendered)
+        self.assertIn("```sh\nwolframscript -file demos/01-getting-started.wls\n```", rendered)
+        self.assertTrue(rendered.endswith("````\n"))
 
     def test_rewrites_tabbed_installation_blocks(self):
         source = '=== "From a checkout"\n\n    ```mathematica\n    Needs["ClassicalLieAlgebra`"];\n    ```\n'
