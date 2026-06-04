@@ -27,7 +27,7 @@ build_docs() {
 
   echo "==> building Furo site"
   rm -rf site
-  python3 -m sphinx.cmd.build -W -b dirhtml docs-site site
+  python3 -m sphinx.cmd.build -W -b dirhtml -d docs-site/.doctrees docs-site site
 }
 
 case "${1:-build}" in
