@@ -1,0 +1,37 @@
+# Citing
+
+If you use `ClassicalLieAlgebra` in published work, please cite it. The repository
+ships a [`CITATION.cff`](https://github.com/jayren3996/LieAlgebra/blob/master/CITATION.cff),
+which GitHub renders as a "Cite this repository" button.
+
+#### BibTeX
+```bibtex
+@software{ren_classicalliealgebra_2026,
+  author  = {Ren, Jie},
+  title   = {{ClassicalLieAlgebra}: generators, bases, Young tableaux,
+             and irreducible representations of the classical Lie algebras},
+  year    = {2026},
+  version = {1.0.0},
+  license = {MIT},
+  url     = {https://github.com/jayren3996/LieAlgebra}
+}
+```
+
+#### Plain text
+Jie Ren. *ClassicalLieAlgebra: generators, bases, Young tableaux, and
+irreducible representations of the classical Lie algebras*, version 1.0.0,
+2026. https://github.com/jayren3996/LieAlgebra
+
+## Methods
+
+The algorithms are standard; if you cite the methods the package implements, the
+usual references are:
+
+- **Weyl dimension formula** and **Freudenthal multiplicity recursion** — for
+  dimensions and weight multiplicities.
+- **Shapovalov form / highest-weight construction** — for the explicit
+  representation matrices.
+
+See, e.g., Humphreys, *Introduction to Lie Algebras and Representation Theory*;
+Fulton & Harris, *Representation Theory: A First Course*; and Georgi, *Lie Algebras
+in Particle Physics* for the physics conventions.

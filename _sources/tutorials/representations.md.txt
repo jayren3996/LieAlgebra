@@ -1,0 +1,112 @@
+# Representations
+
+`Irrep[g, w]` builds the irreducible representation of `g` with highest weight `w`
+(Dynkin labels). From it you read off the dimension, the weight system, the Casimir
+eigenvalue, and the explicit Chevalley generator matrices — for every classical
+type, including the orthogonal/symplectic spinors that do not live in tensor powers
+of the defining representation. Mirrors
+[`demos/02-representations.wls`](https://github.com/jayren3996/LieAlgebra/blob/master/demos/02-representations.wls).
+
+```mathematica
+Needs["ClassicalLieAlgebra`"];
+```
+
+## One irrep, end to end: the su(3) adjoint
+
+The `su(3)` adjoint is the highest weight `{1, 1}` — the "octet" of the eightfold
+way:
+
+```mathematica
+ir = Irrep[SU[3], {1, 1}];
+HighestWeight[ir]            (* {1, 1} *)
+RepresentationDimension[ir]  (* 8, from the Weyl dimension formula *)
+CasimirEigenvalue[ir]        (* 6 *)
+```
+
+`WeightSystem` gives the weights (as Dynkin labels) with their multiplicities. The
+zero weight is doubly degenerate — that is the two-dimensional center of the octet:
+
+```mathematica
+WeightSystem[ir]
+```
+
+```
+<|{1, 1} -> 1, {-1, 2} -> 1, {2, -1} -> 1, {0, 0} -> 2,
+  {-2, 1} -> 1, {1, -2} -> 1, {-1, -1} -> 1|>
+```
+
+The multiplicities sum to the dimension, $1+1+1+2+1+1+1 = 8$.
+
+`RepresentationMatrices` gives the Chevalley generators as explicit matrices in the
+irrep, in an orthonormal basis where $E_i=F_i^\dagger$ and each $H_i$ is diagonal:
+
+```mathematica
+m = RepresentationMatrices[ir];
+Keys[m]                       (* {"Cartan", "Raising", "Lowering"} *)
+Length /@ Values[m]           (* {2, 2, 2}: one H, E, F per simple root *)
+Dimensions[m["Cartan"][[1]]]  (* {8, 8} *)
+Diagonal[m["Cartan"][[1]]]    (* {1, -1, 2, 0, 0, -2, 1, -1} *)
+m["Raising"][[1]] == ConjugateTranspose[m["Lowering"][[1]]]  (* True *)
+```
+
+## Dimensions and Casimirs across su / so / sp
+
+The same calls work uniformly across the families. Here is a table built with
+`RepresentationDimension` and `CasimirEigenvalue`:
+
+| Representation | `g` | `w` | dim | Casimir |
+| :--- | :--- | :--- | :---: | :---: |
+| su(2) spin-½ | `SU[2]` | `{1}` | 2 | 3/2 |
+| su(2) spin-1 | `SU[2]` | `{2}` | 3 | 4 |
+| su(3) fundamental **3** | `SU[3]` | `{1, 0}` | 3 | 8/3 |
+| su(3) adjoint **8** | `SU[3]` | `{1, 1}` | 8 | 6 |
+| su(3) **10** | `SU[3]` | `{3, 0}` | 10 | 12 |
+| so(5) vector **5** | `SO[5]` | `{1, 0}` | 5 | 4 |
+| so(5) spinor **4** | `SO[5]` | `{0, 1}` | 4 | 5/2 |
+| sp(4) defining **4** | `Sp[4]` | `{1, 0}` | 4 | 5/2 |
+| so(7) spinor **8** | `SO[7]` | `{0, 0, 1}` | 8 | 21/4 |
+
+(The Casimir uses the mathematicians' normalization, long roots of squared length
+2; the `su(2)` spin-½ value $3/2$ is twice the physics value $3/4$.)
+
+## Reaching the spinors
+
+The `so(5)` spinor is 4-dimensional and does **not** appear in any tensor power of
+the 5-dimensional vector representation. The abstract highest-weight (Shapovalov)
+construction reaches it anyway:
+
+```mathematica
+sp5 = Irrep[SO[5], {0, 1}];
+RepresentationDimension[sp5]                 (* 4 *)
+Dimensions[RepresentationMatrices[sp5]["Cartan"][[1]]]  (* {4, 4} *)
+```
+
+The built matrices really satisfy the algebra. Defining
+`chevalleyHolds[g, w]` to check the relations $[E_i,F_j]=\delta_{ij}H_i$ and
+$[H_i,E_j]=A_{ji}E_j$ numerically:
+
+```mathematica
+chevalleyHolds[SU[3], {1, 1}]    (* True: the octet *)
+chevalleyHolds[SO[5], {0, 1}]    (* True: the so(5) spinor *)
+chevalleyHolds[SO[7], {0, 0, 1}] (* True: the so(7) 8-dim spinor *)
+```
+
+(The full `chevalleyHolds` definition is in the
+[demo script](https://github.com/jayren3996/LieAlgebra/blob/master/demos/02-representations.wls)
+and the [physics-applications tutorial](physics-applications).)
+
+```{warning} Large irreps are expensive
+`RepresentationMatrices` builds exact matrices via the highest-weight /
+Shapovalov construction; the dimension — and the cost — grows quickly with the
+Dynkin labels and the rank. Build small irreps, or wrap larger ones in
+`TimeConstrained`. `RepresentationDimension`, `CasimirEigenvalue`, and
+`WeightSystem` are cheap by comparison (no matrices are constructed).
+```
+## Next
+
+- The physics behind these multiplets: [Physics applications](physics-applications).
+- How the states are labelled and orthogonalized: [Young tableaux](young-tableaux).
+- Reference: [`Irrep`](../reference/representations#irrep) ·
+  [`RepresentationMatrices`](../reference/representations#representationmatrices) ·
+  [`WeightSystem`](../reference/representations#weightsystem) ·
+  [`CasimirEigenvalue`](../reference/representations#casimireigenvalue).

@@ -1,0 +1,107 @@
+# ClassicalLieAlgebra
+
+```{raw} html
+<section class="cla-home-hero">
+  <p class="cla-kicker">Wolfram Language paclet</p>
+  <p class="cla-lede">Exact generators, bases, Young tableaux, and irreducible representations of the classical Lie algebras: su(n), so(n), and sp(2n).</p>
+  <p class="cla-actions">
+    <a class="cla-button cla-button-primary" href="walkthrough/">Guided tour of SU(3)</a>
+    <a class="cla-button" href="reference/">API reference</a>
+  </p>
+</section>
+```
+
+![The (1,1) octet of SU(3), pictured as a three-level system](pics/su3-levels.png)
+
+`ClassicalLieAlgebra` is a Wolfram Language paclet for working with the classical
+simple Lie algebras: the special unitary `su(n)`, special orthogonal `so(n)`, and
+symplectic `sp(2n)` families. It gives you their generators in several standard
+bases, a Young-tableau toolkit for many-body wavefunctions, and a representation
+engine that builds any irreducible representation from its highest weight.
+
+## Why ClassicalLieAlgebra
+
+```{raw} html
+<div class="cla-home-grid">
+  <section>
+    <h3>Exact, all the way down</h3>
+    <p>Every root, weight, and matrix element is computed over exact arithmetic. Results stay inspectable and reproducible.</p>
+    <a href="validation/">How it is validated</a>
+  </section>
+  <section>
+    <h3>All four families, one interface</h3>
+    <p>Use SU[n], SO[n], Sp[n], or the canonical LieAlgebra[type, rank] across the A, B, C, and D families.</p>
+    <a href="concepts/">Read the concepts</a>
+  </section>
+  <section>
+    <h3>Reaches the spinors</h3>
+    <p>Build explicit generator matrices for every classical irrep, including orthogonal spinors outside tensor powers of the defining representation.</p>
+    <a href="tutorials/spinors/">Spinors of so(N)</a>
+  </section>
+</div>
+```
+
+## Installation
+
+#### From a checkout
+
+```mathematica
+PacletDirectoryLoad["/path/to/LieAlgebra"];
+Needs["ClassicalLieAlgebra`"];
+```
+
+#### From a release
+
+Once a tagged release is published, install the built paclet from its release
+asset:
+
+```mathematica
+PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/vX.Y.Z/ClassicalLieAlgebra-X.Y.Z.paclet"];
+Needs["ClassicalLieAlgebra`"];
+```
+
+## Quick start
+
+```mathematica
+Needs["ClassicalLieAlgebra`"];
+
+Generators[SU[3]]
+Generators[SU[3], "Chevalley"]
+
+ir = Irrep[SU[3], {1, 1}];
+RepresentationDimension[ir]
+CasimirEigenvalue[ir]
+WeightSystem[ir]
+RepresentationMatrices[ir]
+
+RepresentationDimension[Irrep[SO[5], {0, 1}]]
+```
+
+## What it covers
+
+| | $A_n=\mathfrak{su}(n{+}1)$ | $B_n=\mathfrak{so}(2n{+}1)$ | $C_n=\mathfrak{sp}(2n)$ | $D_n=\mathfrak{so}(2n)$ |
+| :--- | :---: | :---: | :---: | :---: |
+| Generators, Cartan-Weyl, Chevalley | yes | yes | yes | yes |
+| Irreps: dimension, weights, Casimir | yes | yes | yes | yes |
+| Irreps: explicit generator matrices | yes | yes | yes | yes |
+| Spinor representations | - | yes | - | yes |
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+
+concepts
+walkthrough
+tutorials/index
+tutorials/getting-started
+tutorials/representations
+tutorials/spinors
+tutorials/young-tableaux
+tutorials/physics-applications
+reference/index
+glossary
+comparison
+validation
+changelog
+cite
+```

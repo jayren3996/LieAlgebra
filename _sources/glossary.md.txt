@@ -1,0 +1,45 @@
+# Glossary
+
+Short definitions of the terms used across the documentation. The
+[Concepts](concepts) page explains how they fit together; the
+[reference](reference/index) gives the function for each.
+
+**Cartan matrix.** The integer matrix $A_{ij}=2(\alpha_i,\alpha_j)/(\alpha_j,\alpha_j)$ encoding the simple-root geometry. → `CartanMatrix`. (Note the package's [transposed convention](concepts#conventions).)
+
+**Cartan subalgebra.** A maximal commuting set of generators; its dimension is the rank.
+
+**Cartan–Weyl basis.** The basis splitting the generators into diagonal Cartan generators and raising/lowering operators. → `CartanWeyl`.
+
+**Casimir (quadratic).** The invariant operator $(\lambda,\lambda+2\rho)$; constant on an irrep. → `CasimirEigenvalue`.
+
+**Chevalley basis.** The basis with one $H_i$, $E_i$, $F_i$ per simple root and integer structure constants; the basis the representation engine uses. → `Chevalley`.
+
+**Dynkin labels.** The coordinates of a weight in the fundamental-weight basis — a list of `Rank[g]` integers. Highest weights are non-negative.
+
+**Fundamental weights.** The basis dual to the simple coroots; Dynkin labels are coordinates in this basis. → `FundamentalWeights`.
+
+**Highest weight.** The unique top weight that labels an irrep. → `HighestWeight`.
+
+**Irreducible representation (irrep).** A representation with no proper invariant subspace; determined by its highest weight. → `Irrep`.
+
+**Multiplicity.** The number of independent states sharing a given weight.
+
+**Positive root.** A root that is a non-negative combination of the simple roots. → `PositiveRoots`.
+
+**Rank.** The dimension of the Cartan subalgebra; the number of simple roots. → `Rank`.
+
+**Root.** The weight of a generator under the Cartan subalgebra.
+
+**Simple root.** A root that is not a sum of two positive roots; the simple roots are a basis for all roots. → `SimpleRoots`.
+
+**Spinor representation.** An irrep of so(N) that does not occur in any tensor power of the vector representation; the package reaches it anyway. → [Spinors](tutorials/spinors).
+
+**Weight.** The vector of Cartan eigenvalues of a representation state — its "magnetic quantum numbers."
+
+**Weight system.** The full set of weights of an irrep, with multiplicities. → `WeightSystem`.
+
+**Young diagram.** A pattern of rows of boxes labelling an su(n) irrep by its row lengths.
+
+**Young symmetrizer.** The operator (symmetrize rows, antisymmetrize columns) that projects onto the irrep of a given diagram. → `TableauPermute`.
+
+**Young tableau.** A Young diagram filled with indices; read as a symmetrized many-body wavefunction. → `Tableau`, `TensorTableau`.

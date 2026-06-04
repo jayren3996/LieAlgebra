@@ -1,0 +1,118 @@
+# Young tableaux
+
+The Young-tableau toolkit builds the many-body wavefunctions that label the states
+of an `su(n)` representation, takes their inner products, normalizes them, and
+orthogonalizes a degenerate weight space — the same Gram–Schmidt step you do in
+quantum mechanics. This is the SU(3) computation from the
+[guided tour](../walkthrough) made executable; it mirrors
+[`demos/03-young-tableaux.wls`](https://github.com/jayren3996/LieAlgebra/blob/master/demos/03-young-tableaux.wls).
+
+```mathematica
+Needs["ClassicalLieAlgebra`"];
+```
+
+## The Young symmetrizer
+
+The `su(3)` `{1, 1}` irrep has a highest-weight tableau of shape $[2,1]$, filled
+with `1`s along the first row and `2`s along the second:
+
+![Highest-weight tableau of the (1,1) irrep](../pics/rep11-highest-weight.png)
+
+`Tableau[rows]` is the shape, carrying its Young symmetrizer; `Psi[i1, i2, ...]` is
+a basis tensor $|i_1 i_2 \dots\rangle$; and `TableauPermute` applies the symmetrizer
+to a tensor. For the column-standard shape `{{1,2},{3}}` acting on $|1\,1\,2\rangle$:
+
+```mathematica
+TableauPermute[Tableau[{{1, 2}, {3}}], Psi[1, 1, 2]]
+```
+
+```
+2 Psi[1, 1, 2] - Psi[1, 2, 1] - Psi[2, 1, 1]
+```
+
+The result is antisymmetric in the column $\{1,3\}$ and symmetric in the row
+$\{1,2\}$.
+
+## Tensor tableaux as compact states
+
+`TensorTableau[rows]` is the symmetrized state in compact form; `ToTensor` expands
+it into the `Psi` basis, and `TableauForm` displays it as a Young grid (which
+renders best in a notebook front end):
+
+```mathematica
+ToTensor[TensorTableau[{{1, 2}, {2}}]]
+```
+
+```
+Psi[1, 2, 2] + Psi[2, 1, 2] - 2 Psi[2, 2, 1]
+```
+
+Because columns are antisymmetric, a repeated entry in a column annihilates the
+state. The tableau `{{1,2},{1}}` has `1` twice in its first column:
+
+```mathematica
+ToTensor[TensorTableau[{{1, 2}, {1}}]]
+```
+
+```
+0
+```
+
+## Inner products and normalization
+
+`TableauDot` is the Hermitian inner product and `TableauNormalization` scales to
+unit norm. Take $|a\rangle = $ `{{1,2},{2}}`:
+
+```mathematica
+a = TensorTableau[{{1, 2}, {2}}];
+TableauDot[a, a]                       (* 6 *)
+na = TableauNormalization[a]           (* TensorTableau[{{1, 2}, {2}}] / Sqrt[6] *)
+TableauDot[na, na]                     (* 1 *)
+```
+
+`TensorDot` / `TensorNorm` do the same at the level of raw `Psi` tensors:
+
+```mathematica
+TensorNorm[ToTensor[a]]                (* Sqrt[6] *)
+```
+
+## Orthogonalizing a degenerate weight space
+
+In the `{1, 1}` irrep the weight `{0, 0}` is shared by two independent states. They
+are not orthogonal, so — as with Gram–Schmidt — we keep the first and orthogonalize
+the second against it. `TableauOrthogonalization[t1, t2]` returns
+$\{t_1,\ t_2 - \tfrac{\langle t_2,t_1\rangle}{\langle t_1,t_1\rangle}t_1\}$:
+
+```mathematica
+t1 = 2 TensorTableau[{{1, 2}, {3}}] - TensorTableau[{{1, 3}, {2}}];
+t2 = TensorTableau[{{1, 3}, {2}}] + TensorTableau[{{1, 2}, {3}}];
+{c, d} = TableauOrthogonalization[t1, t2];
+TableauDot[c, d]                       (* 0 *)
+```
+
+```
+c = 2 TensorTableau[{{1, 2}, {3}}] - TensorTableau[{{1, 3}, {2}}]
+d = (3 TensorTableau[{{1, 3}, {2}}]) / 2
+```
+
+## A transition matrix element
+
+Lowering the normalized $|a\rangle$ with $F_2$ reaches the superposition
+$|b\rangle = (\,$`{{1,2},{3}}`$ + $`{{1,3},{2}}`$\,)/\sqrt{6}$ (worked out in the
+[guided tour](../walkthrough#transition-matrix-elements)). Its overlap with a
+`{0,0}` basis state is the transition matrix element:
+
+```mathematica
+b = TensorTableau[{{1, 2}, {3}}]/Sqrt[6] + TensorTableau[{{1, 3}, {2}}]/Sqrt[6];
+nd = TableauNormalization[2 TensorTableau[{{1, 2}, {3}}] - TensorTableau[{{1, 3}, {2}}]];
+TableauDot[b, b]                       (* 2 *)
+TableauDot[nd, b]                      (* 1/Sqrt[2]: the transition matrix element *)
+```
+
+## Next
+
+- The figure-by-figure derivation behind this: [Guided tour of SU(3)](../walkthrough).
+- Reference: [`Tableau`](../reference/young-tableaux#tableau) ·
+  [`TensorTableau`](../reference/young-tableaux#tensortableau) ·
+  [`TableauOrthogonalization`](../reference/young-tableaux#tableauorthogonalization) ·
+  [`TableauDot`](../reference/young-tableaux#tableaudot).

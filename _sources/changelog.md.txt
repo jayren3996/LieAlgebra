@@ -1,0 +1,36 @@
+# Changelog
+
+## v1.0.0
+
+The first released version: a restructured paclet with a redesigned, consistent
+API.
+
+**Algebras and bases**
+
+- Algebras canonicalize to `LieAlgebra["A"|"B"|"C"|"D", rank]`, with `SU[n]`,
+  `SO[n]`, `Sp[n]` as shorthands.
+- `CartanWeyl[g]` and `Chevalley[g]` return an association
+  (`"Cartan"`, `"Raising"`, `"Lowering"`) instead of an `{H, E, F}` list; both are
+  shorthands for `Generators[g, "CartanWeyl"|"Chevalley"]`.
+- New root-system helpers: `Rank`, `LieAlgebraDimension`, `CartanMatrix`,
+  `SimpleRoots`, `PositiveRoots`, `FundamentalWeights`.
+- `StandardBasis` renamed to `BasisTransform`; the old per-element accessors and
+  `StandardChevalley` removed.
+- The sp(2n) standard generators (previously not closed under the bracket) were
+  corrected.
+
+**Representation engine**
+
+- `Irrep[g, w]` plus the data functions `RepresentationDimension`, `WeightSystem`,
+  `CasimirEigenvalue`, `RepresentationMatrices`, and `HighestWeight`.
+- Explicit generator matrices via the highest-weight (Shapovalov) construction, in
+  an orthonormal basis, reaching every irrep including the so/sp **spinors**.
+- Everything computed in exact arithmetic; see [Validation](validation).
+
+**Young-tableau toolkit**
+
+- `Tableau`, `TensorTableau`, `Psi`, and the `Tableau…` / `Tensor…` operations for
+  building, combining, normalizing, and orthogonalizing many-body wavefunctions.
+
+For runnable, up-to-date examples see the [tutorials](tutorials/index); for the
+full API, the [reference](reference/index).
