@@ -98,6 +98,7 @@ iToTensor[t1_ + t2_] := iToTensor[t1] + iToTensor[t2];
 ToTensor[expr_] := iToTensor[Expand[expr]];
 
 (* ---- TableauForm for TensorTableau (private inner rules; public entry point) ---- *)
+iTableauForm[0] := 0;
 iTableauForm[t_TensorTableau] := ShowTableau @ t[[1]];
 iTableauForm[a_*t_TensorTableau] := a * ShowTableau @ t[[1]];
 iTableauForm[t1_ + t2_] := iTableauForm[t1] + iTableauForm[t2];
@@ -109,13 +110,24 @@ TableauForm[expr_] := iTableauForm[Expand[expr]];
 TableauDot[t1_, t2_] := TensorDot[ToTensor[t1], ToTensor[t2]];
 
 (* ---- Normalization & Orthogonalization ---- *)
-TableauNormalization[t_] := Module[{e = Expand[t]},
-  e / iTensorNorm[Expand @ ToTensor[e]]
+TableauNormalization[t_] := Module[{e = Expand[t], n},
+  n = iTensorNorm[Expand @ ToTensor[e]];
+  If[TrueQ[n == 0],
+    Message[TableauNormalization::zeronorm];
+    Return[$Failed]
+  ];
+  e / n
 ];
 
 TableauOrthogonalization[t1_, t2_] := Module[
-  {v1 = Expand @ ToTensor[t1], v2 = Expand @ ToTensor[t2], ov},
-  ov = TensorDot[v1, v2] / iTensorNorm[v1]^2;
+  {v1 = Expand @ ToTensor[t1], v2, n1, ov},
+  n1 = iTensorNorm[v1];
+  If[TrueQ[n1 == 0],
+    Message[TableauOrthogonalization::zeronorm];
+    Return[$Failed]
+  ];
+  v2 = Expand @ ToTensor[t2];
+  ov = TensorDot[v1, v2] / n1^2;
   {t1, Expand[t2 - ov*t1]}
 ];
 

@@ -33,6 +33,15 @@ VerificationTest[ TensorNorm[(1 + x) Psi[1]] /. x -> 1, 2, TestID -> "tensornorm
    two parallel states -- must be 0, not a leaked private iDotPsi/iToTensor symbol. *)
 VerificationTest[ TensorDot[0, 0], 0, TestID -> "tensordot-zero-no-leak" ];
 VerificationTest[ TableauDot[0, 0], 0, TestID -> "tableaudot-zero-no-leak" ];
+VerificationTest[ TableauForm[0], 0, TestID -> "tableauform-zero-no-leak" ];
+VerificationTest[ TableauNormalization[0], $Failed, {TableauNormalization::zeronorm}, TestID -> "normalization-zero-fails" ];
+VerificationTest[ TableauNormalization[TensorTableau[{{1, 2}, {1}}]], $Failed, {TableauNormalization::zeronorm}, TestID -> "normalization-zero-tableau-fails" ];
+VerificationTest[ TableauOrthogonalization[0, TensorTableau[{{1}}]], $Failed, {TableauOrthogonalization::zeronorm}, TestID -> "orthogonalization-zero-first-vector-fails" ];
+VerificationTest[
+  Module[{called = False, t2},
+    t2 /: ToTensor[t2] := (called = True; 0);
+    {TableauOrthogonalization[0, t2], called}],
+  {$Failed, False}, {TableauOrthogonalization::zeronorm}, TestID -> "orthogonalization-zero-first-vector-skips-second-vector" ];
 VerificationTest[
   With[{d = Last @ TableauOrthogonalization[TensorTableau[{{1, 2}, {3}}], 3 TensorTableau[{{1, 2}, {3}}]]},
     {d, TableauDot[d, d]}],

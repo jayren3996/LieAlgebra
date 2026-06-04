@@ -101,6 +101,8 @@ VerificationTest[ CasimirEigenvalue[Irrep[SO[5], {1, 0}]], 4, TestID->"cas-so5-v
 VerificationTest[ CasimirEigenvalue[Irrep[SO[5], {0, 1}]], 5/2, TestID->"cas-so5-spinor" ];
 VerificationTest[ CasimirEigenvalue[Irrep[SO[7], {0, 0, 1}]], 21/4, TestID->"cas-so7-spinor" ];
 VerificationTest[ CasimirEigenvalue[Irrep[SO[6], {1, 0, 0}]], 5, TestID->"cas-so6-vector" ];
+VerificationTest[ CasimirEigenvalue[Irrep[SO[3], {1}]], 3/2, TestID->"cas-so3-spinhalf-a1-normalization" ];
+VerificationTest[ CasimirEigenvalue[Irrep[SO[3], {2}]], 4, TestID->"cas-so3-adjoint-a1-normalization" ];
 VerificationTest[ Total[Values[WeightSystem[Irrep[SO[6], {0, 0, 1}]]]], RepresentationDimension[Irrep[SO[6], {0, 0, 1}]], TestID->"ws-so6-spinor-sum-eq-dim" ];
 VerificationTest[ Total[Values[WeightSystem[Irrep[SO[8], {0, 0, 1, 0}]]]], RepresentationDimension[Irrep[SO[8], {0, 0, 1, 0}]], TestID->"ws-so8-halfspinor-sum-eq-dim" ];
 
