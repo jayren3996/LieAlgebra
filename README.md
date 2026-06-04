@@ -1,87 +1,146 @@
 <div align="center">
 
+<img src="pics/su3-levels.png" alt="SU(3) levels and Chevalley generator transitions" width="620"/>
+
 # ClassicalLieAlgebra
 
-**Exact generators, bases, Young tableaux, and irreducible representations of the classical Lie algebras — for the Wolfram Language.**
+**Exact classical Lie algebras in the Wolfram Language.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Wolfram Language](https://img.shields.io/badge/Wolfram%20Language-13.0%2B-d10000.svg)](https://www.wolfram.com/language/)
-![Paclet](https://img.shields.io/badge/paclet-ClassicalLieAlgebra%201.0-f57c00.svg)
-[![Documentation](https://img.shields.io/badge/docs-online-2ea44f.svg)](https://jayren3996.github.io/LieAlgebra/)
+Generators, Cartan-Weyl and Chevalley bases, Young tableaux, and explicit irreducible representations for `su(n)`, `so(n)`, and `sp(2n)`.
+
+[![Docs](https://img.shields.io/badge/docs-latest-9558B2.svg)](https://jayren3996.github.io/LieAlgebra/) [![Wolfram Language](https://img.shields.io/badge/Wolfram%20Language-13.0%2B-d10000.svg)](https://www.wolfram.com/language/) [![Paclet](https://img.shields.io/badge/paclet-ClassicalLieAlgebra%201.0-f57c00.svg)](PacletInfo.wl) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 </div>
 
-`ClassicalLieAlgebra` is a Wolfram Language paclet for working with the classical simple Lie algebras — the special unitary `su(n)`, special orthogonal `so(n)`, and symplectic `sp(2n)` families. It gives you their generators in several standard bases, a Young-tableau toolkit for many-body wavefunctions, and a representation engine that builds any irreducible representation from its highest weight: its dimension, weight system, Casimir eigenvalue, and the explicit generator matrices. Everything is computed in exact arithmetic, and the construction reaches every irrep, including the orthogonal and symplectic **spinor** representations.
+---
 
-<div align="center">
-<a href="https://jayren3996.github.io/LieAlgebra/"><b>Documentation</b></a> ·
-<a href="#features">Features</a> ·
-<a href="#installation">Installation</a> ·
-<a href="#quick-start">Quick start</a> ·
-<a href="#what-it-covers">What it covers</a> ·
-<a href="docs/walkthrough.md">Guided tour</a>
-</div>
+`ClassicalLieAlgebra` is a Wolfram Language paclet for computations with the
+classical simple Lie algebras. It gives one interface for the `A`, `B`, `C`, and
+`D` families, exact generator matrices in standard bases, a Young-tableau toolkit
+for many-body wavefunctions, and a representation engine that builds irreducible
+representations from highest weights.
 
-## Features
+The package is written for calculations where conventions matter: root-system
+data, Cartan matrices, Chevalley generators, weight multiplicities, Casimir
+eigenvalues, and explicit representation matrices are all exposed directly and
+computed in exact arithmetic.
 
-- **Three families, one interface.** Write `SU[n]`, `SO[n]`, `Sp[n]`, or the canonical `LieAlgebra["A"|"B"|"C"|"D", rank]`; the sugar forms normalize to it.
-- **Every basis.** The standard (defining-representation) generators, the Cartan–Weyl basis, and the Chevalley basis, as exact matrices, with the change of basis between realizations.
-- **Young-tableau machinery.** Tensor tableaux, their wavefunctions, inner products, normalization, and orthogonalization of degenerate weight spaces.
-- **A representation engine.** `Irrep[g, λ]` gives the dimension (Weyl formula), the weight system with multiplicities (Freudenthal), the Casimir eigenvalue, and the explicit Chevalley generator matrices in the irrep, for every classical irrep (**spinors included**).
-- **Exact and tested.** Exact arithmetic throughout, with a `VerificationTest` suite.
+## ✨ Features
 
-## Installation
+|  |  |
+| --- | --- |
+| 🧩 **One interface for A/B/C/D** | Use `SU[n]`, `SO[n]`, `Sp[n]`, or the canonical `LieAlgebra["A"|"B"|"C"|"D", rank]`; shorthand constructors normalize to the same algebra object. |
+| 🧱 **Generator bases** | `Generators`, `CartanWeyl`, and `Chevalley` return exact defining-representation matrices, with consistent conventions across all classical families. |
+| 📐 **Root-system data** | `Rank`, `LieAlgebraDimension`, `CartanMatrix`, `SimpleRoots`, `PositiveRoots`, and `FundamentalWeights` expose the structural data used by the rest of the package. |
+| 🧮 **Irreducible representations** | `Irrep[g, λ]` gives dimensions, weight systems with multiplicities, Casimir eigenvalues, and explicit Chevalley generator matrices. |
+| 🧬 **Spinors included** | Orthogonal spinor representations are part of the same highest-weight workflow, not a separate special case. |
+| 🔳 **Young tableaux** | Tensor tableaux, wavefunctions, inner products, normalization, symmetrization, and orthogonalization for degenerate weight spaces. |
+| ✅ **Exact and tested** | Arithmetic is exact throughout, with a Wolfram `VerificationTest` suite and self-checking demo scripts. |
 
-Work from a local checkout:
+## 📦 Installation
+
+From a checkout:
 
 ```mathematica
 PacletDirectoryLoad["/path/to/LieAlgebra"];
 Needs["ClassicalLieAlgebra`"];
 ```
 
-Once a tagged release is published, you can install the built paclet from its release asset instead:
+From a release asset, once a tagged paclet release is available:
 
 ```mathematica
 PacletInstall["https://github.com/jayren3996/LieAlgebra/releases/download/vX.Y.Z/ClassicalLieAlgebra-X.Y.Z.paclet"];
 Needs["ClassicalLieAlgebra`"];
 ```
 
-## Quick start
+## 🚀 Quick Start
+
+Build the `su(3)` adjoint representation and inspect its basic invariants:
 
 ```mathematica
 Needs["ClassicalLieAlgebra`"];
 
-(* defining-representation generators *)
-Generators[SU[3]]                  (* the 8 su(3) generators, T_a = lambda_a/2 *)
-Generators[SU[3], "Chevalley"]     (* <|"Cartan"->{H1,H2}, "Raising"->.., "Lowering"->..|> *)
+g = SU[3];
 
-(* build a representation from its highest weight (Dynkin labels) *)
-ir = Irrep[SU[3], {1, 1}];         (* the adjoint / octet *)
-RepresentationDimension[ir]        (* 8 *)
-CasimirEigenvalue[ir]              (* 6 *)
-WeightSystem[ir]                   (* <|{1,1}->1, ..., {0,0}->2, ...|> *)
-RepresentationMatrices[ir]         (* explicit generator matrices in the irrep *)
+Generators[g]                 (* defining-representation generators *)
+Chevalley[g]                  (* <|"Cartan" -> ..., "Raising" -> ..., "Lowering" -> ...|> *)
 
-(* the engine reaches so/sp spinor representations too *)
-RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4: the so(5) spinor *)
+ir = Irrep[g, {1, 1}];        (* the adjoint / octet *)
+
+RepresentationDimension[ir]   (* 8 *)
+CasimirEigenvalue[ir]         (* 6 *)
+WeightSystem[ir]              (* weights with multiplicities *)
+RepresentationMatrices[ir]    (* explicit matrices in the irrep *)
 ```
 
-## What it covers
+The same representation workflow reaches orthogonal spinors:
 
-| | $A_n=\mathfrak{su}(n{+}1)$ | $B_n=\mathfrak{so}(2n{+}1)$ | $C_n=\mathfrak{sp}(2n)$ | $D_n=\mathfrak{so}(2n)$ |
+```mathematica
+RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4 *)
+```
+
+## 🧭 Choosing a Workflow
+
+| If you want to ... | Start with |
+| --- | --- |
+| Construct a classical algebra | `SU[n]`, `SO[n]`, `Sp[n]`, or `LieAlgebra[type, rank]` |
+| Read root-system conventions | [`Concepts`](https://jayren3996.github.io/LieAlgebra/concepts/) |
+| Work with defining generators | [`Generators`](https://jayren3996.github.io/LieAlgebra/reference/algebras/#generators), [`CartanWeyl`](https://jayren3996.github.io/LieAlgebra/reference/algebras/#cartanweyl), [`Chevalley`](https://jayren3996.github.io/LieAlgebra/reference/algebras/#chevalley) |
+| Build an irrep from a highest weight | [`Irrep`](https://jayren3996.github.io/LieAlgebra/reference/representations/#irrep) |
+| Inspect dimensions, weights, and Casimirs | [`RepresentationDimension`](https://jayren3996.github.io/LieAlgebra/reference/representations/#representationdimension), [`WeightSystem`](https://jayren3996.github.io/LieAlgebra/reference/representations/#weightsystem), [`CasimirEigenvalue`](https://jayren3996.github.io/LieAlgebra/reference/representations/#casimireigenvalue) |
+| Use Young-tableau states | [`Young tableaux`](https://jayren3996.github.io/LieAlgebra/tutorials/young-tableaux/) |
+| See the SU(3) construction end to end | [`Guided tour of SU(3)`](https://jayren3996.github.io/LieAlgebra/walkthrough/) |
+
+## 📚 Documentation
+
+Full documentation lives at
+**[jayren3996.github.io/LieAlgebra](https://jayren3996.github.io/LieAlgebra/)**.
+
+- [Getting started](https://jayren3996.github.io/LieAlgebra/tutorials/getting-started/) — constructors, root-system data, and generator bases.
+- [Representations](https://jayren3996.github.io/LieAlgebra/tutorials/representations/) — highest weights, weight systems, Casimirs, and explicit matrices.
+- [Spinors of `so(N)`](https://jayren3996.github.io/LieAlgebra/tutorials/spinors/) — orthogonal spinor representations.
+- [Young tableaux](https://jayren3996.github.io/LieAlgebra/tutorials/young-tableaux/) — tensor tableaux and wavefunction operations.
+- [Physics applications](https://jayren3996.github.io/LieAlgebra/tutorials/physics-applications/) — SU(3) flavor, SU(2) spin, and algebra checks.
+- [API reference](https://jayren3996.github.io/LieAlgebra/reference/) — every public symbol with evaluated examples.
+
+## 🧪 Runnable Demos
+
+The [`demos/`](demos/) directory contains self-checking `.wls` scripts. They can
+be run directly from a checkout:
+
+```sh
+wolframscript -file demos/01-getting-started.wls
+wolframscript -file demos/02-representations.wls
+wolframscript -file demos/03-young-tableaux.wls
+wolframscript -file demos/04-physics-applications.wls
+```
+
+Each script loads the local paclet with `PacletDirectoryLoad` and finishes with
+`[ok]` / `[FAIL]` checks, so the demos double as smoke tests for the public API.
+
+## ✅ Coverage
+
+|  | $A_n=\mathfrak{su}(n{+}1)$ | $B_n=\mathfrak{so}(2n{+}1)$ | $C_n=\mathfrak{sp}(2n)$ | $D_n=\mathfrak{so}(2n)$ |
 | :--- | :---: | :---: | :---: | :---: |
-| Generators · Cartan–Weyl · Chevalley | ✓ | ✓ | ✓ | ✓ |
+| Generators · Cartan-Weyl · Chevalley | ✓ | ✓ | ✓ | ✓ |
+| Root-system data | ✓ | ✓ | ✓ | ✓ |
 | Irreps: dimension · weights · Casimir | ✓ | ✓ | ✓ | ✓ |
 | Irreps: explicit generator matrices | ✓ | ✓ | ✓ | ✓ |
 | Spinor representations | — | ✓ | — | ✓ |
 
-## Learn more
+## 🗂 Repository Map
 
-- **[Documentation site](https://jayren3996.github.io/LieAlgebra/)** — the full reference: every public symbol with worked examples, plus the guided tour and demos, all in one browsable place.
-- **[Guided tour of SU(3)](docs/walkthrough.md)** — the long-form walkthrough: the construction of the SU(3) representations step by step, with figures, and the representation engine in depth.
-- **[Runnable demos](demos/)** — four self-contained scripts you can run straight from a checkout: a getting-started tour, the representation engine, the Young-tableau toolkit, and physics applications.
+| Path | What lives there |
+| --- | --- |
+| [`Kernel/`](Kernel/) | Wolfram package implementation |
+| [`Tests/`](Tests/) | Wolfram and documentation-staging tests |
+| [`demos/`](demos/) | Runnable tutorial scripts |
+| [`docs/`](docs/) | Long-form notes and walkthrough material |
+| [`web/`](web/) | Source pages for the web documentation |
+| [`scripts/`](scripts/) | Test, reference-generation, and documentation build scripts |
+| [`pics/`](pics/) | Generated figures used by the README and docs |
 
-## Building the documentation
+## 🛠 Building the Documentation
 
 The web documentation is built with Sphinx and Furo:
 
@@ -93,6 +152,6 @@ scripts/build-docs.sh
 For a local preview, run `scripts/build-docs.sh serve` and open
 `http://localhost:8000/`.
 
-## License
+## 📄 License
 
-Released under the [MIT License](LICENSE).
+[MIT](LICENSE) © Jie Ren and contributors.
