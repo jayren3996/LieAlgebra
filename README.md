@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="pics/su3-levels.png" alt="SU(3) levels and Chevalley generator transitions" width="620"/>
-
 # ClassicalLieAlgebra
 
 **Exact classical Lie algebras in the Wolfram Language.**
