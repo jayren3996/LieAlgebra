@@ -95,13 +95,13 @@ chevalleyHolds[SO[7], {0, 0, 1}] (* True: the so(7) 8-dim spinor *)
 [demo script](https://github.com/jayren3996/LieAlgebra/blob/master/demos/02-representations.wls)
 and the [physics-applications tutorial](physics-applications).)
 
-```{warning} Large irreps are expensive
+````{warning} Large irreps are expensive
 `RepresentationMatrices` builds exact matrices via the highest-weight /
 Shapovalov construction; the dimension — and the cost — grows quickly with the
 Dynkin labels and the rank. Build small irreps, or wrap larger ones in
 `TimeConstrained`. `RepresentationDimension`, `CasimirEigenvalue`, and
 `WeightSystem` are cheap by comparison (no matrices are constructed).
-```
+````
 ## Next
 
 - The physics behind these multiplets: [Physics applications](physics-applications).

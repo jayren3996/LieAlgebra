@@ -295,23 +295,14 @@ API and the output you see below is exactly what the package produces.</p>
 </div>
 <section id="running-the-scripts">
 <h2>Running the scripts<a class="headerlink" href="#running-the-scripts" title="Link to this heading">¶</a></h2>
-<p>The demos print to the console and need no front end, so a command-line kernel is
-enough:</p>
+<p>The demos print to the console and do not need the notebook front end:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wolframscript<span class="w"> </span>-file<span class="w"> </span>demos/01-getting-started.wls
 </pre></div>
 </div>
-<p>```{warning} macOS: pick the right <code class="docutils literal notranslate"><span class="pre">wolframscript</span></code>
-The system <code class="docutils literal notranslate"><span class="pre">wolframscript</span></code> in <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code> can be misconfigured. If so,
-use the binary bundled with the application:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/Applications/Wolfram.app/Contents/MacOS/wolframscript<span class="w"> </span>-file<span class="w"> </span>demos/01-getting-started.wls
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Each script loads the package from the repository via `PacletDirectoryLoad`, so you
-can run them straight from a checkout without installing the paclet first. Run them
-from anywhere — the path is resolved relative to the script. A clean run ends with
-every self-check reading `[ok]`.
-</pre></div>
-</div>
+<p>Each script loads the package from the repository via <code class="docutils literal notranslate"><span class="pre">PacletDirectoryLoad</span></code>, so you
+can run them straight from a checkout without installing the paclet first. If your
+shell cannot find <code class="docutils literal notranslate"><span class="pre">wolframscript</span></code>, use the Wolfram application binary or add it to
+your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. A clean run ends with every self-check reading <code class="docutils literal notranslate"><span class="pre">[ok]</span></code>.</p>
 </section>
 </section>
 

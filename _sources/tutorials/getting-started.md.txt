@@ -54,13 +54,13 @@ The dimension is `(# positive roots) × 2 + rank` $= 4\times2 + 2 = 10$, and the
 half-integer fundamental weight `{1/2, 1/2}` is the one that produces the
 4-dimensional **spinor** — see the [Representations tutorial](representations).
 
-```{note} The Cartan matrix is transposed relative to LieART
+````{note} The Cartan matrix is transposed relative to LieART
 `CartanMatrix[SO[5]]` is `{{2, -2}, {-1, 2}}` — the package uses
 $A_{ij}=2(\alpha_i,\alpha_j)/(\alpha_j,\alpha_j)$ with
 $[H_i,E_j]=A_{ji}E_j$, which for the non-simply-laced types ($B$, $C$) is the
 **transpose** of the matrix some references print. It is internally
 consistent; see the [conventions](../concepts#conventions).
-```
+````
 ## Generators in three bases
 
 `Generators[g]` returns the defining-representation generators. For `su(3)` these

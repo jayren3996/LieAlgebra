@@ -144,7 +144,7 @@ textbook or another package. They are listed in full on the
 [reference overview](reference/index#conventions); the ones that most often
 trip people up:
 
-```{note} Conventions that differ between sources
+````{note} Conventions that differ between sources
 - **Dynkin-label ordering** follows the Bourbaki labelling of the Dynkin
   diagram. For $B_n=\mathfrak{so}(2n{+}1)$ the short simple root is the last
   node, so the **spinor** is `{0, …, 0, 1}`; for $C_n=\mathfrak{sp}(2n)$ the
@@ -161,7 +161,7 @@ trip people up:
   value $3/4$.
 - Everything is computed in **exact arithmetic** over $\mathbb{Q}$; radicals
   enter only in the final orthonormal rescaling of representation matrices.
-```
+````
 ## Going deeper
 
 For the underlying theory, standard references are Humphreys, *Introduction to Lie

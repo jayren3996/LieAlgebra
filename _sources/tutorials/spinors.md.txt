@@ -55,13 +55,13 @@ chevalleyHolds[SO[7], {0, 0, 1}]   (* True: the 8-dim so(7) spinor *)
 chevalleyHolds[SO[8], {0, 0, 1, 0}] (* True: an so(8) half-spinor *)
 ```
 
-```{note} Why tableaux cannot reach these
+````{note} Why tableaux cannot reach these
 For su(n) the irreps are the Young diagrams — every one sits inside a tensor
 power of the defining representation. For so(N) the spinors do not: no tensor
 power of the $N$-dimensional vector contains them. The construction here does
 not go through tensor powers, so it reaches them anyway. This is the feature
 that [sets the package apart](../comparison).
-```
+````
 ## so(5) ≅ sp(4)
 
 A nice consistency check: the algebras $B_2=\mathfrak{so}(5)$ and
