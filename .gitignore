@@ -1,9 +1,13 @@
 # macOS Finder metadata
 .DS_Store
 
+# Python cache files
+__pycache__/
+
 # Wolfram paclet build artifacts
 *.paclet
 
-# Documentation site: generated staging tree and mkdocs output
+# Documentation site: generated staging trees and static output
+docs-site/
 site-src/
 site/

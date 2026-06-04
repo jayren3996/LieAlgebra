@@ -82,10 +82,10 @@ forms are interchangeable:
   only in the final orthonormal rescaling of representation matrices.
 - Invalid arguments emit a message and return `$Failed`.
 
-!!! note "The Cartan matrix is transposed relative to some references"
-
-    `CartanMatrix[g]` returns $A_{ij}=2(\alpha_i,\alpha_j)/(\alpha_j,\alpha_j)$,
-    equivalently $[H_i,E_j]=A_{ji}E_j$. For the non-simply-laced types ($B$, $C$)
-    this is the **transpose** of the matrix some references (e.g. LieART) print —
-    for instance `CartanMatrix[SO[5]]` is `{{2, -2}, {-1, 2}}`. The package is
-    internally consistent in this convention.
+> **The Cartan matrix is transposed relative to some references.**
+>
+> `CartanMatrix[g]` returns $A_{ij}=2(\alpha_i,\alpha_j)/(\alpha_j,\alpha_j)$,
+> equivalently $[H_i,E_j]=A_{ji}E_j$. For the non-simply-laced types ($B$, $C$)
+> this is the **transpose** of the matrix some references (e.g. LieART) print —
+> for instance `CartanMatrix[SO[5]]` is `{{2, -2}, {-1, 2}}`. The package is
+> internally consistent in this convention.

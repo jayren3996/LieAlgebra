@@ -8,8 +8,11 @@
    "see also" links. Every example is EVALUATED here and its output embedded, so
    the reference cannot drift from the code without the build failing.
 
-   Output: <repo>/site-src/reference/{index,algebras,root-system,
-   representations,young-tableaux}.md
+   Output:
+     MkDocs (default): <repo>/site-src/reference/{index,algebras,
+       root-system,representations,young-tableaux}.md
+     Sphinx (--sphinx): <repo>/docs-site/reference/{index,algebras,
+       root-system,representations,young-tableaux}.md
 
    Self-checks print ok / FAIL and exit 1 on any mismatch. Run from anywhere:
 
@@ -18,10 +21,12 @@
 
 root = DirectoryName[$InputFileName, 2];
 scriptDir = DirectoryName[$InputFileName];
+target = If[MemberQ[$ScriptCommandLine, "--sphinx"], "Sphinx", "MkDocs"];
 PacletDirectoryLoad[root];
 Needs["ClassicalLieAlgebra`"];
 
-outDir = FileNameJoin[{root, "site-src", "reference"}];
+outRoot = If[target === "Sphinx", "docs-site", "site-src"];
+outDir = FileNameJoin[{root, outRoot, "reference"}];
 If[! DirectoryQ[outDir], CreateDirectory[outDir, CreateIntermediateDirectories -> True]];
 
 details = Get[FileNameJoin[{scriptDir, "reference-details.wl"}]];
@@ -39,6 +44,9 @@ usageOf[name_] := Quiet@ToExpression["ClassicalLieAlgebra`" <> shortName[name] <
 mdEscape[s_String] := StringReplace[s, {
    "\\" -> "\\\\", "`" -> "\\`", "*" -> "\\*", "_" -> "\\_",
    "[" -> "&#91;", "]" -> "&#93;", "<" -> "&lt;", ">" -> "&gt;", "|" -> "&#124;"}];
+
+docLink[url_String] := If[target === "Sphinx", StringReplace[url, ".md" -> ""], url];
+pageLink[slug_String] := If[target === "Sphinx", slug, slug <> ".md"];
 
 (* page slug -> title, one-line intro, and the symbols it documents *)
 groups = {
@@ -61,9 +69,9 @@ symbolPage = Association @@ Flatten[Function[g, (# -> g["slug"]) & /@ g["symbols
 anchor[name_] := ToLowerCase[name];
 (* a "see also" entry is either a symbol name (linked to its reference anchor) or
    a {label, url} pair linking out to a narrative page (tour, tutorials, ...) *)
-seeAlsoLink[{label_String, url_String}] := "[" <> label <> "](" <> url <> ")";
+seeAlsoLink[{label_String, url_String}] := "[" <> label <> "](" <> docLink[url] <> ")";
 seeAlsoLink[name_] := If[KeyExistsQ[symbolPage, name],
-   "[`" <> name <> "`](" <> symbolPage[name] <> ".md#" <> anchor[name] <> ")",
+   "[`" <> name <> "`](" <> pageLink[symbolPage[name]] <> "#" <> anchor[name] <> ")",
    "`" <> name <> "`"];
 
 (* " middot " built from ASCII source: wolframscript reads the script as
@@ -79,13 +87,45 @@ runExample[in_String] := Module[{res, bad = False},
 ];
 fmtOut[res_] := ToString[res, InputForm, PageWidth -> 76];
 
+rawHtml[s_String] := "```{raw} html\n" <> s <> "\n```\n\n";
+sphinxInputCell[n_Integer, expr_String] := StringJoin[
+   rawHtml["<div class=\"cla-example\"><div class=\"cla-example-row cla-example-in\"><div class=\"cla-example-label\">In[" <> ToString[n] <> "]:=</div><div class=\"cla-example-cell cla-example-input\">"],
+   "```mathematica\n", expr, "\n```\n\n",
+   rawHtml["</div></div>"]];
+sphinxOutputOpen[n_Integer] := rawHtml["<div class=\"cla-example-row cla-example-out\"><div class=\"cla-example-label\">Out[" <> ToString[n] <> "]=</div><div class=\"cla-example-cell cla-example-output\">"];
+sphinxOutputClose[] := rawHtml["</div></div></div>"];
+sphinxNoteOpen[] := rawHtml["<div class=\"cla-example-row cla-example-out\"><div class=\"cla-example-label\"></div><div class=\"cla-example-cell\"><div class=\"cla-example-note\">"];
+sphinxNoteClose[] := rawHtml["</div></div></div></div>"];
+
+renderSphinxExample[ex_, n_Integer] := Which[
+   ListQ[ex] && Length[ex] >= 3 && ex[[2]] === "image",
+     (runExample[ex[[1]]];
+      StringJoin[
+         sphinxInputCell[n, ex[[1]]],
+         sphinxOutputOpen[n],
+         "![", If[Length[ex] >= 4, ex[[4]], "output"], "](", docLink[ex[[3]]], ")\n\n",
+         sphinxOutputClose[]]),
+   ListQ[ex],
+     (runExample[ex[[1]]];
+      StringJoin[
+         sphinxInputCell[n, ex[[1]]],
+         sphinxNoteOpen[], ex[[2]], sphinxNoteClose[]]),
+   True,
+     With[{res = runExample[ex]},
+        StringJoin[
+           sphinxInputCell[n, ex],
+           sphinxOutputOpen[n],
+           "```text\n", fmtOut[res], "\n```\n\n",
+           sphinxOutputClose[]]]];
+
 (* an example is one of:
      "expr"                       run it, embed the output;
      {"expr", "note"}             run to validate, show the italic note instead
                                   of output (for front-end display forms);
      {"expr", "image", "path"}    run to validate, embed an image at path (a
                                   committed rasterization, e.g. from MakeFigures.wls). *)
-renderExample[ex_] := Which[
+renderExample[ex_, n_: 1] := If[target === "Sphinx", renderSphinxExample[ex, n],
+  Which[
    ListQ[ex] && Length[ex] >= 3 && ex[[2]] === "image",
      (runExample[ex[[1]]];
       StringJoin["```mathematica\n", ex[[1]], "\n```\n\n",
@@ -95,7 +135,7 @@ renderExample[ex_] := Which[
       StringJoin["```mathematica\n", ex[[1]], "\n```\n\n", "*", ex[[2]], "*\n\n"]),
    True,
      With[{res = runExample[ex]},
-        StringJoin["```mathematica\n", ex, "\n```\n\n", "```\n", fmtOut[res], "\n```\n\n"]]];
+        StringJoin["```mathematica\n", ex, "\n```\n\n", "```\n", fmtOut[res], "\n```\n\n"]]]];
 
 argRow[{a_, d_}] := "| `" <> a <> "` | " <> d <> " |\n";
 optRow[{o_, def_, d_}] := "| `" <> o <> "` | `" <> def <> "` | " <> d <> " |\n";
@@ -118,7 +158,7 @@ renderSymbol[name_] := Module[
       If[args =!= {}, "**Arguments**\n\n| Argument | Description |\n| :-- | :-- |\n" <> StringJoin[argRow /@ args] <> "\n", ""],
       If[opts =!= {}, "**Options**\n\n| Option | Default | Description |\n| :-- | :-- | :-- |\n" <> StringJoin[optRow /@ opts] <> "\n", ""],
       If[msgs =!= {}, "**Messages**\n\nEmits a message and returns `$Failed` on invalid input.\n\n| Message | When |\n| :-- | :-- |\n" <> StringJoin[msgRow /@ msgs] <> "\n", ""],
-      If[exs =!= {}, "**Examples**\n\n" <> StringJoin[renderExample /@ exs], ""],
+      If[exs =!= {}, "**Examples**\n\n" <> StringJoin[MapIndexed[renderExample[#1, First[#2]] &, exs]], ""],
       If[notes =!= {}, "**Notes**\n\n" <> StringJoin[("- " <> # <> "\n") & /@ notes] <> "\n", ""],
       If[see =!= {}, "**See also:** " <> StringRiffle[seeAlsoLink /@ see, dot] <> "\n", ""]
    ]
@@ -138,11 +178,14 @@ Scan[Export[FileNameJoin[{outDir, #["slug"] <> ".md"}], renderPage[#], "Text", C
 overviewFile = FileNameJoin[{scriptDir, "reference-overview.md"}];
 intro = If[FileExistsQ[overviewFile], Import[overviewFile, "Text", CharacterEncoding -> "UTF-8"], "# API reference"];
 groupIndexBlock[g_] := StringJoin[
-   "### [", g["title"], "](", g["slug"], ".md)\n\n",
+   "### [", g["title"], "](", pageLink[g["slug"]], ")\n\n",
    g["intro"], "\n\n",
-   StringRiffle[("[`" <> # <> "`](" <> g["slug"] <> ".md#" <> anchor[#] <> ")") & /@ g["symbols"], dot], "\n"];
+   StringRiffle[("[`" <> # <> "`](" <> pageLink[g["slug"]] <> "#" <> anchor[#] <> ")") & /@ g["symbols"], dot], "\n"];
 indexContent = StringJoin[
    header, intro, "\n\n## Symbols by theme\n\n",
+   If[target === "Sphinx",
+      "```{toctree}\n:hidden:\n:maxdepth: 1\n\nalgebras\nroot-system\nrepresentations\nyoung-tableaux\n```\n\n",
+      ""],
    StringRiffle[groupIndexBlock /@ groups, "\n"]];
 Export[FileNameJoin[{outDir, "index.md"}], indexContent, "Text", CharacterEncoding -> "UTF-8"];
 

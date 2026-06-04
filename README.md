@@ -81,6 +81,18 @@ RepresentationDimension[Irrep[SO[5], {0, 1}]]   (* 4: the so(5) spinor *)
 - **[Guided tour of SU(3)](docs/walkthrough.md)** — the long-form walkthrough: the construction of the SU(3) representations step by step, with figures, and the representation engine in depth.
 - **[Runnable demos](demos/)** — four self-contained scripts you can run straight from a checkout: a getting-started tour, the representation engine, the Young-tableau toolkit, and physics applications.
 
+## Building the documentation
+
+The web documentation is built with Sphinx and Furo:
+
+```sh
+python3 -m pip install -r requirements-docs.txt
+scripts/build-docs.sh
+```
+
+For a local preview, run `scripts/build-docs.sh serve` and open
+`http://localhost:8000/`.
+
 ## License
 
 Released under the [MIT License](LICENSE).
