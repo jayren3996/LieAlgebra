@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS_SITE = ROOT / "docs-site"
 WEB = ROOT / "web"
 GH_BLOB = "https://github.com/jayren3996/LieAlgebra/blob/master"
+SPHINX_STATIC_ASSETS = ("cla.css",)
 
 
 def convert_admonitions(text: str) -> str:
@@ -221,8 +222,8 @@ cite
 """
 
 
-def write_conf() -> None:
-    conf = '''project = "ClassicalLieAlgebra"
+def sphinx_conf() -> str:
+    return '''project = "ClassicalLieAlgebra"
 author = "Jie Ren"
 copyright = "2026, Jie Ren"
 
@@ -240,7 +241,6 @@ html_theme = "furo"
 html_title = "ClassicalLieAlgebra"
 html_static_path = ["_static"]
 html_css_files = ["cla.css"]
-html_js_files = ["mathjax.js"]
 html_theme_options = {
     "light_css_variables": {
         "color-brand-primary": "#b23a2e",
@@ -268,6 +268,10 @@ copybutton_selector = "div.highlight pre, .cla-example-input pre"
 copybutton_prompt_text = r"^In\\[[0-9]+\\]:=\\s*"
 copybutton_prompt_is_regexp = True
 '''
+
+
+def write_conf() -> None:
+    conf = sphinx_conf()
     (DOCS_SITE / "conf.py").write_text(conf, encoding="utf-8")
 
 
@@ -305,7 +309,7 @@ def copy_pics() -> None:
 
 def copy_static_assets() -> None:
     static_out = DOCS_SITE / "_static"
-    for name in ("cla.css", "mathjax.js"):
+    for name in SPHINX_STATIC_ASSETS:
         shutil.copy2(WEB / "sphinx" / name, static_out / name)
 
 

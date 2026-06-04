@@ -35,6 +35,13 @@ class DocsStagingTests(unittest.TestCase):
             "[Concepts](../concepts) and [`Irrep`](../reference/representations#irrep)",
         )
 
+    def test_sphinx_mathjax_config_is_not_overridden_by_custom_static_js(self):
+        conf = stage.sphinx_conf()
+        self.assertIn('"sphinx.ext.mathjax"', conf)
+        self.assertIn("mathjax3_config", conf)
+        self.assertNotIn("html_js_files", conf)
+        self.assertNotIn("mathjax.js", stage.SPHINX_STATIC_ASSETS)
+
 
 if __name__ == "__main__":
     unittest.main()
