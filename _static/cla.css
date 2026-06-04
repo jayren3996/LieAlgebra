@@ -24,6 +24,37 @@ body {
   background: #fff;
 }
 
+.content .math {
+  color: var(--color-foreground-primary);
+}
+
+.content .math-wrapper {
+  margin: 1.25rem 0 1.5rem;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--cla-border);
+  border-radius: 8px;
+  background: var(--cla-surface);
+}
+
+.content .math-wrapper .math {
+  min-width: max-content;
+  margin: 0;
+}
+
+.content .math-wrapper mjx-container[jax="CHTML"][display="true"] {
+  margin: 0;
+  padding: 0.1rem 0;
+}
+
+.content mjx-container[jax="CHTML"]:not([display="true"]) {
+  line-height: 0;
+}
+
+.content mjx-container[jax="CHTML"] {
+  outline: 0;
+}
+
 .cla-home-hero {
   margin: 0 0 2rem;
   padding: 2.2rem 0 1.4rem;
